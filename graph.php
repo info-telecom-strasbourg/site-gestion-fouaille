@@ -1,4 +1,13 @@
-<html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Graphique</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<header>
+    <?php include 'navbar.php'; ?>
+</header>
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -7,21 +16,21 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Temps', 'Recette'],
-                ['10',  3],
-                ['20',  6],
-                ['30',  22],
-                ['40',  1030],
-                ['50',  1040],
-                ['60',  1070],
-                ['70',  1278],
-                ['80',  1876],
-                ['90',  2098]
+                ['Temps', 'biere12','biere16'],
+                ['10',  3, 10],
+                ['20',  6, 15],
+                ['30',  9, 20],
+                ['40',  12, 25],
+                ['50',  15, 30],
+                ['60',  18, 35],
+                ['70',  21, 40],
+                ['80',  24, 45],
+                ['90',  27, 50]
             ]);
 
             var options = {
-                title: 'Company Performance',
-                hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+                title: 'Recette par minute',
+                hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}},
                 vAxis: {minValue: 0}
             };
 

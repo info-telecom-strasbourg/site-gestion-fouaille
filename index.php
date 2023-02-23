@@ -3,6 +3,7 @@
     $value_fin = 'value="';
     $boutton = '';
     $display_note = '';
+
     $selected = '<option value="boissons">Boissons</option>
                 <option value="repas">Repas</option>
                 <option value="rechargement">Rechargement</option>';
@@ -155,6 +156,9 @@
     <title>Compte fouaille</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
+<header>
+    <?php include 'navbar.php'; ?>
+</header>
 <body>
     <div class="container-fluid">
         <div class="row g-20">
