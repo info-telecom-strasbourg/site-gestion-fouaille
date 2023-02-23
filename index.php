@@ -166,7 +166,7 @@
                 <div class="card" >
                     <div class="card-body">
                         <h5 class="card-title">Dates</h5>
-                        <form class="row g-2" action="/index.php" method="GET">
+                        <form class="row g-2" action="./index.php" method="GET">
                             <div class="col-md-6 form-floating">
                                 <input type="datetime-local" class="form-control" name="date_start" <?php echo $value_debut; ?> id="floatingSelect" aria-label="Floating label select example">
                                 <label for="floatingSelect">Date de début</label>
