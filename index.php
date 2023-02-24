@@ -1,4 +1,6 @@
 <?php
+    require 'connect.php';
+
     $value_debut = 'value="';
     $value_fin = 'value="';
     $boutton = '';
@@ -84,29 +86,32 @@
             $selected = '<option value="boissons">Boissons</option>
                         <option value="repas" selected>Repas</option>
                         <option value="rechargement">Rechargement</option>';
-
             $tab = '<table class="table">
                     <thead>
                     <tr>
                         <th scope="col">Prenom</th>
                         <th scope="col">Nom</th>
-                        <th scope="col">Produit</th>
                         <th scope="col">Prix</th>
-                        <th scope="col">Nombre</th>
+                        <th scope="col">Quantitée</th>
                         <th scope="col">Date</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Mark</td>
-                    </tr>
-                    <tr>
-                        <td>Jacob</td>
-                    </tr>
-                    <tr>
-                        <td>@twitter</td>
-                    </tr>
-                    </tbody>
+                    ';
+
+            $sql = 'SELECT prenom, nom, date_histo, amount, -delta as prix FROM Commande WHERE type_produit = "menu-midi" AND date_histo > "'. $debut . '" AND date_histo < "'. $fin . '" AND delta < 0 GROUP BY prenom, nom ORDER BY date_histo DESC';
+            foreach ($pdo->query($sql) as $row) {
+                $tab .= '<tr>' .
+                    '<td>' . $row['prenom'] . '</td>'.
+                    '<td>' . $row['nom'] . '</td>'.
+                    '<td>' . $row['prix'] . '</td>'.
+                    '<td>' . $row['amount'] . '</td>'.
+                    '<td>' . $row['date_histo'] . '</td>'.
+                    '</tr>';
+            }
+
+            $tab .= '
+                     </tbody>
                 </table>';
 
         } elseif($_GET["detail"] == "rechargement"){
@@ -114,26 +119,31 @@
                         <option value="repas">Repas</option>
                         <option value="rechargement" selected>Rechargement</option>';
 
+
             $tab = '<table class="table">
                     <thead>
                     <tr>
                         <th scope="col">Prenom</th>
                         <th scope="col">Nom</th>
-                        <th scope="col">Prix</th>
+                        <th scope="col">Montant</th>
                         <th scope="col">Date</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Mark</td>
-                    </tr>
-                    <tr>
-                        <td>Jacob</td>
-                    </tr>
-                    <tr>
-                        <td>@twitter</td>
-                    </tr>
-                    </tbody>
+                    ';
+
+            $sql = 'SELECT prenom, nom, date_histo, delta as prix FROM Commande WHERE date_histo > "'. $debut . '" AND date_histo < "'. $fin . '" AND delta > 0 GROUP BY prenom, nom ORDER BY date_histo DESC';
+            foreach ($pdo->query($sql) as $row) {
+                $tab .= '<tr>' .
+                '<td>' . $row['prenom'] . '</td>'.
+                '<td>' . $row['nom'] . '</td>'.
+                '<td>' . $row['prix'] . '</td>'.
+                '<td>' . $row['date_histo'] . '</td>'.
+                '</tr>';
+            }
+
+            $tab .= '
+                     </tbody>
                 </table>';
 
         }
