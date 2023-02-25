@@ -5,11 +5,6 @@
     $value_fin = 'value="';
     $boutton = '';
     $display_note = '';
-
-    $selected = '<option value="boissons">Boissons</option>
-                <option value="repas">Repas</option>
-                <option value="rechargement">Rechargement</option>';
-
     $tab = '';
 
     if(!empty($_GET["date_start"]) ){
