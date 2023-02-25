@@ -26,133 +26,95 @@
         $value_fin = '';
     }
 
-    if(!empty($_GET["date_start"]) && !empty($_GET["date_end"]) && !empty($_GET["detail"])){
+    if(!empty($_GET["date_start"]) && !empty($_GET["date_end"])){
         $boutton = '<button type="submit" class="btn btn-primary">Envoyer</button>';
+
+        $sql_tab = 'SELECT nom, prenom, delta, type_produit, produit, date_histo, amount FROM Commande WHERE date_histo > "'. $debut . '" AND date_histo < "' . $fin . '" ORDER BY date_histo DESC';
+
+        if ($pdo->query($sql_tab) === false) {
+            var_dump($pdo->errorInfo());
+        } else {
+            $tab = '<table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Prix</th>
+                                <th scope="col">Type de produit</th>
+                                <th scope="col">Produit</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+
+            foreach ($pdo->query($sql_tab) as $row) {
+                $tab = $tab . '<tr>
+                                <td>' . $row['nom'] . '</td>
+                                <td>' . $row['prenom'] . '</td>
+                                <td>' . $row['delta'] . '</td>
+                                <td>' . $row['type_produit'] . '</td>
+                                <td>' . $row['produit'] . '</td>
+                                <td>' . $row['date_histo'] . '</td>
+                                <td>' . $row['amount'] . '</td>
+                            </tr>';
+            }
+            $tab = $tab . '</tbody>
+                    </table>';
+        }
+
+        $sql_total = 'SELECT -SUM(delta) AS total FROM Commande WHERE date_histo > "'. $debut . '" AND date_histo < "' . $fin . '" AND delta < 0';
+
+        if ($pdo->query($sql_total) === false) {
+            var_dump($pdo->errorInfo());
+        } else {
+            $total = $pdo->query($sql_total)->fetch()['total'];
+        }
+
+        $sql_boisson = 'SELECT -SUM(delta) AS total FROM Commande WHERE date_histo > "'. $debut . '" AND date_histo < "' . $fin . '" AND type_produit = "menu-soirees"';
+
+        if ($pdo->query($sql_boisson) === false) {
+            var_dump($pdo->errorInfo());
+        } else {
+            $total_boisson = $pdo->query($sql_boisson)->fetch()['total'];
+        }
+
+        $sql_repas = 'SELECT -SUM(delta) AS total FROM Commande WHERE date_histo > "'. $debut . '" AND date_histo < "' . $fin . '" AND type_produit = "menu-midi"';
+
+        if ($pdo->query($sql_repas) === false) {
+            var_dump($pdo->errorInfo());
+        } else {
+            $total_repas = $pdo->query($sql_repas)->fetch()['total'];
+        }
+
+        $sql_rechargement = 'SELECT SUM(delta) AS total FROM Commande WHERE date_histo > "'. $debut . '" AND date_histo < "' . $fin . '" AND delta > 0';
+
+        if ($pdo->query($sql_rechargement) === false) {
+            var_dump($pdo->errorInfo());
+        } else {
+            $total_rechargement = $pdo->query($sql_rechargement)->fetch()['total'];
+        }
 
         $display_note = '<div class="col-md-12">
                     <div class="card" >
                         <div class="card-body">
                             <h5 class="card-title">Recette</h5>
-                            <div class="alert alert-success" role="alert">
-                                Totale : 0€
-                            </div>
-                            <div class="alert alert-secondary" role="alert">
-                                Repas : 0€
-                            </div>
-                            <div class="alert alert-secondary" role="alert">
-                                Boisson : 0€
-                            </div>
+                            <div class="alert alert-success" role="alert">Totale : ' . $total . '€</div>
+                            <div class="alert alert-secondary" role="alert">Repas : ' . $total_repas . '€</div>
+                            <div class="alert alert-secondary" role="alert">Boisson : ' . $total_boisson . '€</div>
                         </div>
                     </div>
                     <div class="card" >
                         <div class="card-body">
                             <h5 class="card-title">Rechargement</h5>
-                            <div class="alert alert-warning" role="alert">
-                                Totale : 0€
-                            </div>
+                            <div class="alert alert-warning" role="alert">Totale : ' . $total_rechargement . '€</div>
                         </div>
                     </div>
               </div>';
 
-        if($_GET["detail"] == "boissons"){
-            $selected = '<option value="boissons" selected>Boissons</option>
-                        <option value="repas">Repas</option>
-                        <option value="rechargement">Rechargement</option>';
-            $tab = '<table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Prenom</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Produit</th>
-                        <th scope="col">Prix</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Mark</td>
-                    </tr>
-                    <tr>
-                        <td>Jacob</td>
-                    </tr>
-                    <tr>
-                        <td>@twitter</td>
-                    </tr>
-                    </tbody>
-                </table>';
-
-        }elseif($_GET["detail"] == "repas"){
-            $selected = '<option value="boissons">Boissons</option>
-                        <option value="repas" selected>Repas</option>
-                        <option value="rechargement">Rechargement</option>';
-            $tab = '<table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Prenom</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Prix</th>
-                        <th scope="col">Quantitée</th>
-                        <th scope="col">Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    ';
-
-            $sql = 'SELECT prenom, nom, date_histo, amount, -delta as prix FROM Commande WHERE type_produit = "menu-midi" AND date_histo > "'. $debut . '" AND date_histo < "'. $fin . '" AND delta < 0 GROUP BY prenom, nom ORDER BY date_histo DESC';
-            foreach ($pdo->query($sql) as $row) {
-                $tab .= '<tr>' .
-                    '<td>' . $row['prenom'] . '</td>'.
-                    '<td>' . $row['nom'] . '</td>'.
-                    '<td>' . $row['prix'] . '</td>'.
-                    '<td>' . $row['amount'] . '</td>'.
-                    '<td>' . $row['date_histo'] . '</td>'.
-                    '</tr>';
-            }
-
-            $tab .= '
-                     </tbody>
-                </table>';
-
-        } elseif($_GET["detail"] == "rechargement"){
-            $selected = '<option value="boissons">Boissons</option>
-                        <option value="repas">Repas</option>
-                        <option value="rechargement" selected>Rechargement</option>';
-
-
-            $tab = '<table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Prenom</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Montant</th>
-                        <th scope="col">Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    ';
-
-            $sql = 'SELECT prenom, nom, date_histo, delta as prix FROM Commande WHERE date_histo > "'. $debut . '" AND date_histo < "'. $fin . '" AND delta > 0 GROUP BY prenom, nom ORDER BY date_histo DESC';
-            foreach ($pdo->query($sql) as $row) {
-                $tab .= '<tr>' .
-                '<td>' . $row['prenom'] . '</td>'.
-                '<td>' . $row['nom'] . '</td>'.
-                '<td>' . $row['prix'] . '</td>'.
-                '<td>' . $row['date_histo'] . '</td>'.
-                '</tr>';
-            }
-
-            $tab .= '
-                     </tbody>
-                </table>';
-
-        }
-
     }else{
         $boutton = '<button type="submit" class="btn btn-secondary">Envoyer</button>';
     }
-
-
 
 
 ?>
@@ -185,12 +147,6 @@
                                 <input type="datetime-local" class="form-control" name="date_end" <?php echo $value_fin; ?> id="floatingSelect" aria-label="Floating label select example">
                                 <label for="floatingSelect">Date de fin</label>
                             </div>
-                            <div class="col-md-12 form-floating">
-                                <select class="form-select" aria-label="Default select example" name="detail" id="floatingSelect" aria-label="Floating label select example">
-                                    <?php echo $selected; ?>
-                                </select>
-                                <label for="floatingSelect">Détails des transactions</label>
-                            </div>
                             <div class="col-md-6">
                                 <?php echo $boutton; ?>
                             </div>
@@ -201,11 +157,6 @@
             </div>
             <div class="col">
                 <?php echo $tab; ?>
-                <pre>
-                    <?php
-                        var_dump($_GET);
-                    ?>
-                </pre>
             </div>
         </div>
     </div>
