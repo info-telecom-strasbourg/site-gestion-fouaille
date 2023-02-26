@@ -112,7 +112,7 @@
                 legend: { position: 'bottom' }
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
 
             chart.draw(data, options);
         }
@@ -136,11 +136,6 @@
                 </div>
             </div>
             <?php echo $graph; ?>
-            <pre>
-                <?php
-                    var_dump($tab);
-                ?>
-            </pre>
         </div>
     </div>
 </body>
