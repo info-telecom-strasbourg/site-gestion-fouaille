@@ -9,8 +9,8 @@
     $tab = array();
 
     if(!empty($_GET["date"]) ){
-        $date_debut = $_GET["date"] . ' 17:00:00';
-        $date_fin = $_GET["date"] . ' 23:30:00';
+        $date_debut = $_GET["date"] . ' 17:30:00';
+        $date_fin = $_GET["date"] . ' 23:00:00';
         $value = $value . $_GET["date"] . '"';
 
         $boutton = '<button type="submit" class="btn btn-primary">Envoyer</button>';
@@ -60,7 +60,7 @@
         }
 
 
-        $donnees_json = json_encode($tab);
+        $donnees_json = json_encode($tab); // Convertit le tableau PHP en JSON pour le passer à JavaScript
 
     }else{
         $value = '';
@@ -89,56 +89,30 @@
 
         function drawChart() {
             var data = new google.visualization.DataTable();
-            data.addColumn('datetime', 'Temps');
-            data.addColumn('number', 'biere10');
-            data.addColumn('number', 'biere12');
-            data.addColumn('number', 'biere16');
-            data.addColumn('number', 'biere20');
-            data.addColumn('number', 'dessert');
-            data.addColumn('number', 'nouilles');
+
+            data.addColumn('string', 'Temps');
 
             var donnees_json = JSON.parse('<?php echo $donnees_json; ?>');
 
-            var rows = [];
-            for (var temps in donnees_json) {
-                var row = [new Date(temps)];
-                for (var i = 0; i < donnees_json[temps].length; i++) {
-                    switch(donnees_json[temps][i].produit) {
-                        case "biere10":
-                            row.push(parseFloat(donnees_json[temps][i].recette));
-                            break;
-                        case "biere12":
-                            row.push(parseFloat(donnees_json[temps][i].recette));
-                            break;
-                        case "biere16":
-                            row.push(parseFloat(donnees_json[temps][i].recette));
-                            break;
-                        case "biere20":
-                            row.push(parseFloat(donnees_json[temps][i].recette));
-                            break;
-                        case "dessert":
-                            row.push(parseFloat(donnees_json[temps][i].recette));
-                            break;
-                        case "nouilles":
-                            row.push(parseFloat(donnees_json[temps][i].recette));
-                            break;
-                        default:
-                            row.push(0);
-                            break;
-                    }
-                }
-                rows.push(row);
+            for (var produit in donnees_json[Object.keys(donnees_json)[0]]) {
+                data.addColumn('number', produit);
             }
 
-            data.addRows(rows);
+            for (var temps in donnees_json) {
+                var row = [temps];
+                for (var produit in donnees_json[temps]) {
+                    row.push(parseInt(donnees_json[temps][produit]));
+                }
+                data.addRow(row);
+            }
 
             var options = {
-                title: 'Recettes',
+                title: 'Commandes',
                 curveType: 'function',
                 legend: { position: 'bottom' }
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
             chart.draw(data, options);
         }
@@ -165,7 +139,6 @@
             <pre>
                 <?php
                     var_dump($tab);
-                var_dump($tab_produit);
                 ?>
             </pre>
         </div>
