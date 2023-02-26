@@ -4,39 +4,61 @@
     $value = 'value="';
     $boutton = '';
     $graph = '';
-    $tab_produit = '';
-    $tab_graph = '';
     $donnees_json = '';
-    $tab = '';
+    $tab_produit = array();
+    $tab = array();
 
     if(!empty($_GET["date"]) ){
         $date_debut = $_GET["date"] . ' 17:00:00';
-        $date_fin = $_GET["date"] . ' 23:00:00';
+        $date_fin = $_GET["date"] . ' 23:30:00';
         $value = $value . $_GET["date"] . '"';
 
         $boutton = '<button type="submit" class="btn btn-primary">Envoyer</button>';
 
         $graph = '<div id="chart_div" style="width: 100%; height: 600px;"></div>';
 
-        $start_date = DateTime::createFromFormat('Y-m-d H:i:s', $_GET["date"]. ' 22:00:00');
-        $end_date = DateTime::createFromFormat('Y-m-d H:i:s', $date_fin);
+        $sql_tab_produit = 'SELECT DISTINCT produit FROM Commande WHERE date_histo >= "'. $date_debut . '" AND date_histo <= "' . $date_fin . '" AND delta < 0';
 
-        $current_date = $start_date;
+        if ($pdo->query($sql_tab_produit) === false) {
+            var_dump($pdo->errorInfo());
+        } else {
+            foreach ($pdo->query($sql_tab_produit) as $row) {
+                $tab_produit[$row['produit']] = 0;
+            }
+            // Conversion des chaînes de date en objets DateTime
+            $date_debut_obj = new DateTime($date_debut);
+            $date_fin_obj = new DateTime($date_fin);
 
-        $tab = array();
+            // Pas de 15 minutes
+            $pas = new DateInterval('PT15M');
 
-        while ($current_date <= $end_date) { // Création du tableau des dates pour le graphique
-            $sql_graph = 'SELECT produit, -SUM(delta) AS recette FROM Commande WHERE date_histo > "'. $date_debut . '" AND date_histo < "' . $current_date->format('Y-m-d H:i:s') . '" AND delta < 0 GROUP BY produit';
+            // Boucle qui incrémente la date de départ jusqu'à la date de fin en pas de 15 minutes
+            $date = $date_debut_obj;
+            while ($date <= $date_fin_obj) {
 
-            if ($pdo->query($sql_graph) === false){
-                var_dump($pdo->errorInfo());
-            } else {
-                $tab_graph = $pdo->query($sql_graph)->fetchAll(PDO::FETCH_ASSOC);
+                $current_tab = array();
+
+                foreach ($tab_produit as $produit) {
+                    $tab[$date->format('H:i')] = $tab_produit;
+                }
+
+                $sql = 'SELECT produit, SUM(amount) AS total FROM Commande WHERE date_histo >= "'. $date_debut . '" AND date_histo <= "' . $date->format('Y-m-d H:i:s') . '" AND delta < 0 GROUP BY produit';
+
+                if ($pdo->query($sql) === false) {
+                    var_dump($pdo->errorInfo());
+                } else {
+                    foreach ($pdo->query($sql) as $row) {
+                        $tab[$date->format('H:i')][$row['produit']] = $row['total'];
+                    }
+                }
+
+                // Incrémente la date de 15 minutes
+                $date = $date->add($pas);
             }
 
-            $tab['' . $current_date->format('Y-m-d H:i:s') . ''] = $tab_graph;
-            $current_date->add(new DateInterval('PT15M'));
+
         }
+
 
         $donnees_json = json_encode($tab);
 
@@ -65,43 +87,59 @@
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
 
-
-
         function drawChart() {
-            // Création d'une table de données
             var data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Temps');
+            data.addColumn('number', 'biere10');
+            data.addColumn('number', 'biere12');
+            data.addColumn('number', 'biere16');
+            data.addColumn('number', 'biere20');
+            data.addColumn('number', 'dessert');
+            data.addColumn('number', 'nouilles');
 
-            data.addColumn('string', 'Temps');
-            data.addColumn('string', 'Produit');
-            data.addColumn('number', 'Recette');
+            var donnees_json = JSON.parse('<?php echo $donnees_json; ?>');
 
-            var donnees_js = JSON.parse('<?php echo $donnees_json; ?>');
-
-            console.log(donnees_js);
-
-            for (var key in donnees_js){
-
-                var heure = key.split(" ")[1];
-
-
-                for (var i = 0; i < donnees_js[key].length; i++) {
-                    var produit = donnees_js[key][i].produit;
-                    var recette = parseFloat(donnees_js[key][i].recette);
-
-                    data.addRow([heure, produit, recette]);
-
-                    console.log(data);
+            var rows = [];
+            for (var temps in donnees_json) {
+                var row = [new Date(temps)];
+                for (var i = 0; i < donnees_json[temps].length; i++) {
+                    switch(donnees_json[temps][i].produit) {
+                        case "biere10":
+                            row.push(parseFloat(donnees_json[temps][i].recette));
+                            break;
+                        case "biere12":
+                            row.push(parseFloat(donnees_json[temps][i].recette));
+                            break;
+                        case "biere16":
+                            row.push(parseFloat(donnees_json[temps][i].recette));
+                            break;
+                        case "biere20":
+                            row.push(parseFloat(donnees_json[temps][i].recette));
+                            break;
+                        case "dessert":
+                            row.push(parseFloat(donnees_json[temps][i].recette));
+                            break;
+                        case "nouilles":
+                            row.push(parseFloat(donnees_json[temps][i].recette));
+                            break;
+                        default:
+                            row.push(0);
+                            break;
+                    }
                 }
+                rows.push(row);
             }
 
+            data.addRows(rows);
 
             var options = {
-                title: 'Recette en fonction du temps',
-                hAxis: {title: 'Temps',  titleTextStyle: {color: '#333'}},
-                vAxis: {minValue: 0}
+                title: 'Recettes',
+                curveType: 'function',
+                legend: { position: 'bottom' }
             };
 
-            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
             chart.draw(data, options);
         }
     </script>
@@ -127,7 +165,7 @@
             <pre>
                 <?php
                     var_dump($tab);
-                    var_dump($donnees_json);
+                var_dump($tab_produit);
                 ?>
             </pre>
         </div>
