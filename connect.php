@@ -7,6 +7,8 @@ $dotenv->load();
 
 $user = $_ENV['DB_USER'];
 $pass = $_ENV['DB_PASS'];
+$host = $_ENV['DB_HOST'];
+$dbname = $_ENV['DB_NAME'];
 
 $pdo = new PDO('mysql:host=bde-bdd.its-tps.fr;port=3307;dbname=marconeo', $user, $pass);
 
