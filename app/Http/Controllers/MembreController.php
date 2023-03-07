@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MembreController extends Controller
 {
     public function index()
     {
-        $users = ["user1", "user2", "user3"];
-        return view('base')->with('users', $users);
+        $membres = DB::select('SELECT * FROM Membre');
+        return view('base')->with('membres',$membres);
     }
 }

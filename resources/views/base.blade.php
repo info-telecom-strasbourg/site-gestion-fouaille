@@ -17,8 +17,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Dates</h5>
                     </div>
-                    @foreach($users as $user)
-                        <h1> {{ $user }} </h1>
+                    @foreach($membres as $membre)
+                        <h1> {{ $membre->nom }} </h1>
                     @endforeach
                 </div>
             </div>
