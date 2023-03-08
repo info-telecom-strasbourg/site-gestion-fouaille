@@ -15,4 +15,5 @@ use App\Http\Controllers\MembreController;
 */
 
 Route::get('/', [MembreController::class, 'index'])->name('membre_index');
+Route::get('getData', [MembreController::class, 'getData'])->name('membre_getData');
 
