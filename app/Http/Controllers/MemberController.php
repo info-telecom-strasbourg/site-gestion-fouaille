@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 // add carbon
 use Carbon\Carbon;
 
-class MembreController extends Controller
+class MemberController extends Controller
 {
     public function index()
     {
@@ -26,10 +26,10 @@ class MembreController extends Controller
     {
         $date_start = $request->input('datestart');
         $date_end = $request->input('dateend');
-    
+
         $date_start = date('Y-m-d H:i:s', strtotime($date_start));
         $date_end = date('Y-m-d H:i:s', strtotime($date_end));
-    
+
         $peoples = DB::select('SELECT Membre.nom, Membre.prenom, Commande.prix, Commande.type_produit,
                                     Commande.produit, Commande.date, Commande.amount
                                 FROM Membre
@@ -37,17 +37,17 @@ class MembreController extends Controller
                                 ON Membre.id = Commande.id_membre
                                 WHERE Commande.date > ?
                                 AND Commande.date < ?', [$date_start, $date_end]);
-        $total_commandes = DB::select('SELECT SUM(prix*amount) AS total 
-                                        FROM Commande 
+        $total_commandes = DB::select('SELECT SUM(prix*amount) AS total
+                                        FROM Commande
                                         WHERE date > ?
                                         AND date < ?', [$date_start, $date_end]);
-        $total_repas = DB::select('SELECT SUM(prix*amount) AS total 
-                                    FROM Commande 
+        $total_repas = DB::select('SELECT SUM(prix*amount) AS total
+                                    FROM Commande
                                     WHERE date > ?
                                     AND date < ?
                                     AND type_produit = "repas"', [$date_start, $date_end]);
-        $total_boisson = DB::select('SELECT SUM(amount) AS total 
-                                    FROM Commande 
+        $total_boisson = DB::select('SELECT SUM(amount) AS total
+                                    FROM Commande
                                     WHERE date > ?
                                     AND date < ?
                                     AND type_produit = "boisson"', [$date_start, $date_end]);
