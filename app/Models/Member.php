@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'last_name',
+        'first_name',
+        'nickname',
+        'card_number',
+        'email',
+        'phone_number',
+        'balance',
+        'admin',
+        'contributor',
+        'created_at',
+        'class'
+    ];
 }

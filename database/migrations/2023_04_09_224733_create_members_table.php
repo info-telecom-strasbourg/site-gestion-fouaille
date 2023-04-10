@@ -23,7 +23,6 @@ return new class extends Migration
             $table->boolean('admin')->default(false);
             $table->boolean('contributor')->default(true);
             $table->dateTime('created_at')->default(now());
-            $table->dateTime('updated_at')->default(now());
             $table->integer('class')->nullable();
         });
     }
