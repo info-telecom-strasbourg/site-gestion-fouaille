@@ -5,6 +5,7 @@
             <tr>
                 <th scope="col">id</th>
                 <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
                 <th scope="col">Produit</th>
                 <th scope="col">Prix</th>
                 <th scope="col">Quantité</th>
@@ -14,7 +15,8 @@
             @foreach($commandes as $commande)
                 <tr>
                     <th scope="row">{{ $commande->id }}</th>
-                    <td>{{ $commande->member->nickname }}</td>
+                    <td>{{ $commande->member->last_name }}</td>
+                    <td>{{ $commande->member->first_name }}</td>
                     <td>{{ $commande->products->name }}</td>
                     <td>{{ $commande->price }}</td>
                     <td>{{ $commande->amount }}</td>

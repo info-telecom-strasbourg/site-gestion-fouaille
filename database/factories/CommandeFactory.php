@@ -18,11 +18,15 @@ class CommandeFactory extends Factory
      */
     public function definition(): array
     {
+        $product = Product::InRandomOrder()->first();
+
+        $amount = fake()->numberBetween(1, 10);
+
         return [
-            'id_product' => Product::InRandomOrder()->first()->id,
+            'id_product' => $product->id,
             'id_member' => Member::InRandomOrder()->first()->id,
-            'price' => fake()->randomFloat(2, 0, 3),
-            'amount' => fake()->numberBetween(1, 10),
+            'price' => $product->price*$amount,
+            'amount' => $amount,
             'date' => fake()->dateTimeBetween('-1 year', 'now'),
         ];
     }
