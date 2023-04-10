@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CommandeController;
+use App\Models\Commande;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MembreController;
 
@@ -14,6 +16,7 @@ use App\Http\Controllers\MembreController;
 |
 */
 
-Route::get('/', [MemberController::class, 'index'])->name('member_index');
+Route::get('/', [CommandeController::class, 'index']);
+
 Route::get('getData', [MemberController::class, 'getData'])->name('member_getData');
 
