@@ -20,7 +20,7 @@ class ProductFactory extends Factory
         return [
             'name' => fake()->unique()->word(),
             'price' => fake()->randomFloat(2, 0, 3),
-            'product_type' => ProductType::factory(),
+            'product_type' => ProductType::inRandomOrder()->first()->type,
         ];
     }
 }

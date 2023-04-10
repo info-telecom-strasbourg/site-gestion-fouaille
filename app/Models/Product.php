@@ -12,6 +12,10 @@ class Product extends Model
     public $timestamps = false;
 
     public function productType(){
-        return $this->belongsTo(ProductType::class);
+        return $this->belongsTo(ProductType::class, 'product_type');
+    }
+
+    public function commandes(){
+        return $this->hasMany(Commande::class, 'id_product');
     }
 }

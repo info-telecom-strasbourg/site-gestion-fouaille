@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Commande;
 use App\Models\Member;
 use App\Models\Product;
 use App\Models\ProductType;
@@ -15,12 +16,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Member::factory(10)->create();
+        Member::factory(30)->create();
 
-        ProductType::factory(3)->create()->each(function (ProductType $productType) {
-            Product::factory(10)->create([
-                'product_type' => $productType->type
-            ]);
-        });
+        ProductType::factory(3)->create();
+
+        Product::factory(10)->create();
+
+        Commande::factory(100)->create();
+
+
     }
 }

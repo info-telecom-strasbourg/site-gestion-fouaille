@@ -24,4 +24,9 @@ class Member extends Model
         'created_at',
         'class'
     ];
+
+    public function commandes(){
+        return $this->hasMany(Commande::class, 'id_member');
+    }
+
 }
