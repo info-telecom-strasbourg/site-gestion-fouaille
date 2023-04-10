@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_member')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('amount');
-            $table->dateTime('date')->default(now());
+            $table->timestamp('date')->default(now());
             $table->foreign('id_product')->references('id')->on('products')->onDelete('set null');
             $table->foreign('id_member')->references('id')->on('members')->onDelete('set null');
         });

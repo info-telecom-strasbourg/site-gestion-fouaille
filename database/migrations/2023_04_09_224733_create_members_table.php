@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('balance', 10, 2)->nullable();
             $table->boolean('admin')->default(false);
             $table->boolean('contributor')->default(true);
-            $table->dateTime('created_at')->default(now());
+            $table->timestamp('created_at')->default(now());
             $table->integer('class')->nullable();
         });
     }
