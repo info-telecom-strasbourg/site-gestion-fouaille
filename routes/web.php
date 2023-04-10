@@ -16,7 +16,11 @@ use App\Http\Controllers\MembreController;
 |
 */
 
-Route::get('/', [CommandeController::class, 'index']);
+Route::get('commandes', [CommandeController::class, 'index']);
+
+Route::get('graph', function () {
+
+});
 
 Route::get('getData', [MemberController::class, 'getData'])->name('member_getData');
 

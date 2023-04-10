@@ -56,6 +56,6 @@ class DatabaseSeeder extends Seeder
             'product_type' => 'soiree',
         ]);
 
-        Commande::factory(100)->create();
+        Commande::factory(500)->create();
     }
 }

@@ -11,6 +11,7 @@ class Commande extends Model
 
     public $timestamps = false;
 
+
     public function products(){
         return $this->belongsTo(Product::class, 'id_product');
     }
