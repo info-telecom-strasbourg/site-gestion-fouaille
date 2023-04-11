@@ -4,7 +4,12 @@
             <thead>
             <tr>
                 <th scope="col">
-                    Date
+                    <a href="{{ request()
+                                ->fullUrlWithQuery(['displayForHumans' => !request()->boolean('displayForHumans')])
+                                }}"
+                    >
+                        Date
+                    </a>
                 </th>
                 <th scope="col">Nom</th>
                 <th scope="col">Prenom</th>
@@ -17,7 +22,7 @@
             @foreach($commandes as $commande)
                 <tr>
                     <th>
-                        {{ $commande->date}}
+                        {{ $commande->date }}
                     </th>
                     <td>{{ $commande->member->last_name }}</td>
                     <td>{{ $commande->member->first_name }}</td>
