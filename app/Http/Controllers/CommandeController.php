@@ -9,12 +9,18 @@ use Carbon\Carbon;
 
 class CommandeController extends Controller{
     public function index(){
-        $commandes = Commande::latest('date')->paginate(50)->withQueryString();
+        $commandes = Commande::latest('date')
+            ->paginate(50)
+            ->withQueryString();
 
         Carbon::setLocale('fr');
 
         foreach ($commandes as $commande){
-            $commande->date = Carbon::createFromFormat('Y-m-d H:i:s', $commande->date);
+            if (request()->has('displayForHumans') && request('displayForHumans') == 'true'){
+                $commande->date = Carbon::createFromFormat('Y-m-d H:i:s', $commande->date)->diffForHumans();
+            } else {
+                $commande->date = Carbon::createFromFormat('Y-m-d H:i:s', $commande->date)->format('d/m/Y H:i:s');
+            }
         }
 
         return view('commandes.index', [

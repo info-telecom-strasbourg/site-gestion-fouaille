@@ -9,8 +9,9 @@ class Commande extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public $timestamps = false; // disable timestamps columns (created_at, updated_at)
 
+    protected $guarded = []; // disable mass assignment protection
 
     public function products(){
         return $this->belongsTo(Product::class, 'id_product');

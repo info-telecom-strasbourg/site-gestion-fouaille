@@ -17,7 +17,7 @@
             @foreach($commandes as $commande)
                 <tr>
                     <th>
-                        {{ $commande->date->diffForHumans() }}
+                        {{ $commande->date}}
                     </th>
                     <td>{{ $commande->member->last_name }}</td>
                     <td>{{ $commande->member->first_name }}</td>
