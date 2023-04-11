@@ -4,12 +4,7 @@
             <thead>
             <tr>
                 <th scope="col">
-                    <a
-                        href="/{{ request()->path() . }}"
-                    >
-                        Date
-                    </a>
-
+                    Date
                 </th>
                 <th scope="col">Nom</th>
                 <th scope="col">Prenom</th>

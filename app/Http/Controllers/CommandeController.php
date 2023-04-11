@@ -10,6 +10,7 @@ use Carbon\Carbon;
 class CommandeController extends Controller{
     public function index(){
         $commandes = Commande::latest('date')->paginate(50)->withQueryString();
+
         Carbon::setLocale('fr');
 
         foreach ($commandes as $commande){
