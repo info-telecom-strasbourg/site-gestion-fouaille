@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Member::factory(30)->create();
+        Member::factory(100)->create();
 
         ProductType::factory()->create([
             'type' => 'midi',
@@ -56,6 +56,6 @@ class DatabaseSeeder extends Seeder
             'product_type' => 'soiree',
         ]);
 
-        Commande::factory(500)->create();
+        Commande::factory(1000)->create();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 // add carbon
@@ -11,15 +12,9 @@ class MemberController extends Controller
 {
     public function index()
     {
-        // get current date with carbon and format it to "Y-m-dTH:i"
-        $current_date = Carbon::now()->format('Y-m-d\TH:i');
-        // normally needs to be accessed through a login page
-        return view('index')->with('current_date1', $current_date)
-                            ->with('current_date2', $current_date)
-                            ->with('total_commandes', 0)
-                            ->with('total_repas', 0)
-                            ->with('total_boisson', 0)
-                            ->with('peoples', []);
+        return view('members.index', [
+            'members' => Member::latest('created_at')->paginate(50)->withQueryString(),
+        ]);
     }
 
     public function getData(Request $request)

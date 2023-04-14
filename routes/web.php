@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductTypeController;
 use App\Models\Commande;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MembreController;
@@ -16,10 +19,21 @@ use App\Http\Controllers\MembreController;
 |
 */
 
+Route::get('/', function () {
+    return view('home');
+});
+
 Route::get('commandes', [CommandeController::class, 'index']);
+Route::get('members', [MemberController::class, 'index']);
 
-Route::get('graph', function () {
+Route::get('/products', function () {
+    $products = app(ProductController::class)->index()->getData()['products'];
+    $product_types = app(ProductTypeController::class)->index()->getData()['product_types'];
+    return View::make('products.index')->with(compact('products', 'product_types'));
+});
 
+Route::get('charts', function () {
+    return view('charts.index');
 });
 
 Route::get('getData', [MemberController::class, 'getData'])->name('member_getData');
