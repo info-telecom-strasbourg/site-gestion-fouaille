@@ -13,4 +13,17 @@ class ProductTypeController extends Controller
             'product_types' => ProductType::all(),
         ]);
     }
+
+    public function store(Request $request){
+
+        $validatedData = $request->validate([
+            'type' => 'required|max:255'
+        ]);
+
+        ProductType::create([
+            'type' => $validatedData['type'],
+        ]);
+
+        return back();
+    }
 }

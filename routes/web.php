@@ -32,6 +32,9 @@ Route::get('/products', function () {
     return View::make('products.index')->with(compact('products', 'product_types'));
 });
 
+Route::post('productType', [ProductTypeController::class, 'store']);
+Route::post('product', [ProductController::class, 'store']);
+
 Route::get('charts', function () {
     return view('charts.index');
 });

@@ -11,6 +11,12 @@ class Product extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'name',
+        'price',
+        'product_type'
+    ];
+
     public function productType(){
         return $this->belongsTo(ProductType::class, 'product_type');
     }
