@@ -33,6 +33,12 @@ Route::get('/products', function () {
 });
 
 Route::post('productType', [ProductTypeController::class, 'store']);
+Route::delete('productType/{type}', function ($type) {
+    dd(\App\Models\ProductType::find('type'));
+    return back();
+});
+
+
 Route::post('product', [ProductController::class, 'store']);
 
 Route::get('charts', function () {

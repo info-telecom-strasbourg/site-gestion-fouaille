@@ -1,5 +1,14 @@
 <x-layout>
     <div class="container mt-10">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row">
             <div class="col-4">
                 <form class="row" method="POST" action="productType">
@@ -25,12 +34,20 @@
                     <thead>
                     <tr>
                         <th scope="col">Type de produit</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($product_types as $product_type)
                         <tr>
                             <td>{{ $product_type->type }}</td>
+                            <td>
+                                <form method="POST" action="productType/{{ $product_type->type }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -58,13 +75,13 @@
                     </div>
                     <div class="col">
                         <select class="form-select"
-                                id="type"
-                                name="type"
+                                id="product_type_id"
+                                name="product_type_id"
                                 aria-label="Default select example"
                                 required>
                             <option selected>type</option>
                             @foreach($product_types as $product_type)
-                                <option value="{{ $product_type->type }}">
+                                <option value="{{ $product_type->id }}">
                                     {{ $product_type->type }}
                                 </option>
                             @endforeach
@@ -99,7 +116,7 @@
                         <tr>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->price }}</td>
-                            <td>{{ $product->product_type }}</td>
+                            <td>{{ $product->productType->type }}</td>
                         </tr>
                     @endforeach
                     </tbody>

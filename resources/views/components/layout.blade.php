@@ -44,6 +44,7 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                 <a class="nav-link" href="/commandes">Commandes</a>
                 <a class="nav-link" href="/members">Membres</a>
+                <a class="nav-link" href="/products">Produits</a>
             </div>
         </div>
     </div>

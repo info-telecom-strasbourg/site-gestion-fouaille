@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_types', function (Blueprint $table) {
-            $table->string('type', 50)->primary()->unique();
+            $table->id();
+            $table->string('type', 50)->unique();
         });
     }
 

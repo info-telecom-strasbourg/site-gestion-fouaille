@@ -26,4 +26,11 @@ class ProductTypeController extends Controller
 
         return back();
     }
+
+
+    public function destroy(ProductType $productType){
+        dd($productType);
+        $productType->delete();
+        return back();
+    }
 }

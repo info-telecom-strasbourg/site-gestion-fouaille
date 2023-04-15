@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50)->unique();
             $table->decimal('price', 10, 2)->default(0);
-            $table->string('product_type', 50);
-            $table->foreign('product_type')->references('type')->on('product_types');
+            $table->unsignedBigInteger('product_type_id');
+            $table->foreign('product_type_id')->references('id')->on('product_types');
         });
     }
 

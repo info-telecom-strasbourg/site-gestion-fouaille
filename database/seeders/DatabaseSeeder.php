@@ -29,31 +29,31 @@ class DatabaseSeeder extends Seeder
         Product::factory()->create([
             'name' => 'pizza',
             'price' => 2.5,
-            'product_type' => 'midi',
+            'product_type_id' => ProductType::where('type', 'midi')->first()->id,
         ]);
 
         Product::factory()->create([
             'name' => 'nouilles',
             'price' => 1,
-            'product_type' => 'midi',
+            'product_type_id' => ProductType::where('type', 'midi')->first()->id,
         ]);
 
         Product::factory()->create([
             'name' => 'meteor',
             'price' => 1.2,
-            'product_type' => 'soiree',
+            'product_type_id' => ProductType::where('type', 'soiree')->first()->id,
         ]);
 
         Product::factory()->create([
             'name' => 'kastel',
             'price' => 3,
-            'product_type' => 'soiree',
+            'product_type_id' => ProductType::where('type', 'soiree')->first()->id,
         ]);
 
         Product::factory()->create([
             'name' => 'primus',
             'price' => 1,
-            'product_type' => 'soiree',
+            'product_type_id' => ProductType::where('type', 'soiree')->first()->id,
         ]);
 
         Commande::factory(1000)->create();
