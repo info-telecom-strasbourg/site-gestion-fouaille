@@ -21,12 +21,22 @@
             <tbody>
             @foreach($commandes as $commande)
                 <tr>
-                    <th>
+                    <td>
                         {{ $commande->date }}
-                    </th>
-                    <td>{{ $commande->member->last_name }}</td>
-                    <td>{{ $commande->member->first_name }}</td>
-                    <td>{{ $commande->products->name }}</td>
+                    </td>
+                    @if(isset($commande->member))
+                        <td>{{ $commande->member->last_name }}</td>
+                        <td>{{ $commande->member->first_name }}</td>
+                    @else
+                        <td>Membre supprimer</td>
+                        <td>Membre supprimer</td>
+                    @endif
+
+                    @if(isset($commande->products))
+                        <td>{{ $commande->products->name }}</td>
+                    @else
+                        <td>Produit supprimer</td>
+                    @endif
                     <td>{{ $commande->price }}</td>
                     <td>{{ $commande->amount }}</td>
                 </tr>

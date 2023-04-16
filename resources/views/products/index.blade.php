@@ -42,7 +42,7 @@
                         <tr>
                             <td>{{ $product_type->type }}</td>
                             <td>
-                                <form method="POST" action="productType/{{ $product_type->type }}">
+                                <form method="POST" action="productType/{{ $product_type->id }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Supprimer</button>
@@ -109,6 +109,7 @@
                         <th scope="col">Nom</th>
                         <th scope="col">Prix par défault</th>
                         <th scope="col">Type</th>
+                        <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -117,6 +118,17 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->productType->type }}</td>
+                            <td>
+                                <form method="POST" action="product/{{ $product->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            class="btn btn-danger"
+                                    >
+                                        Supprimer
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

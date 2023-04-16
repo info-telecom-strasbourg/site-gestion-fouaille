@@ -5,6 +5,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
 use App\Models\Commande;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MembreController;
 
@@ -33,15 +34,22 @@ Route::get('/products', function () {
 });
 
 Route::post('productType', [ProductTypeController::class, 'store']);
-Route::delete('productType/{type}', function ($type) {
-    dd(\App\Models\ProductType::find('type'));
-    return back();
-});
+Route::delete('productType/{id}', [ProductTypeController::class, 'destroy']);
 
 
 Route::post('product', [ProductController::class, 'store']);
+Route::delete('product/{id}', [ProductController::class, 'destroy']);
 
 Route::get('charts', function () {
+    dd(DB::table('commandes')
+        ->select(
+            'id_product',
+            DB::raw('DATE_FORMAT(date, "%Y-%m-%d %H:")+FLOOR(DATE_FORMAT(date, "%i")/10)*10 as step'),
+            DB::raw('SUM(amount) as totalAmount')
+        )
+        ->whereBetween('date', ['2022-01-01', '2023-04-15'])
+        ->groupBy('id_product', 'step')
+        ->get());
     return view('charts.index');
 });
 

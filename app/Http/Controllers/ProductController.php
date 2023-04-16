@@ -22,7 +22,7 @@ class ProductController extends Controller
             'price' => 'required|max:255',
             'product_type_id' => 'required|integer'
         ]);
-        
+
 
         Product::create([
             'name' => $validatedData['name'],
@@ -30,6 +30,11 @@ class ProductController extends Controller
             'product_type_id' => $validatedData['product_type_id'],
         ]);
 
+        return back();
+    }
+
+    public function destroy($id){
+        Product::findOrFail($id)->delete();
         return back();
     }
 }
