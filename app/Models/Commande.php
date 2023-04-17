@@ -11,6 +11,8 @@ class Commande extends Model
 
     public $timestamps = false; // disable timestamps columns (created_at, updated_at)
 
+    public $with = ['products', 'member']; // eager load relationships
+
     protected $guarded = []; // disable mass assignment protection
 
     public function products(){
