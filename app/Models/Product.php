@@ -17,6 +17,8 @@ class Product extends Model
         'id_product_type'
     ];
 
+    public $with = ['productType'];
+
     public function productType(){
         return $this->belongsTo(ProductType::class, 'id_product_type');
     }

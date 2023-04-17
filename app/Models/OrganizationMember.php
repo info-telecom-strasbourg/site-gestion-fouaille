@@ -17,6 +17,8 @@ class OrganizationMember extends Model
         'role'
     ];
 
+    public $with = ['organization', 'member'];
+
     public function organization(){
         return $this->belongsTo(Organization::class, 'id_organization');
     }
