@@ -27,7 +27,7 @@ class CommandeFactory extends Factory
             'id_member' => Member::InRandomOrder()->first()->id,
             'price' => $product->price*$amount,
             'amount' => $amount,
-            'date' => fake()->dateTimeBetween('-1 year', 'now'),
+            'date' => fake()->dateTimeBetween('-1 day', 'now'),
         ];
     }
 }

@@ -32,8 +32,8 @@
                         <td>Membre supprimer</td>
                     @endif
 
-                    @if(isset($commande->products))
-                        <td>{{ $commande->products->name }}</td>
+                    @if(isset($commande->product))
+                        <td>{{ $commande->product->name }}</td>
                     @else
                         <td>Produit supprimer</td>
                     @endif

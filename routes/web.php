@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MembreController;
 
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,16 +54,36 @@ Route::post('product', [ProductController::class, 'store']);
 Route::delete('product/{id}', [ProductController::class, 'destroy']);
 
 Route::get('charts', function () {
-    dd(DB::table('commandes')
-        ->select(
-            'id_product',
-            DB::raw('DATE_FORMAT(date, "%Y-%m-%d %H:")+FLOOR(DATE_FORMAT(date, "%i")/10)*10 as step'),
-            DB::raw('SUM(amount) as totalAmount')
-        )
-        ->whereBetween('date', ['2022-01-01', '2023-04-15'])
-        ->groupBy('id_product', 'step')
-        ->get());
-    return view('charts.index');
+    $startDate = '2023-04-17 17:00:00';
+    $endDate = '2023-04-17 23:00:00';
+
+    $start = Carbon::parse($startDate);
+    $end = Carbon::parse($endDate);
+
+    $commandes = Commande::all()->whereBetween('date', [$startDate, $endDate]);
+    $products = [];
+    foreach ($commandes as $commande){
+        if (!array_key_exists($commande->product->name, $products)){
+            $products[$commande->product->name] = [
+                'id' => $commande->product->id
+            ];
+        }
+    }
+
+    $date = $start->copy();
+    $date->addMinutes(10);
+    $datas = [];
+
+    while ($date <= $end){
+        $current_product = [];
+        foreach ($products as $product => $value){
+            $current_product[$product] = $commandes->whereBetween('date', [$start, $date])->where('id_product', $value['id'])->count();
+        }
+        $datas[$date->format('H:i')] = $current_product;
+        $date->addMinutes(10);
+    }
+
+    dd($datas);
 });
 
 Route::get('getData', [MemberController::class, 'getData'])->name('member_getData');
