@@ -5,17 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductType extends Model
+class OrganizationMember extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
-    protected $fillable = [
-        'type'
-    ];
-
-    public function products(){
-        return $this->hasMany(Product::class, 'id_product_type');
+    public function organization(){
+        return $this->belongsTo(Organization::class, 'id_organization');
     }
 }

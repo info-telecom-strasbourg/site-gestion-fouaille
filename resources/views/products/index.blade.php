@@ -75,8 +75,8 @@
                     </div>
                     <div class="col">
                         <select class="form-select"
-                                id="product_type_id"
-                                name="product_type_id"
+                                id="id_product_type"
+                                name="id_product_type"
                                 aria-label="Default select example"
                                 required>
                             <option selected>type</option>

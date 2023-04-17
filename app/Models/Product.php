@@ -14,11 +14,11 @@ class Product extends Model
     protected $fillable = [
         'name',
         'price',
-        'product_type_id'
+        'id_product_type'
     ];
 
     public function productType(){
-        return $this->belongsTo(ProductType::class, 'product_type_id');
+        return $this->belongsTo(ProductType::class, 'id_product_type');
     }
 
     public function commandes(){

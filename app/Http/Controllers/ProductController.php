@@ -20,14 +20,14 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'price' => 'required|max:255',
-            'product_type_id' => 'required|integer'
+            'id_product_type' => 'required|integer'
         ]);
 
 
         Product::create([
             'name' => $validatedData['name'],
             'price' => $validatedData['price'],
-            'product_type_id' => $validatedData['product_type_id'],
+            'id_product_type' => $validatedData['id_product_type'],
         ]);
 
         return back();
