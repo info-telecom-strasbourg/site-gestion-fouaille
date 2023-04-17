@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\OrganizationMemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
 use App\Models\Commande;
+use App\Models\Organization;
+use App\Models\OrganizationMember;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MembreController;
@@ -26,6 +30,13 @@ Route::get('/', function () {
 
 Route::get('commandes', [CommandeController::class, 'index']);
 Route::get('members', [MemberController::class, 'index']);
+
+
+Route::get('organizations', function () {
+    $organizations = app(OrganizationController::class)->index()->getData()['organizations'];
+    $organization_members= app(OrganizationMemberController::class)->index()->getData()['organizations'];
+    return View::make('organizations.index')->with(compact('organizations', 'organization_members'));
+});
 
 Route::get('/products', function () {
     $products = app(ProductController::class)->index()->getData()['products'];

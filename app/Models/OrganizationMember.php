@@ -11,7 +11,17 @@ class OrganizationMember extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'id_organization',
+        'id_member',
+        'role'
+    ];
+
     public function organization(){
         return $this->belongsTo(Organization::class, 'id_organization');
+    }
+
+    public function member(){
+        return $this->belongsTo(Member::class, 'id_member');
     }
 }

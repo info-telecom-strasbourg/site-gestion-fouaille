@@ -29,4 +29,8 @@ class Member extends Model
         return $this->hasMany(Commande::class, 'id_member');
     }
 
+    public function organizationMembers(){
+        return $this->hasMany(OrganizationMember::class, 'id_member');
+    }
+
 }

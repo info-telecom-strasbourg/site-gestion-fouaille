@@ -45,6 +45,7 @@
                 <a class="nav-link" href="/commandes">Commandes</a>
                 <a class="nav-link" href="/members">Membres</a>
                 <a class="nav-link" href="/products">Produits</a>
+                <a class="nav-link" href="/organizations">Club et asso</a>
             </div>
         </div>
     </div>

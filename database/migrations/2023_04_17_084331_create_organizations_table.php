@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
+            $table->string('slug', 50)->unique();
             $table->string('name', 50)->unique();
-            $table->string('website_link', 50)->nullable();
-            $table->string('facebook_link', 50)->nullable();
-            $table->string('twitter_link', 50)->nullable();
-            $table->string('instagram_link', 50)->nullable();
-            $table->string('discord_link', 50)->nullable();
-            $table->string('logo_link', 50)->nullable();
+            $table->string('description', 1048)->nullable();
+            $table->string('website_link', 255)->nullable();
+            $table->string('facebook_link', 255)->nullable();
+            $table->string('twitter_link', 255)->nullable();
+            $table->string('instagram_link', 255)->nullable();
+            $table->string('discord_link', 255)->nullable();
+            $table->string('logo_link', 255)->nullable();
             $table->boolean('association')->default(false);
         });
     }
