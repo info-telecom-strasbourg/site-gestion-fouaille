@@ -30,28 +30,25 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('commandes', [CommandeController::class, 'index']);
-Route::get('members', [MemberController::class, 'index']);
-
-
-Route::get('organizations', function () {
-    $organizations = app(OrganizationController::class)->index()->getData()['organizations'];
-    $organization_members= app(OrganizationMemberController::class)->index()->getData()['organizations'];
-    return View::make('organizations.index')->with(compact('organizations', 'organization_members'));
-});
-
-Route::get('/products', function () {
+Route::get('commandes', [CommandeController::class, 'index'])->name('commandes');
+Route::get('members', [MemberController::class, 'index'])->name('members');
+Route::get('products', function () {
     $products = app(ProductController::class)->index()->getData()['products'];
     $product_types = app(ProductTypeController::class)->index()->getData()['product_types'];
-    return View::make('products.index')->with(compact('products', 'product_types'));
-});
+    return view('products.index')->with(compact('products', 'product_types'));
+})->name('products');
 
 Route::post('productType', [ProductTypeController::class, 'store']);
 Route::delete('productType/{id}', [ProductTypeController::class, 'destroy']);
 
-
 Route::post('product', [ProductController::class, 'store']);
 Route::delete('product/{id}', [ProductController::class, 'destroy']);
+
+Route::get('organizations', function () {
+    $organizations = app(OrganizationController::class)->index()->getData()['organizations'];
+    $organization_members= app(OrganizationMemberController::class)->index()->getData()['organizations'];
+    return view('organizations.index')->with(compact('organizations', 'organization_members'));
+})->name('organizations');
 
 Route::get('charts', function () {
     $startDate = '2023-04-17 17:00:00';
