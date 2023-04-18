@@ -42,10 +42,10 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="/commandes">Commandes</a>
-                <a class="nav-link" href="/members">Membres</a>
-                <a class="nav-link" href="/products">Produits</a>
-                <a class="nav-link" href="/organizations">Club et asso</a>
+                <a class="nav-link" href="{{ route('commandes') }}">Commandes</a>
+                <a class="nav-link" href="{{ route('members') }}">Membres</a>
+                <a class="nav-link" href="{{ route('products') }}">Produits</a>
+                <a class="nav-link" href="{{ route('organizations') }}">Club et asso</a>
             </div>
         </div>
     </div>
