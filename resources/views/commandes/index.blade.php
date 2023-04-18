@@ -4,10 +4,7 @@
             <thead>
             <tr>
                 <th scope="col">
-                    <a href="{{ request()
-                                ->fullUrlWithQuery(['displayForHumans' => !request()->boolean('displayForHumans')])
-                                }}"
-                    >
+                    <a href="#" class="pe-auto text-primary" onclick="changeDateFormat()">
                         Date
                     </a>
                 </th>
@@ -20,9 +17,9 @@
             </thead>
             <tbody>
             @foreach($commandes as $commande)
-                <tr>
-                    <td>
-                        {{ $commande->date }}
+                <tr id="commande-{{ $loop->index }}">
+                    <td id="date-{{ $loop->index }}">
+                        {{ $commande->date['diffForHumans'] }}
                     </td>
                     @if(isset($commande->member))
                         <td>{{ $commande->member->last_name }}</td>
@@ -45,4 +42,16 @@
         </table>
         {{ $commandes->links() }}
     </div>
+    <script>
+        function changeDateFormat() {
+            @foreach($commandes as $commande)
+                var date = document.getElementById('commande-{{ $loop->index }}').children[0];
+                if(date.innerHTML == '{{ $commande->date['original'] }}') {
+                    date.innerHTML = '{{ $commande->date['diffForHumans'] }}';
+                } else {
+                    date.innerHTML = '{{ $commande->date['original'] }}';
+                }
+            @endforeach
+        }
+    </script>        
 </x-layout>
