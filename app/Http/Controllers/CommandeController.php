@@ -16,11 +16,10 @@ class CommandeController extends Controller{
         Carbon::setLocale('fr');
 
         foreach ($commandes as $commande){
-            if (!request()->has('displayForHumans') || request('displayForHumans') == 1){
-                $commande->date = Carbon::createFromFormat('Y-m-d H:i:s', $commande->date)->diffForHumans();
-            } else {
-                $commande->date = Carbon::createFromFormat('Y-m-d H:i:s', $commande->date)->format('d/m/Y H:i:s');
-            }
+            $commande->date = [
+                'diffForHumans' => Carbon::createFromFormat('Y-m-d H:i:s', $commande->date)->diffForHumans(),
+                'original' => Carbon::createFromFormat('Y-m-d H:i:s', $commande->date)->format('d/m/Y H:i:s'),
+            ];
         }
 
         return view('commandes.index', [
