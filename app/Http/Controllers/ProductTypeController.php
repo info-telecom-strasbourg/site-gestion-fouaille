@@ -17,7 +17,7 @@ class ProductTypeController extends Controller
     public function store(Request $request){
 
         $validatedData = $request->validate([
-            'type' => 'required|max:255'
+            'type' => 'required|max:255|unique:product_types'
         ]);
 
         ProductType::create([

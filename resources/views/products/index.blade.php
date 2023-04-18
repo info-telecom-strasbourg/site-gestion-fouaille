@@ -1,13 +1,23 @@
 <x-layout>
-    <div class="container mt-10">
+    <div class="container">
+
         @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+            <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+                <div class="toast-body">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
+
+            <script>
+                var toast = document.querySelector('.toast');
+                var toastInstance = new bootstrap.Toast(toast);
+                toastInstance.show();
+            </script>
+
         @endif
         <div class="row">
             <div class="col-4">
@@ -21,10 +31,6 @@
                                placeholder="type"
                                required>
                     </div>
-
-                    @error('new_type')
-                        <span class="text-xs text-red-500">{{ $message }}</span>
-                    @enderror
 
                     <div class="col">
                         <button type="submit" class="btn btn-primary mb-3">envoyer</button>
@@ -86,17 +92,6 @@
                                 </option>
                             @endforeach
                         </select>
-                        @error('name')
-                            <span class="text-xs text-red-500">{{ $message }}</span>
-                        @enderror
-
-                        @error('price')
-                            <span class="text-xs text-red-500">{{ $message }}</span>
-                        @enderror
-
-                        @error('type')
-                            <span class="text-xs text-red-500">{{ $message }}</span>
-                        @enderror
 
                     </div>
                     <div class="col">

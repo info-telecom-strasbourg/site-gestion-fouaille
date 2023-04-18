@@ -1,14 +1,5 @@
 <x-layout>
     <div class="container mt-10">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         <div class="row">
             <div class="col-4">
                 <x-table :headers="['Nom', 'Nom complet', 'Description']"
