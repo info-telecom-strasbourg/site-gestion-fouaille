@@ -77,7 +77,10 @@ Route::get('charts', function () {
     while ($date <= $end){
         $current_product = [];
         foreach ($products as $product => $value){
-            $current_product[$product] = $commandes->whereBetween('date', [$start, $date])->where('id_product', $value['id'])->count();
+            $current_product[$product] = $commandes
+                ->whereBetween('date', [$start, $date])
+                ->where('id_product', $value['id'])
+                ->count();
         }
         $datas[$date->format('H:i')] = $current_product;
         $date->addMinutes(10);
