@@ -11,4 +11,16 @@ class OrganizationController extends Controller{
             'organizations' => Organization::latest('id')->paginate(50)->withQueryString()
         ]);
     }
+
+    public function store(Request $request){
+
+        dd($request->all());
+
+        $validatedData = $request->validate([
+            'type' => 'required|max:255|unique:product_types'
+        ]);
+
+
+        return back();
+    }
 }

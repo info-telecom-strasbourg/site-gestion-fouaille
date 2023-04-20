@@ -50,6 +50,8 @@ Route::get('organizations', function () {
     return view('organizations.index')->with(compact('organizations', 'organization_members'));
 })->name('organizations');
 
+Route::post('organization', [OrganizationController::class, 'store']);
+
 Route::get('charts', function () {
     $startDate = '2023-04-17 17:00:00';
     $endDate = '2023-04-17 23:00:00';
