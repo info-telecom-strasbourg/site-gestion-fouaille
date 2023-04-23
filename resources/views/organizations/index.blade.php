@@ -47,7 +47,8 @@
                               id="description"
                               name="description"
                               rows="4"
-                              placeholder="Les BDE est l’association qui s’occupe de la vie étudiante et anime tout la partie associative de l’écoles. Ses principales missions sont :">
+                              placeholder="Les BDE est l’association qui s’occupe de la vie étudiante
+                              et anime tout la partie associative de l’écoles. Ses principales missions sont :">
                     </textarea>
 
                     <label for="website_link" class="form-label">Lien vers le site web</label>
@@ -109,6 +110,42 @@
                          :selected_data="['slug', 'description']"/>
             </div>
             <div class="col-8">
+                <form method="POST" action="organizationMember">
+                    @csrf
+
+                    <div class="row">
+                        <div class="col">
+                            <label for="id_member" class="form-label">Membre</label>
+                            <select class="form-select"
+                                    id="id_member"
+                                    name="id_member">
+                                @foreach($members as $member)
+                                    <option value="{{ $member->id }}">{{ $member->last_name . " " . $member->first_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="id_organization" class="form-label">Organisation</label>
+                            <select class="form-select"
+                                    id="id_organization"
+                                    name="id_organization">
+                                @foreach($organizations as $organization)
+                                    <option value="{{ $organization->id }}">{{ $organization->slug }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="role" class="form-label">Rôle</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="role"
+                                   name="role"
+                                   placeholder="Président"
+                                   required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-3">envoyer</button>
+                </form>
                 <table class="table">
                     <thead>
                     <tr>

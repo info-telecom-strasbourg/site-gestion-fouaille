@@ -47,10 +47,13 @@ Route::delete('product/{id}', [ProductController::class, 'destroy']);
 Route::get('organizations', function () {
     $organizations = app(OrganizationController::class)->index()->getData()['organizations'];
     $organization_members= app(OrganizationMemberController::class)->index()->getData()['organizations'];
-    return view('organizations.index')->with(compact('organizations', 'organization_members'));
+    $members = app(MemberController::class)->index()->getData()['members']->sortBy('last_name');
+    return view('organizations.index')->with(compact('organizations', 'organization_members', 'members'));
 })->name('organizations');
 
 Route::post('organization', [OrganizationController::class, 'store']);
+
+Route::post('organizationMember', [OrganizationMemberController::class, 'store']);
 
 Route::get('charts', function () {
     $startDate = '2023-04-17 17:00:00';
