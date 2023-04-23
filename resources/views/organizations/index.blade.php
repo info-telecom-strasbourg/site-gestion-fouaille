@@ -42,12 +42,12 @@
                                    required>
                         </div>
                     </div>
-                    <label for="description" class="form-label">Example textarea</label>
+                    <label for="description" class="form-label">Description</label>
                     <textarea class="form-control"
                               id="description"
                               name="description"
                               rows="4"
-                              placeholder="petite description">
+                              placeholder="Les BDE est l’association qui s’occupe de la vie étudiante et anime tout la partie associative de l’écoles. Ses principales missions sont :">
                     </textarea>
 
                     <label for="website_link" class="form-label">Lien vers le site web</label>
