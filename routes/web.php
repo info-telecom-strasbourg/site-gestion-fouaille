@@ -32,6 +32,9 @@ Route::get('/', function () {
 
 Route::get('commandes', [CommandeController::class, 'index'])->name('commandes');
 Route::get('members', [MemberController::class, 'index'])->name('members');
+
+Route::post('member', [MemberController::class, 'store']);
+
 Route::get('products', function () {
     $products = app(ProductController::class)->index()->getData()['products'];
     $product_types = app(ProductTypeController::class)->index()->getData()['product_types'];

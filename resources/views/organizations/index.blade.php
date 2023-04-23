@@ -19,7 +19,7 @@
 
         @endif
         <div class="row">
-            <div class="col-4">
+            <div class="col-7">
                 <form method="POST" action="organization">
                     @csrf
                     <div class="row">
@@ -109,7 +109,7 @@
                          :datas="$organizations"
                          :selected_data="['slug', 'description']"/>
             </div>
-            <div class="col-8">
+            <div class="col-5">
                 <form method="POST" action="organizationMember">
                     @csrf
 
