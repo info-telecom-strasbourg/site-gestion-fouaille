@@ -1,5 +1,23 @@
 <x-layout>
     <div class="container mt-10">
+        @if ($errors->any())
+            <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+                <div class="toast-body">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+
+            <script>
+                var toast = document.querySelector('.toast');
+                var toastInstance = new bootstrap.Toast(toast);
+                toastInstance.show();
+            </script>
+
+        @endif
         <div class="row">
             <div class="col-4">
                 <form method="POST" action="organization">
@@ -21,58 +39,60 @@
                                    id="slug"
                                    name="slug"
                                    placeholder="bde"
-                                 Ò  required>
+                                   required>
                         </div>
                     </div>
+                    <label for="description" class="form-label">Example textarea</label>
+                    <textarea class="form-control"
+                              id="description"
+                              name="description"
+                              rows="4"
+                              placeholder="petite description">
+                    </textarea>
+
                     <label for="website_link" class="form-label">Lien vers le site web</label>
                     <input type="text"
                            class="form-control"
                            id="website_link"
                            name="website_link"
-                           placeholder="https://bde-tps.fr/"
-                           required>
+                           placeholder="https://bde-tps.fr/">
 
                     <label for="facebook_link" class="form-label">Lien vers le facebook</label>
                     <input type="text"
                            class="form-control"
                            id="facebook_link"
                            name="facebook_link"
-                           placeholder="https://www.facebook.com/bde.telecomps/"
-                           required>
+                           placeholder="https://www.facebook.com/bde.telecomps/">
 
                     <label for="twitter_link" class="form-label">Lien vers le twitter</label>
                     <input type="text"
                            class="form-control"
                            id="twitter_link"
                            name="twitter_link"
-                           placeholder="https://www.twitter.com/bde.telecomps/"
-                           required>
+                           placeholder="https://www.twitter.com/bde.telecomps/">
 
                     <label for="instagram_link" class="form-label">Lien vers instagram</label>
                     <input type="text"
                            class="form-control"
                            id="instagram_link"
                            name="instagram_link"
-                           placeholder="https://www.instagram.com/bde/"
-                           required>
+                           placeholder="https://www.instagram.com/bde/">
 
                     <label for="discord_link" class="form-label">Lien vers le discord</label>
                     <input type="text"
                            class="form-control"
                            id="discord_link"
                            name="discord_link"
-                           placeholder="https://www.discord.com/bde/"
-                           required>
+                           placeholder="https://www.discord.com/bde/">
 
                     <label for="logo_link" class="form-label">Lien vers le logo</label>
                     <input type="text"
                            class="form-control"
                            id="logo_link"
                            name="logo_link"
-                           placeholder="https://www.serveur.com/bde.png/"
-                           required>
+                           placeholder="https://www.serveur.com/bde.png/">
 
-                    <div class="form-check form-switch">
+                    <div class="form-check">
                         <input class="form-check-input"
                                type="checkbox"
                                role="switch"
