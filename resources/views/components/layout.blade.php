@@ -44,11 +44,22 @@
                 <a class="nav-link" href="{{ route('members') }}">Membres</a>
                 <a class="nav-link" href="{{ route('products') }}">Produits</a>
                 <a class="nav-link" href="{{ route('organizations') }}">Club et asso</a>
+                @if (session()->has('cas_user'))
+                    <a class="nav-link" href="{{ route('logout') }}">Déconnexion</a>
+                @else
+                    <a class="nav-link" href="{{ route('login') }}">Connexion</a>
+                @endif
             </div>
         </div>
     </div>
 </nav>
-
+<!-- to place a better error handling -->
+@if (session()->has('message'))
+<div class="alert alert-danger">
+    {{ session('message'); }}
+    {{ session()->forget('message') }}
+</div>
+@endif
 {{ $slot}}
 
 </body>
