@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function authorized(string $name) : bool
+    {
+        $white_list = explode(',', env('CAS_WHITE_LIST'));
+        return in_array($name, $white_list);
+    }
+
     // CAS Login
     public function login(Request $request)
     {
@@ -16,24 +22,36 @@ class UserController extends Controller
             }
             cas()->authenticate();
         }
-        $request->session()->put('cas_user', cas()->user());
+        if($this->authorized(cas()->user()))
+        {
+            $request->session()->put('cas_user', cas()->user());
+        }
+        else
+        {
+            cas()->logout(null, route('home', ['failed_login' => true]));
+        }
         return redirect()->route('home');
     }
 
     public function logout()
     {
-        session()->forget('cas_user');
         cas()->logout();
         // next lines will not be reached, check cas.php config file to see
         // where logout redirection is configured
     }
 
-    public function checkIfUserIsConnected()
+    public function checkIfUserIsConnected(Request $request)
     {
         if(!cas()->isAuthenticated())
         {
+            if($request->input('failed_login'))
+            {
+                session()->put('message', 'Vous n\'êtes pas autorisé à vous connecter à cette application.');
+            }
             session()->forget('cas_user');
         }
         return view('home');
     }
+
+
 }
