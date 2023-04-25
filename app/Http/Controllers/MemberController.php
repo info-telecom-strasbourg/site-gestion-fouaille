@@ -23,9 +23,9 @@ class MemberController extends Controller
             'last_name' => 'required|max:50',
             'first_name' => 'required|max:50',
             'nickname' => 'nullable|max:50',
-            'email' => 'nullable|email',
-            'card_number' => 'nullable|integer',
-            'phone_number' => 'nullable|integer',
+            'email' => 'nullable|email|unique:members',
+            'card_number' => 'nullable|integer|unique:members',
+            'phone_number' => 'nullable|integer|unique:members',
             'contributor' => 'in:"on","off"',
             'class' => 'nullable|integer',
         ]);
