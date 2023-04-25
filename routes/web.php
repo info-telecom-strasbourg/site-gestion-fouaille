@@ -12,6 +12,9 @@ use App\Models\OrganizationMember;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MembreController;
+use App\Http\Middleware\CASLogin;
+use App\Http\Middleware\EnsureUserIsConnected;
+use App\Http\Controllers\UserController;
 
 use Carbon\Carbon;
 
@@ -26,26 +29,30 @@ use Carbon\Carbon;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::get('/', [UserController::class, 'checkIfUserIsConnected'])->name('home');
+
+Route::prefix('admin')->middleware(EnsureUserIsConnected::class)->group( function() {
+    Route::get('commandes', [CommandeController::class, 'index'])->name('commandes');
+
+    Route::get('members', [MemberController::class, 'index'])->name('members');
+    Route::post('member', [MemberController::class, 'store']);
+    Route::get('getData', [MemberController::class, 'getData'])->name('member_getData');
+
+    Route::get('products', function () {
+        $products = app(ProductController::class)->index()->getData()['products'];
+        $product_types = app(ProductTypeController::class)->index()->getData()['product_types'];
+        return view('products.index')->with(compact('products', 'product_types'));
+    })->name('products');
+    
+    Route::post('productType', [ProductTypeController::class, 'store']);
+    Route::delete('productType/{id}', [ProductTypeController::class, 'destroy']);
+    
+    Route::post('product', [ProductController::class, 'store']);
+    Route::delete('product/{id}', [ProductController::class, 'destroy']);
 });
 
-Route::get('commandes', [CommandeController::class, 'index'])->name('commandes');
-Route::get('members', [MemberController::class, 'index'])->name('members');
-
-Route::post('member', [MemberController::class, 'store']);
-
-Route::get('products', function () {
-    $products = app(ProductController::class)->index()->getData()['products'];
-    $product_types = app(ProductTypeController::class)->index()->getData()['product_types'];
-    return view('products.index')->with(compact('products', 'product_types'));
-})->name('products');
-
-Route::post('productType', [ProductTypeController::class, 'store']);
-Route::delete('productType/{id}', [ProductTypeController::class, 'destroy']);
-
-Route::post('product', [ProductController::class, 'store']);
-Route::delete('product/{id}', [ProductController::class, 'destroy']);
+Route::get('login', [UserController::class, 'login'])->name('login');
+Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('organizations', function () {
     $organizations = app(OrganizationController::class)->index()->getData()['organizations'];
@@ -94,5 +101,4 @@ Route::get('charts', function () {
     dd($datas);
 });
 
-Route::get('getData', [MemberController::class, 'getData'])->name('member_getData');
 
