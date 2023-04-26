@@ -71,6 +71,7 @@
                            class="form-control"
                            id="phone_number"
                            name="phone_number"
+                           pattern="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$"
                            placeholder="0606060606">
             </div>
             <div class="row">
