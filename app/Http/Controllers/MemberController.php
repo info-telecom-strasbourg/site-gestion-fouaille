@@ -23,9 +23,13 @@ class MemberController extends Controller
             'last_name' => 'required|max:50',
             'first_name' => 'required|max:50',
             'nickname' => 'nullable|max:50',
-            'email' => 'nullable|email|unique:members',
+            'email' => 'required|email|unique:members',
             'card_number' => 'nullable|integer|unique:members',
-            'phone_number' => 'nullable|integer|unique:members',
+            'phone_number' => [
+                'nullable',
+                'unique:members',
+                'regex:/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/' // regex for phone number
+            ],
             'contributor' => 'in:"on","off"',
             'class' => 'nullable|integer',
         ]);
