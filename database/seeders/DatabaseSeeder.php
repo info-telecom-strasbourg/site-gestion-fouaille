@@ -30,32 +30,42 @@ class DatabaseSeeder extends Seeder
 
         Product::factory()->create([
             'name' => 'pizza',
+            'slug' => 'pizza',
             'price' => 2.5,
             'id_product_type' => ProductType::where('type', 'midi')->first()->id,
+            'color' => '#ff0000'
         ]);
 
         Product::factory()->create([
             'name' => 'nouilles',
+            'slug' => 'nouilles',
             'price' => 1,
             'id_product_type' => ProductType::where('type', 'midi')->first()->id,
+            'color' => '#00ff00'
         ]);
 
         Product::factory()->create([
             'name' => 'meteor',
+            'slug' => 'meteor',
             'price' => 1.2,
             'id_product_type' => ProductType::where('type', 'soiree')->first()->id,
+            'color' => '#0000ff'
         ]);
 
         Product::factory()->create([
             'name' => 'kastel',
+            'slug' => 'kastel',
             'price' => 3,
             'id_product_type' => ProductType::where('type', 'soiree')->first()->id,
+            'color' => '#ff00ff'
         ]);
 
         Product::factory()->create([
             'name' => 'primus',
+            'slug' => 'primus',
             'price' => 1,
             'id_product_type' => ProductType::where('type', 'soiree')->first()->id,
+            'color' => '#ffff00'
         ]);
 
         Commande::factory(1000)->create();

@@ -71,12 +71,28 @@
                                required>
                     </div>
                     <div class="col">
+                        <input type="text"
+                               class="form-control"
+                               id="slug"
+                               name="slug"
+                               placeholder="Titre"
+                               required>
+                    </div>
+                    <div class="col">
                         <input type="number"
                                step=0.01
                                class="form-control"
                                id="price"
                                name="price"
                                placeholder="Prix"
+                               required>
+                    </div>
+                    <div class="col">
+                        <input type="color"
+                               class="form-control"
+                               id="color"
+                               name="color"
+                               placeholder="Couleur"
                                required>
                     </div>
                     <div class="col">
@@ -102,8 +118,10 @@
                     <thead>
                     <tr>
                         <th scope="col">Nom</th>
+                        <th scope="col">Titre</th>
                         <th scope="col">Prix par défault</th>
                         <th scope="col">Type</th>
+                        <th scope="col">Couleur</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -111,8 +129,10 @@
                     @foreach($products as $product)
                         <tr>
                             <td>{{ $product->name }}</td>
+                            <td>{{ $product->slug }}</td>
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->productType->type }}</td>
+                            <td><p style="color: {{ $product->color }}">{{ $product->color }}</p></td>
                             <td>
                                 <form method="POST" action="product/{{ $product->id }}">
                                     @csrf
