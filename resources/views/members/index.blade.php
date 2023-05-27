@@ -1,23 +1,6 @@
 <x-layout>
     <div class="container">
-        @if ($errors->any())
-            <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
-                <div class="toast-body">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-
-            <script>
-                var toast = document.querySelector('.toast');
-                var toastInstance = new bootstrap.Toast(toast);
-                toastInstance.show();
-            </script>
-
-        @endif
+        <x-error-toast/>
         <form method="POST" action="member">
             @csrf
             <div class="row">
@@ -71,6 +54,7 @@
                            class="form-control"
                            id="phone_number"
                            name="phone_number"
+                           pattern="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$"
                            placeholder="0606060606">
             </div>
             <div class="row">
