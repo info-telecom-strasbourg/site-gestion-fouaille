@@ -43,10 +43,10 @@ Route::prefix('admin')->middleware(EnsureUserIsConnected::class)->group( functio
         $product_types = app(ProductTypeController::class)->index()->getData()['product_types'];
         return view('products.index')->with(compact('products', 'product_types'));
     })->name('products');
-    
+
     Route::post('productType', [ProductTypeController::class, 'store']);
     Route::delete('productType/{id}', [ProductTypeController::class, 'destroy']);
-    
+
     Route::post('product', [ProductController::class, 'store']);
     Route::delete('product/{id}', [ProductController::class, 'destroy']);
     Route::get('organizations', function () {
@@ -55,7 +55,7 @@ Route::prefix('admin')->middleware(EnsureUserIsConnected::class)->group( functio
         $members = app(MemberController::class)->index()->getData()['members']->sortBy('last_name');
         return view('organizations.index')->with(compact('organizations', 'organization_members', 'members'));
     })->name('organizations');
-    
+
     Route::post('organization', [OrganizationController::class, 'store']);
     Route::post('organizationMember', [OrganizationMemberController::class, 'store']);
 });
