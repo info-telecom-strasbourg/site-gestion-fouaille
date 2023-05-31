@@ -8,7 +8,7 @@ on:
 
 jobs:
   laravel-tests:
-    
+
     runs-on: ubuntu-latest
 
     steps:
@@ -17,4 +17,4 @@ jobs:
           php-version: '8.0'
       - uses: actions/checkout@v3
       - name: Deploy
-        script: "cd /srv/bde-db/fouaille && ./.scripts/deploy.sh"
+        run: "cd /srv/bde-db/fouaille && ./.scripts/deploy.sh"
