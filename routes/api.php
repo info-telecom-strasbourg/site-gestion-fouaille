@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ApiOrganizationController;
 use App\Http\Controllers\Api\ApiProductController;
+use App\Http\Controllers\Api\ApiProductTypeController;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Http\Request;
@@ -19,6 +20,10 @@ use Illuminate\Http\Request;
 
 Route::prefix('product')->group( function() {
     Route::get('index', [ApiProductController::class, 'index']);
+});
+
+Route::prefix('productType')->group( function() {
+    Route::get('index', [ApiProductTypeController::class, 'index']);
 });
 
 Route::get('/', function (Request $request) {
