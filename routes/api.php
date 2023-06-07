@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 */
 
 Route::prefix('product')->group( function() {
-    Route::get('/', [ApiProductController::class, 'index']);
+    Route::get('index', [ApiProductController::class, 'index']);
 });
 
 Route::get('/', function (Request $request) {
