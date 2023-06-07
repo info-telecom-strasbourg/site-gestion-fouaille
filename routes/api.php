@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\ApiOrganizationController;
-use App\Http\Controllers\ApiProductController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\ApiOrganizationController;
+use App\Http\Controllers\Api\ApiProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,5 +20,8 @@ Route::prefix('product')->group( function() {
 });
 
 Route::prefix('organization')->group( function() {
-    Route::get('/', [ApiOrganizationController::class, 'index']);
+    Route::get('index', [ApiOrganizationController::class, 'index']);
+    Route::get('index/small', [ApiOrganizationController::class, 'indexSmall']);
+
+    Route::get('show/{id}', [ApiOrganizationController::class, 'show']);
 });

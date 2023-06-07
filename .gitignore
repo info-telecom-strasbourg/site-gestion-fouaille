@@ -3,6 +3,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/images/organization_logo/*
 /storage/*.key
 /vendor
 vendor/
@@ -10,6 +11,7 @@ vendor/
 .env.backup
 .env.production
 .phpunit.result.cache
+.DS_Store
 Homestead.json
 Homestead.yaml
 auth.json
