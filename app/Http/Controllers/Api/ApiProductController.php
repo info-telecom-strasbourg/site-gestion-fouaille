@@ -22,7 +22,7 @@ class ApiProductController extends Controller
                             'price' => $product->price,
                             'color' => $product->color
                         ];
-                    })
+                    })->values()
                 ];
             })
         ])->setEncodingOptions(JSON_PRETTY_PRINT);
