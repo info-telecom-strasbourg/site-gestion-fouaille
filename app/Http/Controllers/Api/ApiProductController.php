@@ -27,7 +27,7 @@ class ApiProductController extends Controller
             ];
         });
 
-        return response()->json(['config' =>$formatted_data])->setEncodingOptions(JSON_PRETTY_PRINT);
+        return response()->json(['data' =>$formatted_data])->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 
 }
