@@ -22,4 +22,5 @@ class Commande extends Model
     public function member(){
         return $this->belongsTo(Member::class, 'id_member');
     }
+
 }
