@@ -9,25 +9,22 @@ use App\Models\ProductType;
 class ApiProductController extends Controller
 {
     public function index(){
-
-        $formatted_data = ProductType::all()->map(function ($product_type) {
-            $product =  Product::all()->where('id_product_type', '=',$product_type->id)->map(function ($product) {
+        return response()
+            ->json(['data' =>ProductType::all()->map(function ($product_type) {
                 return [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'slug' => $product->slug,
-                    'price' => $product->price,
-                    'color' => $product->color
+                    'id' => $product_type->id,
+                    'product_type' => $product_type->type,
+                    'products' => Product::all()->where('id_product_type', '=',$product_type->id)->map(function ($product) {
+                        return [
+                            'id' => $product->id,
+                            'name' => $product->name,
+                            'slug' => $product->slug,
+                            'price' => floatval($product->price),
+                            'color' => $product->color
+                        ];
+                    })
                 ];
-            });
-            return [
-                'id' => $product_type->id,
-                'product_type' => $product_type->type,
-                'products' => $product->values()
-            ];
-        });
-
-        return response()->json(['data' =>$formatted_data])->setEncodingOptions(JSON_PRETTY_PRINT);
+            })
+        ])->setEncodingOptions(JSON_PRETTY_PRINT);
     }
-
 }
