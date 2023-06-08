@@ -36,7 +36,7 @@ class ApiFouailleController extends Controller
                 ]
             ];
         })->values(),
-            'meta' => [ // Metadata for pagination 
+            'meta' => [ // Metadata for pagination
                 'total' => $commandes->total(),
                 'per_page' => $commandes->perPage(),
                 'current_page' => $commandes->currentPage(),

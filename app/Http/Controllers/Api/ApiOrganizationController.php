@@ -12,17 +12,15 @@ use Intervention\Image\Facades\Image;
 class ApiOrganizationController extends Controller
 {
     public function index(){
-        return Organization::all()->toJson(JSON_PRETTY_PRINT);
+        return response()->json(['data' => Organization::all()])->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 
     public function indexSmall(){
-        $organization = Organization::select('id', 'slug', 'name', 'logo_link')->get();
-
-        return $organization->toJson(JSON_PRETTY_PRINT);
+        return response()->json(['data' => Organization::select('id', 'slug', 'name', 'logo_link')->get()])->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 
-    public function show(Request $request, $id){
-        return Organization::find($id)->toJson(JSON_PRETTY_PRINT);
+    public function show($id){
+        return response()->json(['data' => Organization::find($id)])->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 
     public function image(Request $request, $id){
