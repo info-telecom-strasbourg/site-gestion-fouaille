@@ -9,8 +9,6 @@ use App\Models\ProductType;
 class ApiProductController extends Controller
 {
     public function index(){
-        $products = Product::all();
-
 
         $formatted_data = ProductType::all()->map(function ($product_type) {
             $product =  Product::all()->where('id_product_type', '=',$product_type->id)->map(function ($product) {

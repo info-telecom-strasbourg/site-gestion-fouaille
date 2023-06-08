@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiFouailleController;
 use App\Http\Controllers\Api\ApiOrganizationController;
 use App\Http\Controllers\Api\ApiProductController;
 use App\Http\Controllers\Api\ApiProductTypeController;
@@ -26,14 +27,14 @@ Route::prefix('productType')->group( function() {
     Route::get('index', [ApiProductTypeController::class, 'index']);
 });
 
-Route::get('/', function (Request $request) {
-    dd($request->all());
-});
-
 Route::prefix('organization')->group( function() {
     Route::get('index', [ApiOrganizationController::class, 'index']);
     Route::get('index/small', [ApiOrganizationController::class, 'indexSmall']);
 
     Route::get('show/{id}', [ApiOrganizationController::class, 'show']);
     Route::get('show/{id}/image', [ApiOrganizationController::class, 'image']);
+});
+
+Route::prefix('fouaille')->group( function() {
+    Route::get('show/{id}', [ApiFouailleController::class, 'show']);
 });
