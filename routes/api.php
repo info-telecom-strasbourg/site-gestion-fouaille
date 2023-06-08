@@ -36,5 +36,7 @@ Route::prefix('organization')->group( function() {
 });
 
 Route::prefix('fouaille')->group( function() {
-    Route::get('show/{id}', [ApiFouailleController::class, 'show']);
+    Route::get('command/show/{id}', [ApiFouailleController::class, 'showCommand']);
+
+    Route::get('balance/show/{id}', [ApiFouailleController::class, 'showBalance']);
 });

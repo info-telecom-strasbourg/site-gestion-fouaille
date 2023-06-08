@@ -4,11 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Commande;
+use App\Models\Member;
 
 class ApiFouailleController extends Controller
 {
-    public function show($id){
-        return response()->json(['commandes' => Commande::all()->where('id_member', '=', $id)->map(function ($commande) {
+    /*
+     * Show all commands of a member
+     * @param $id : id of the member
+     * @return json : all commands of the member ordered by date
+     */
+    public function showCommand($id){
+        return response()
+            ->json(['commandes' => Commande::where('id_member', '=', $id)->orderBy('date')->get()->map(function ($commande) {
             return [
                 'date' => $commande->date,
                 'total_price' => $commande->product->price,
@@ -20,6 +27,18 @@ class ApiFouailleController extends Controller
                     'color' => $commande->product->color
                 ]
             ];
-        })->values()])->setEncodingOptions(JSON_PRETTY_PRINT);
+        })->values()])
+            ->setEncodingOptions(JSON_PRETTY_PRINT);
+    }
+
+    /*
+     * Show the balance of a member
+     * @param $id : id of the member
+     * @return json : balance of the member
+     */
+    public function showBalance($id){
+        return response()
+            ->json(['balance' => Member::find($id)->balance])
+            ->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 }
