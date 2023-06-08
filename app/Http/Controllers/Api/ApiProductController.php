@@ -14,7 +14,7 @@ class ApiProductController extends Controller
             $product =  Product::all()->where('id_product_type', '=',$product_type->id)->map(function ($product) {
                 return [
                     'id' => $product->id,
-                    'product_type' => $product->name,
+                    'name' => $product->name,
                     'slug' => $product->slug,
                     'price' => $product->price,
                     'color' => $product->color
@@ -22,7 +22,7 @@ class ApiProductController extends Controller
             });
             return [
                 'id' => $product_type->id,
-                'name' => $product_type->type,
+                'product_type' => $product_type->type,
                 'products' => $product->values()
             ];
         });
