@@ -14,7 +14,7 @@ class ApiProductController extends Controller
             $product =  Product::all()->where('id_product_type', '=',$product_type->id)->map(function ($product) {
                 return [
                     'id' => $product->id,
-                    'name' => $product->name,
+                    'product_type' => $product->name,
                     'slug' => $product->slug,
                     'price' => $product->price,
                     'color' => $product->color
