@@ -10,6 +10,7 @@ use App\Models\OrganizationMember;
 use App\Models\Product;
 use App\Models\ProductType;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,52 +22,111 @@ class DatabaseSeeder extends Seeder
         Member::factory(100)->create();
 
         ProductType::factory()->create([
-            'type' => 'midi',
+            'type' => 'Midi',
         ]);
 
         ProductType::factory()->create([
-            'type' => 'soiree',
+            'type' => 'Soirée',
+        ]);
+
+        ProductType::factory()->create([
+            'type' => 'CharcutFromage',
+        ]);
+
+        ProductType::factory()->create([
+            'type' => 'Oeno',
+        ]);
+
+        ProductType::factory()->create([
+            'type' => 'Shots',
+        ]);
+
+        ProductType::factory()->create([
+            'type' => 'Goûter',
         ]);
 
         Product::factory()->create([
-            'name' => 'pizza',
-            'slug' => 'pizza',
-            'price' => 2.5,
-            'id_product_type' => ProductType::where('type', 'midi')->first()->id,
-            'color' => '#ff0000'
+            'name' => 'cocktail12',
+            'slug' => 'cocktail12',
+            'price' => 1.2,
+            'id_product_type' => ProductType::where('type', 'Soirée')->first()->id,
+            'color' => '#'.Str::random(6)
         ]);
 
         Product::factory()->create([
-            'name' => 'nouilles',
-            'slug' => 'nouilles',
-            'price' => 1,
-            'id_product_type' => ProductType::where('type', 'midi')->first()->id,
-            'color' => '#00ff00'
+            'name' => 'cocktail16',
+            'slug' => 'cocktail16',
+            'price' => 1.6,
+            'id_product_type' => ProductType::where('type', 'Soirée')->first()->id,
+            'color' => '#'.Str::random(6)
         ]);
 
         Product::factory()->create([
             'name' => 'meteor',
             'slug' => 'meteor',
             'price' => 1.2,
-            'id_product_type' => ProductType::where('type', 'soiree')->first()->id,
-            'color' => '#0000ff'
+            'id_product_type' => ProductType::where('type', 'Soirée')->first()->id,
+            'color' => '#'.Str::random(6)
         ]);
 
         Product::factory()->create([
-            'name' => 'kastel',
-            'slug' => 'kastel',
+            'name' => 'pizza',
+            'slug' => 'pizza',
+            'price' => 2.6,
+            'id_product_type' => ProductType::where('type', 'Midi')->first()->id,
+            'color' => '#'.Str::random(6)
+        ]);
+
+
+        Product::factory()->create([
+            'name' => 'sandwich',
+            'slug' => 'sandwich',
+            'price' => 2,
+            'id_product_type' => ProductType::where('type', 'Midi')->first()->id,
+            'color' => '#'.Str::random(6)
+        ]);
+
+        Product::factory()->create([
+            'name' => 'charcuterie',
+            'slug' => 'charcuterie',
+            'price' => 4.4,
+            'id_product_type' => ProductType::where('type', 'CharcutFromage')->first()->id,
+            'color' => '#'.Str::random(6)
+        ]);
+
+        Product::factory()->create([
+            'name' => 'fromage',
+            'slug' => 'fromage',
             'price' => 3,
-            'id_product_type' => ProductType::where('type', 'soiree')->first()->id,
-            'color' => '#ff00ff'
+            'id_product_type' => ProductType::where('type', 'CharcutFromage')->first()->id,
+            'color' => '#'.Str::random(6)
         ]);
 
         Product::factory()->create([
-            'name' => 'primus',
-            'slug' => 'primus',
-            'price' => 1,
-            'id_product_type' => ProductType::where('type', 'soiree')->first()->id,
-            'color' => '#ffff00'
+            'name' => 'bordeaux',
+            'slug' => 'bordeaux',
+            'price' => 1.6,
+            'id_product_type' => ProductType::where('type', 'Oeno')->first()->id,
+            'color' => '#'.Str::random(6)
         ]);
+
+        Product::factory()->create([
+            'name' => 'cookies',
+            'slug' => 'cookies',
+            'price' => 2.2,
+            'id_product_type' => ProductType::where('type', 'Goûter')->first()->id,
+            'color' => '#'.Str::random(6)
+        ]);
+
+        Product::factory()->create([
+            'name' => 'metre',
+            'slug' => 'metre',
+            'price' => 1.2,
+            'id_product_type' => ProductType::where('type', 'Shots')->first()->id,
+            'color' => '#'.Str::random(6)
+        ]);
+
+
 
         Commande::factory(1000)->create();
 
