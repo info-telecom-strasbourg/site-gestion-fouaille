@@ -24,17 +24,26 @@ class ApiFouailleController extends Controller
 
         return response()
             ->json(['data' => $commandes->map(function ($commande) { // Format the data
-            return [
-                'date' => $commande->date,
-                'total_price' => $commande->product->price,
-                'amount' => $commande->amount,
-                'product' => [
-                    'name' => $commande->product->name,
-                    'slug' => $commande->product->slug,
-                    'unit_price' => $commande->product->price/$commande->amount,
-                    'color' => $commande->product->color
-                ]
-            ];
+                if ($commande->product != null){
+                    return [
+                        'date' => $commande->date,
+                        'total_price' => $commande->price,
+                        'amount' => $commande->amount,
+                        'product' => [
+                            'name' => $commande->product->name,
+                            'slug' => $commande->product->slug,
+                            'unit_price' => floatval($commande->product->price)/$commande->amount,
+                            'color' => $commande->product->color
+                        ]
+                    ];
+                }else{
+                    return [
+                        'date' => $commande->date,
+                        'total_price' => $commande->price,
+                        'amount' => $commande->amount,
+                        'product' => null
+                    ];
+                }
         })->values(),
             'meta' => [ // Metadata for pagination
                 'total' => $commandes->total(),
@@ -78,17 +87,26 @@ class ApiFouailleController extends Controller
             ->json(['data' => [
                 "balance" => Member::find($id)->balance,
                 "commands" => $commandes->map(function ($commande) { // Format the data
-                return [
-                    'date' => $commande->date,
-                    'total_price' => $commande->product->price,
-                    'amount' => $commande->amount,
-                    'product' => [
-                        'name' => $commande->product->name,
-                        'slug' => $commande->product->slug,
-                        'unit_price' => $commande->product->price/$commande->amount,
-                        'color' => $commande->product->color
-                    ]
-                ];
+                if ($commande->product != null){
+                    return [
+                        'date' => $commande->date,
+                        'total_price' => $commande->price,
+                        'amount' => $commande->amount,
+                        'product' => [
+                            'name' => $commande->product->name,
+                            'slug' => $commande->product->slug,
+                            'unit_price' => floatval($commande->product->price)/$commande->amount,
+                            'color' => $commande->product->color
+                        ]
+                    ];
+                }else{
+                    return [
+                        'date' => $commande->date,
+                        'total_price' => $commande->price,
+                        'amount' => $commande->amount,
+                        'product' => null
+                    ];
+                }
             })->values(),
                 'meta' => [ // Metadata for pagination
                     'total' => $commandes->total(),

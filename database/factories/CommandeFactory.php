@@ -25,7 +25,7 @@ class CommandeFactory extends Factory
         return [
             'id_product' => $product->id,
             'id_member' => Member::InRandomOrder()->first()->id,
-            'price' => $product->price*$amount,
+            'price' => floatval($product->price)*$amount,
             'amount' => $amount,
             'date' => fake()->dateTimeBetween('-1 day', 'now'),
         ];

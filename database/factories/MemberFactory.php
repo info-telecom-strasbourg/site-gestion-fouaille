@@ -23,7 +23,7 @@ class MemberFactory extends Factory
             'card_number' => fake()->unique()->randomNumber(8),
             'email' => fake()->unique()->email,
             'phone_number' => fake()->unique()->phoneNumber,
-            'balance' => fake()->randomFloat(2, 0, 10000),
+            'balance' => fake()->randomFloat(2, 0, 100),
             'admin' => 1,
             'contributor' => 1,
             'created_at' => fake()->dateTimeBetween('-1 year', 'now'),

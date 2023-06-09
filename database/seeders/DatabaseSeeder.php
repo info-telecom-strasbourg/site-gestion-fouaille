@@ -48,87 +48,119 @@ class DatabaseSeeder extends Seeder
         Product::factory()->create([
             'name' => 'cocktail12',
             'slug' => 'cocktail12',
-            'price' => 1.2,
+            'price' => -1.2,
             'id_product_type' => ProductType::where('type', 'Soirée')->first()->id,
-            'color' => '#'.Str::random(6)
+            'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'cocktail16',
             'slug' => 'cocktail16',
-            'price' => 1.6,
+            'price' => -1.6,
             'id_product_type' => ProductType::where('type', 'Soirée')->first()->id,
-            'color' => '#'.Str::random(6)
+            'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'meteor',
             'slug' => 'meteor',
-            'price' => 1.2,
+            'price' => -1.2,
             'id_product_type' => ProductType::where('type', 'Soirée')->first()->id,
-            'color' => '#'.Str::random(6)
+            'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'pizza',
             'slug' => 'pizza',
-            'price' => 2.6,
+            'price' => -2.6,
             'id_product_type' => ProductType::where('type', 'Midi')->first()->id,
-            'color' => '#'.Str::random(6)
+            'color' => fake()->hexColor()
         ]);
 
 
         Product::factory()->create([
             'name' => 'sandwich',
             'slug' => 'sandwich',
-            'price' => 2,
+            'price' => -2,
             'id_product_type' => ProductType::where('type', 'Midi')->first()->id,
-            'color' => '#'.Str::random(6)
+            'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'charcuterie',
             'slug' => 'charcuterie',
-            'price' => 4.4,
+            'price' => -4.4,
             'id_product_type' => ProductType::where('type', 'CharcutFromage')->first()->id,
-            'color' => '#'.Str::random(6)
+            'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'fromage',
             'slug' => 'fromage',
-            'price' => 3,
+            'price' => -3,
             'id_product_type' => ProductType::where('type', 'CharcutFromage')->first()->id,
-            'color' => '#'.Str::random(6)
+            'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'bordeaux',
             'slug' => 'bordeaux',
-            'price' => 1.6,
+            'price' => -1.6,
             'id_product_type' => ProductType::where('type', 'Oeno')->first()->id,
-            'color' => '#'.Str::random(6)
+            'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'cookies',
             'slug' => 'cookies',
-            'price' => 2.2,
+            'price' => -2.2,
             'id_product_type' => ProductType::where('type', 'Goûter')->first()->id,
-            'color' => '#'.Str::random(6)
+            'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'metre',
             'slug' => 'metre',
-            'price' => 1.2,
+            'price' => -1.2,
             'id_product_type' => ProductType::where('type', 'Shots')->first()->id,
-            'color' => '#'.Str::random(6)
+            'color' => fake()->hexColor()
         ]);
 
 
 
         Commande::factory(1000)->create();
+
+        Commande::factory()->create([
+            'id_member' => Member::InRandomOrder()->first()->id,
+            'id_product' => null,
+            'amount' => 1,
+            'price' => 20,
+            'date' => fake()->dateTimeBetween('-1 day', 'now')
+        ]);
+
+        Commande::factory()->create([
+            'id_member' => Member::InRandomOrder()->first()->id,
+            'id_product' => null,
+            'amount' => 1,
+            'price' => 50,
+            'date' => fake()->dateTimeBetween('-1 day', 'now')
+        ]);
+
+        Commande::factory()->create([
+            'id_member' => Member::InRandomOrder()->first()->id,
+            'id_product' => null,
+            'amount' => 1,
+            'price' => 100,
+            'date' => fake()->dateTimeBetween('-1 day', 'now')
+        ]);
+
+        Commande::factory()->create([
+            'id_member' => 1,
+            'id_product' => null,
+            'amount' => 1,
+            'price' => 50,
+            'date' => fake()->dateTimeBetween('now', 'now')
+        ]);
 
         Organization::factory()->create([
             'slug' => 'bde',
