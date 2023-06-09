@@ -16,6 +16,7 @@ class ApiFouailleController extends Controller
      */
     public function showCommand($id, Request $request){
         $page_size = $request->query('page_size'); // Get the page size from the query parameters (default value is 10)
+
         if ($page_size == null){
             $page_size = 10;
         }
@@ -77,6 +78,8 @@ class ApiFouailleController extends Controller
     public function show($id, Request $request){
         $page_size = $request->query('page_size'); // Get the page size from the query parameters (default value is 10)
 
+        $member = Member::find($id);
+
         if ($page_size == null){
             $page_size = 10;
         }
@@ -85,7 +88,10 @@ class ApiFouailleController extends Controller
 
         return response()
             ->json(['data' => [
-                "balance" => Member::find($id)->balance,
+                "balance" => $member->balance,
+                "first_name" => $member->first_name,
+                "last_name" => $member->last_name,
+                "nickname" => $member->nickname,
                 "commands" => $commandes->map(function ($commande) { // Format the data
                 if ($commande->product != null){
                     return [
