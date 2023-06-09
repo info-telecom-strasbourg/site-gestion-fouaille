@@ -39,4 +39,6 @@ Route::prefix('fouaille')->group( function() {
     Route::get('command/show/{id}', [ApiFouailleController::class, 'showCommand']);
 
     Route::get('balance/show/{id}', [ApiFouailleController::class, 'showBalance']);
+
+    Route::get('show/{id}', [ApiFouailleController::class, 'show']);
 });
