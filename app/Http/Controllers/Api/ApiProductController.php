@@ -19,7 +19,7 @@ class ApiProductController extends Controller
                             'id' => $product->id,
                             'name' => $product->name,
                             'slug' => $product->slug,
-                            'price' => $product->price,
+                            'price' => floatval($product->price),
                             'color' => $product->color
                         ];
                     })->values()
