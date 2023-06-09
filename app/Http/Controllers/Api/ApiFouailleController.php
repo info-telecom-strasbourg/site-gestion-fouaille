@@ -32,7 +32,7 @@ class ApiFouailleController extends Controller
                         'product' => [
                             'name' => $commande->product->name,
                             'slug' => $commande->product->slug,
-                            'unit_price' => floatval($commande->product->price)/$commande->amount,
+                            'unit_price' => floatval($commande->price)/$commande->amount,
                             'color' => $commande->product->color
                         ]
                     ];
@@ -95,7 +95,7 @@ class ApiFouailleController extends Controller
                         'product' => [
                             'name' => $commande->product->name,
                             'slug' => $commande->product->slug,
-                            'unit_price' => floatval($commande->product->price)/$commande->amount,
+                            'unit_price' => floatval($commande->price)/$commande->amount,
                             'color' => $commande->product->color
                         ]
                     ];
