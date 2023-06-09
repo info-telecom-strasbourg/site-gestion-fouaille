@@ -27,7 +27,7 @@ class ApiFouailleController extends Controller
                 if ($commande->product != null){
                     return [
                         'date' => $commande->date,
-                        'total_price' => $commande->price,
+                        'total_price' => floatval($commande->price),
                         'amount' => $commande->amount,
                         'product' => [
                             'name' => $commande->product->name,
@@ -90,7 +90,7 @@ class ApiFouailleController extends Controller
                 if ($commande->product != null){
                     return [
                         'date' => $commande->date,
-                        'total_price' => $commande->price,
+                        'total_price' => floatval($commande->price),
                         'amount' => $commande->amount,
                         'product' => [
                             'name' => $commande->product->name,
