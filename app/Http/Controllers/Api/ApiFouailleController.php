@@ -27,19 +27,19 @@ class ApiFouailleController extends Controller
                 if ($commande->product != null){
                     return [
                         'date' => $commande->date,
-                        'total_price' => floatval($commande->price),
+                        'total_price' => $commande->price,
                         'amount' => $commande->amount,
                         'product' => [
                             'name' => $commande->product->name,
                             'slug' => $commande->product->slug,
-                            'unit_price' => floatval($commande->price)/$commande->amount,
+                            'unit_price' => strval(floatval($commande->price)/$commande->amount),
                             'color' => $commande->product->color
                         ]
                     ];
                 }else{
                     return [
                         'date' => $commande->date,
-                        'total_price' => floatval($commande->price),
+                        'total_price' => $commande->price,
                         'amount' => $commande->amount,
                         'product' => null
                     ];
@@ -90,19 +90,19 @@ class ApiFouailleController extends Controller
                 if ($commande->product != null){
                     return [
                         'date' => $commande->date,
-                        'total_price' => floatval($commande->price),
+                        'total_price' => $commande->price,
                         'amount' => $commande->amount,
                         'product' => [
                             'name' => $commande->product->name,
                             'slug' => $commande->product->slug,
-                            'unit_price' => floatval($commande->price)/$commande->amount,
+                            'unit_price' => strval(floatval($commande->price)/$commande->amount),
                             'color' => $commande->product->color
                         ]
                     ];
                 }else{
                     return [
                         'date' => $commande->date,
-                        'total_price' => floatval($commande->price),
+                        'total_price' => $commande->price,
                         'amount' => $commande->amount,
                         'product' => null
                     ];
