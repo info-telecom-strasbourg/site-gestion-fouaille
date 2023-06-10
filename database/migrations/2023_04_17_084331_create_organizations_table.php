@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('instagram_link', 255)->nullable();
             $table->string('discord_link', 255)->nullable();
             $table->string('logo_link', 255)->nullable();
+            $table->string('email', 50)->unique()->nullable();
             $table->boolean('association')->default(false);
         });
     }

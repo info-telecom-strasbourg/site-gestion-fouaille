@@ -23,30 +23,4 @@ class ApiOrganizationController extends Controller
         return response()->json(['data' => Organization::find($id)])->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 
-    public function image(Request $request, $id){
-
-        $image_url = Organization::find($id)->logo_link;
-        if (!filter_var($image_url, FILTER_VALIDATE_URL)){ // If the url is not valid
-            return response()->json([
-                'message' => 'No image found for this organization'
-            ], 404);
-        }
-
-        // Get the path of the image from the url (without the domain name) from https://www.aidantsnature.fr/storage/organizations/1/1.png to absolute path of the image
-        $image_path = public_path(parse_url($image_url, PHP_URL_PATH));
-
-        $new_size = $request->query('size');
-        if ($new_size == null){ // If no size is specified, return the original image
-            return redirect()->away($image_url);
-        }
-
-        $image = Image::make($image_path);
-
-        $image->resize($new_size, $new_size, function($constraint){
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
-
-        return $image->response('png');
-    }
 }
