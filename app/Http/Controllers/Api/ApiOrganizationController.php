@@ -16,7 +16,14 @@ class ApiOrganizationController extends Controller
     }
 
     public function indexSmall(){
-        return response()->json(['data' => Organization::select('id', 'slug', 'name', 'logo_link')->get()])->setEncodingOptions(JSON_PRETTY_PRINT);
+
+        $association = Organization::select('id', 'slug', 'name', 'logo_link')->where('association', '=', 1)->get();
+        $clubs = Organization::select('id', 'slug', 'name', 'logo_link')->where('association', '=', 0)->get();
+
+        return response()->json(['data' => [
+            'associations' => $association,
+            'clubs' => $clubs
+        ]])->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 
     public function show($id){
