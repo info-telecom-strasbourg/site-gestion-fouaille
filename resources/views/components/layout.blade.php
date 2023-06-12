@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Fixed top navbar example for Bootstrap</title>
+    <title>Fouaille</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/navbar-fixed/">
 
@@ -40,7 +40,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="{{ route('commandes') }}">Commandes</a>
+                <a class="nav-link" href="{{ route('orders') }}">Commandes</a>
                 <a class="nav-link" href="{{ route('members') }}">Membres</a>
                 <a class="nav-link" href="{{ route('products') }}">Produits</a>
                 <a class="nav-link" href="{{ route('organizations') }}">Club et asso</a>

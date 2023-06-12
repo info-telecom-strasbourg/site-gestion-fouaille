@@ -7,9 +7,9 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Commande>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
  */
-class CommandeFactory extends Factory
+class OrderFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,14 +20,20 @@ class CommandeFactory extends Factory
     {
         $product = Product::InRandomOrder()->first();
 
-        $amount = fake()->numberBetween(1, 10);
+        $amount = fake()->numberBetween(1, 5);
+
+        if(rand(0, 1) == 1){
+            $signe = 1;
+        }else{
+            $signe = -1;
+        }
 
         return [
             'id_product' => $product->id,
             'id_member' => Member::InRandomOrder()->first()->id,
-            'price' => -floatval($product->price)*$amount,
+            'price' => $signe * floatval($product->price) * $amount,
             'amount' => $amount,
-            'date' => fake()->dateTimeBetween('-1 day', 'now'),
+            'date' => fake()->dateTimeBetween('-10 day', 'now'),
         ];
     }
 }

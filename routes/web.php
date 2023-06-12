@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\OrganizationMemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
-use App\Models\Commande;
+use App\Models\Order;
 use App\Models\Organization;
 use App\Models\OrganizationMember;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +32,7 @@ use Carbon\Carbon;
 Route::get('/', [UserController::class, 'checkIfUserIsConnected'])->name('home');
 
 Route::prefix('admin')->middleware(EnsureUserIsConnected::class)->group( function() {
-    Route::get('commandes', [CommandeController::class, 'index'])->name('commandes');
+    Route::get('orders', [OrderController::class, 'index'])->name('orders');
 
     Route::get('members', [MemberController::class, 'index'])->name('members');
     Route::post('member', [MemberController::class, 'store']);
@@ -71,7 +71,7 @@ Route::get('charts', function () {
     $start = Carbon::parse($startDate);
     $end = Carbon::parse($endDate);
 
-    $commandes = Commande::all()->whereBetween('date', [$startDate, $endDate]);
+    $commandes = Order::all()->whereBetween('date', [$startDate, $endDate]);
     $products = [];
     foreach ($commandes as $commande){
         if (!array_key_exists($commande->product->name, $products)){

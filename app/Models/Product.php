@@ -25,7 +25,7 @@ class Product extends Model
         return $this->belongsTo(ProductType::class, 'id_product_type');
     }
 
-    public function commandes(){
-        return $this->hasMany(Commande::class, 'id_product');
+    public function orders(){
+        return $this->hasMany(Order::class, 'id_product');
     }
 }

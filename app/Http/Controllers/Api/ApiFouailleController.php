@@ -3,66 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Commande;
+use App\Models\Order;
 use App\Models\Member;
 use Illuminate\Http\Request;
 
 class ApiFouailleController extends Controller
 {
-    /*
-     * Show all commands of a member
-     * @param $id : id of the member
-     * @return json : all commands of the member ordered by date and metadata for pagination
-     */
-    public function showCommand($id, Request $request){
-        $page_size = $request->query('page_size'); // Get the page size from the query parameters (default value is 10)
-
-        if ($page_size == null){
-            $page_size = 10;
-        }
-
-        $commandes = Commande::where('id_member', '=', $id)->orderByDesc('date')->paginate($page_size); // Get all commands of the member ordered by date and paginate them
-
-        return response()
-            ->json(['data' => $commandes->map(function ($commande) { // Format the data
-                if ($commande->product != null){
-                    return [
-                        'date' => $commande->date,
-                        'total_price' => $commande->price,
-                        'amount' => $commande->amount,
-                        'product' => [
-                            'name' => $commande->product->name,
-                            'slug' => $commande->product->slug,
-                            'unit_price' => strval(floatval($commande->price)/$commande->amount),
-                            'color' => $commande->product->color
-                        ]
-                    ];
-                }else{
-                    return [
-                        'date' => $commande->date,
-                        'total_price' => $commande->price,
-                        'amount' => $commande->amount,
-                        'product' => null
-                    ];
-                }
-        })->values(),
-            'meta' => [ // Metadata for pagination
-                'total' => $commandes->total(),
-                'per_page' => $commandes->perPage(),
-                'current_page' => $commandes->currentPage(),
-                'last_page' => $commandes->lastPage(),
-                'first_page_url' => $commandes->url(1),
-                'last_page_url' => $commandes->url($commandes->lastPage()),
-                'next_page_url' => $commandes->nextPageUrl(),
-                'prev_page_url' => $commandes->previousPageUrl(),
-                'path' => $commandes->path(),
-                'from' => $commandes->firstItem(),
-                'to' => $commandes->lastItem(),
-                ]
-            ])
-            ->setEncodingOptions(JSON_PRETTY_PRINT);
-    }
-
     /*
      * Show the balance of a member
      * @param $id : id of the member
@@ -84,7 +30,7 @@ class ApiFouailleController extends Controller
             $page_size = 10;
         }
 
-        $commandes = Commande::where('id_member', '=', $id)->orderByDesc('date')->paginate($page_size); // Get all commands of the member ordered by date and paginate them
+        $orders = Order::where('id_member', '=', $id)->orderByDesc('date')->paginate($page_size); // Get all commands of the member ordered by date and paginate them
 
         return response()
             ->json(['data' => [
@@ -92,40 +38,40 @@ class ApiFouailleController extends Controller
                 "first_name" => $member->first_name,
                 "last_name" => $member->last_name,
                 "nickname" => $member->nickname,
-                "commands" => $commandes->map(function ($commande) { // Format the data
-                if ($commande->product != null){
+                "commands" => $orders->map(function ($order) { // Format the data
+                if ($order->product != null){
                     return [
-                        'date' => $commande->date,
-                        'total_price' => $commande->price,
-                        'amount' => $commande->amount,
+                        'date' => $order->date,
+                        'total_price' => $order->price,
+                        'amount' => $order->amount,
                         'product' => [
-                            'name' => $commande->product->name,
-                            'slug' => $commande->product->slug,
-                            'unit_price' => strval(floatval($commande->price)/$commande->amount),
-                            'color' => $commande->product->color
+                            'name' => $order->product->name,
+                            'slug' => $order->product->slug,
+                            'unit_price' => strval(floatval($order->price)/$order->amount),
+                            'color' => $order->product->color
                         ]
                     ];
                 }else{
                     return [
-                        'date' => $commande->date,
-                        'total_price' => $commande->price,
-                        'amount' => $commande->amount,
+                        'date' => $order->date,
+                        'total_price' => $order->price,
+                        'amount' => $order->amount,
                         'product' => null
                     ];
                 }
             })->values(),
                 'meta' => [ // Metadata for pagination
-                    'total' => $commandes->total(),
-                    'per_page' => $commandes->perPage(),
-                    'current_page' => $commandes->currentPage(),
-                    'last_page' => $commandes->lastPage(),
-                    'first_page_url' => $commandes->url(1),
-                    'last_page_url' => $commandes->url($commandes->lastPage()),
-                    'next_page_url' => $commandes->nextPageUrl(),
-                    'prev_page_url' => $commandes->previousPageUrl(),
-                    'path' => $commandes->path(),
-                    'from' => $commandes->firstItem(),
-                    'to' => $commandes->lastItem(),
+                    'total' => $orders->total(),
+                    'per_page' => $orders->perPage(),
+                    'current_page' => $orders->currentPage(),
+                    'last_page' => $orders->lastPage(),
+                    'first_page_url' => $orders->url(1),
+                    'last_page_url' => $orders->url($orders->lastPage()),
+                    'next_page_url' => $orders->nextPageUrl(),
+                    'prev_page_url' => $orders->previousPageUrl(),
+                    'path' => $orders->path(),
+                    'from' => $orders->firstItem(),
+                    'to' => $orders->lastItem(),
                 ]
             ]
             ])

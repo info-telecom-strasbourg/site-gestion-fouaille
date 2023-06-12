@@ -58,24 +58,24 @@ class MemberController extends Controller
         $date_start = date('Y-m-d H:i:s', strtotime($date_start));
         $date_end = date('Y-m-d H:i:s', strtotime($date_end));
 
-        $peoples = DB::select('SELECT Membre.nom, Membre.prenom, Commande.prix, Commande.type_produit,
-                                    Commande.produit, Commande.date, Commande.amount
+        $peoples = DB::select('SELECT Membre.nom, Membre.prenom, Order.prix, Order.type_produit,
+                                    Order.produit, Order.date, Order.amount
                                 FROM Membre
-                                INNER JOIN Commande
-                                ON Membre.id = Commande.id_membre
-                                WHERE Commande.date > ?
-                                AND Commande.date < ?', [$date_start, $date_end]);
+                                INNER JOIN Order
+                                ON Membre.id = Order.id_membre
+                                WHERE Order.date > ?
+                                AND Order.date < ?', [$date_start, $date_end]);
         $total_commandes = DB::select('SELECT SUM(prix*amount) AS total
-                                        FROM Commande
+                                        FROM Order
                                         WHERE date > ?
                                         AND date < ?', [$date_start, $date_end]);
         $total_repas = DB::select('SELECT SUM(prix*amount) AS total
-                                    FROM Commande
+                                    FROM Order
                                     WHERE date > ?
                                     AND date < ?
                                     AND type_produit = "repas"', [$date_start, $date_end]);
         $total_boisson = DB::select('SELECT SUM(amount) AS total
-                                    FROM Commande
+                                    FROM Order
                                     WHERE date > ?
                                     AND date < ?
                                     AND type_produit = "boisson"', [$date_start, $date_end]);

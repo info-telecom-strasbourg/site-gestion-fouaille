@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Commande;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
 
-class CommandeController extends Controller{
+class OrderController extends Controller{
     public function index(){
-        $commandes = Commande::latest('date')
+        $commandes = Order::latest('date')
             ->paginate(50)
             ->withQueryString();
 
@@ -22,8 +22,8 @@ class CommandeController extends Controller{
             ];
         }
 
-        return view('commandes.index', [
-            'commandes' => $commandes,
+        return view('orders.index', [
+            'orders' => $commandes,
         ]);
     }
 }

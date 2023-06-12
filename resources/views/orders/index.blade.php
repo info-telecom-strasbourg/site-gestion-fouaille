@@ -16,42 +16,42 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($commandes as $commande)
+            @foreach($orders as $order)
                 <tr id="commande-{{ $loop->index }}">
                     <td id="date-{{ $loop->index }}">
-                        {{ $commande->date['diffForHumans'] }}
+                        {{ $order->date['diffForHumans'] }}
                     </td>
-                    @if(isset($commande->member))
-                        <td>{{ $commande->member->last_name }}</td>
-                        <td>{{ $commande->member->first_name }}</td>
+                    @if(isset($order->member))
+                        <td>{{ $order->member->last_name }}</td>
+                        <td>{{ $order->member->first_name }}</td>
                     @else
                         <td>Membre supprimer</td>
                         <td>Membre supprimer</td>
                     @endif
 
-                    @if(isset($commande->product))
-                        <td>{{ $commande->product->name }}</td>
+                    @if(isset($order->product))
+                        <td>{{ $order->product->name }}</td>
                     @else
                         <td>Produit supprimer</td>
                     @endif
-                    <td>{{ $commande->price }}</td>
-                    <td>{{ $commande->amount }}</td>
+                    <td>{{ $order->price }}</td>
+                    <td>{{ $order->amount }}</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-        {{ $commandes->links() }}
+        {{ $orders->links() }}
     </div>
     <script>
         function changeDateFormat() {
-            @foreach($commandes as $commande)
+            @foreach($orders as $order)
                 var date = document.getElementById('commande-{{ $loop->index }}').children[0];
-                if(date.innerHTML == '{{ $commande->date['original'] }}') {
-                    date.innerHTML = '{{ $commande->date['diffForHumans'] }}';
+                if(date.innerHTML == '{{ $order->date['original'] }}') {
+                    date.innerHTML = '{{ $order->date['diffForHumans'] }}';
                 } else {
-                    date.innerHTML = '{{ $commande->date['original'] }}';
+                    date.innerHTML = '{{ $order->date['original'] }}';
                 }
             @endforeach
         }
-    </script>        
+    </script>
 </x-layout>

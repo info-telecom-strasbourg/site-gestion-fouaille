@@ -25,8 +25,8 @@ class Member extends Model
         'class'
     ];
 
-    public function commandes(){
-        return $this->hasMany(Commande::class, 'id_member');
+    public function orders(){
+        return $this->hasMany(Order::class, 'id_member');
     }
 
     public function organizationMembers(){
