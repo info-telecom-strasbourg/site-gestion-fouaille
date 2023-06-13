@@ -55,8 +55,8 @@
                     <div class="col">
                         <input type="text"
                                class="form-control"
-                               id="slug"
-                               name="slug"
+                               id="title"
+                               name="title"
                                placeholder="Titre"
                                required>
                     </div>
@@ -79,8 +79,8 @@
                     </div>
                     <div class="col">
                         <select class="form-select"
-                                id="id_product_type"
-                                name="id_product_type"
+                                id="product_type_id"
+                                name="product_type_id"
                                 aria-label="Default select example"
                                 required>
                             <option selected>type</option>
@@ -111,7 +111,7 @@
                     @foreach($products as $product)
                         <tr>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->slug }}</td>
+                            <td>{{ $product->title }}</td>
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->productType->type }}</td>
                             <td><p style="color: {{ $product->color }}">{{ $product->color }}</p></td>

@@ -28,7 +28,6 @@ class ProductController extends Controller
             'product_type_id' => 'required|integer'
         ]);
 
-
         Product::create([
             'name' => $validatedData['name'],
             'title' => $validatedData['title'],
