@@ -10,15 +10,15 @@ use Illuminate\Http\Request;
 class ApiFouailleController extends Controller
 {
     public function show($id, Request $request){
-        $page_size = $request->query('page_size'); // Get the page size from the query parameters (default value is 10)
+        $per_page = $request->query('per_page'); // Get the page size from the query parameters (default value is 10)
 
         $member = Member::find($id);
 
-        if ($page_size == null){
-            $page_size = 10;
+        if ($per_page == null){
+            $per_page = 10;
         }
 
-        $orders = Order::where('member_id', '=', $id)->orderByDesc('date')->paginate($page_size); // Get all commands of the member ordered by date and paginate them
+        $orders = Order::where('member_id', '=', $id)->orderByDesc('date')->paginate($per_page); // Get all commands of the member ordered by date and paginate them
 
         return response()
             ->json(['data' => [
