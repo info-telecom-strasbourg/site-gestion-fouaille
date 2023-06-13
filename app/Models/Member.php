@@ -26,11 +26,11 @@ class Member extends Model
     ];
 
     public function orders(){
-        return $this->hasMany(Order::class, 'id_member');
+        return $this->hasMany(Order::class, 'member_id');
     }
 
     public function organizationMembers(){
-        return $this->hasMany(OrganizationMember::class, 'id_member');
+        return $this->hasMany(OrganizationMember::class, 'member_id');
     }
 
 }

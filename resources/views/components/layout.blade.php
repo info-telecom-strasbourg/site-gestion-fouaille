@@ -43,7 +43,7 @@
                 <a class="nav-link" href="{{ route('orders') }}">Commandes</a>
                 <a class="nav-link" href="{{ route('members') }}">Membres</a>
                 <a class="nav-link" href="{{ route('products') }}">Produits</a>
-                <a class="nav-link" href="{{ route('organizations') }}">Club et asso</a>
+                <a class="nav-link" href="{{ route('organization') }}">Club et asso</a>
                 @if (session()->has('cas_user'))
                     <a class="nav-link" href="{{ route('logout') }}">Déconnexion</a>
                 @else

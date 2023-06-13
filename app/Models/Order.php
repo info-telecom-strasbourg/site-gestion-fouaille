@@ -16,11 +16,11 @@ class Order extends Model
     protected $guarded = []; // disable mass assignment protection
 
     public function product(){
-        return $this->belongsTo(Product::class, 'id_product');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function member(){
-        return $this->belongsTo(Member::class, 'id_member');
+        return $this->belongsTo(Member::class, 'member_id');
     }
 
 }

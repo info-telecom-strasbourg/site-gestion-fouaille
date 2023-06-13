@@ -19,9 +19,9 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake()->unique()->word(),
-            'slug' => fake()->unique()->slug(),
+            'title' => fake()->unique()->slug(),
             'price' => fake()->randomFloat(2, 0, 3),
-            'id_product_type' => ProductType::inRandomOrder()->first()->id,
+            'product_type_id' => ProductType::inRandomOrder()->first()->id,
             'color' => fake()->hexColor(),
         ];
     }

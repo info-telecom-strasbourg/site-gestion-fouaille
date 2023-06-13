@@ -27,6 +27,7 @@ class OrganizationFactory extends Factory
             'discord_link' => $this->faker->url,
             'logo_link' => $this->faker->url,
             'association' => $this->faker->boolean,
+            'email' => $this->faker->unique()->safeEmail,
         ];
     }
 }

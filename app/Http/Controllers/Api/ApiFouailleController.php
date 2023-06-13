@@ -38,7 +38,7 @@ class ApiFouailleController extends Controller
                 "first_name" => $member->first_name,
                 "last_name" => $member->last_name,
                 "nickname" => $member->nickname,
-                "commands" => $orders->map(function ($order) { // Format the data
+                "orders" => $orders->map(function ($order) { // Format the data
                 if ($order->product != null){
                     return [
                         'date' => $order->date,
@@ -46,7 +46,7 @@ class ApiFouailleController extends Controller
                         'amount' => $order->amount,
                         'product' => [
                             'name' => $order->product->name,
-                            'slug' => $order->product->slug,
+                            'title' => $order->product->slug,
                             'unit_price' => strval(floatval($order->price)/$order->amount),
                             'color' => $order->product->color
                         ]

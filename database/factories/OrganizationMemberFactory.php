@@ -19,8 +19,8 @@ class OrganizationMemberFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_organization' => Organization::inRandomOrder()->first()->id,
-            'id_member' => Member::inRandomOrder()->first()->id,
+            'organization_id' => Organization::inRandomOrder()->first()->id,
+            'member_id' => Member::inRandomOrder()->first()->id,
             'role' => fake()->randomElement(['president', 'trésorier', 'secrétaire', 'spons', 'reseaux', 'extérieur']),
         ];
     }

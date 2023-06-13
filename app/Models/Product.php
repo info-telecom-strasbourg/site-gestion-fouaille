@@ -16,16 +16,16 @@ class Product extends Model
         'slug',
         'price',
         'color',
-        'id_product_type'
+        'product_type_id'
     ];
 
     public $with = ['productType'];
 
     public function productType(){
-        return $this->belongsTo(ProductType::class, 'id_product_type');
+        return $this->belongsTo(ProductType::class, 'product_type_id');
     }
 
     public function orders(){
-        return $this->hasMany(Order::class, 'id_product');
+        return $this->hasMany(Order::class, 'product_id');
     }
 }

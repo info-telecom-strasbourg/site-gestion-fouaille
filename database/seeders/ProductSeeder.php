@@ -16,82 +16,82 @@ class ProductSeeder extends Seeder
     {
         Product::factory()->create([
             'name' => 'cocktail12',
-            'slug' => 'cocktail12',
+            'title' => 'cocktail12',
             'price' => 1.2,
-            'id_product_type' => ProductType::where('type', 'Soirée')->first()->id,
+            'product_type_id' => ProductType::where('type', 'Soirée')->first()->id,
             'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'cocktail16',
-            'slug' => 'cocktail16',
+            'title' => 'cocktail16',
             'price' => 1.6,
-            'id_product_type' => ProductType::where('type', 'Soirée')->first()->id,
+            'product_type_id' => ProductType::where('type', 'Soirée')->first()->id,
             'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'meteor',
-            'slug' => 'meteor',
+            'title' => 'meteor',
             'price' => 1.2,
-            'id_product_type' => ProductType::where('type', 'Soirée')->first()->id,
+            'product_type_id' => ProductType::where('type', 'Soirée')->first()->id,
             'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'pizza',
-            'slug' => 'pizza',
+            'title' => 'pizza',
             'price' => 2.6,
-            'id_product_type' => ProductType::where('type', 'Midi')->first()->id,
+            'product_type_id' => ProductType::where('type', 'Midi')->first()->id,
             'color' => fake()->hexColor()
         ]);
 
 
         Product::factory()->create([
             'name' => 'sandwich',
-            'slug' => 'sandwich',
+            'title' => 'sandwich',
             'price' => 2,
-            'id_product_type' => ProductType::where('type', 'Midi')->first()->id,
+            'product_type_id' => ProductType::where('type', 'Midi')->first()->id,
             'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'charcuterie',
-            'slug' => 'charcuterie',
+            'title' => 'charcuterie',
             'price' => 4.4,
-            'id_product_type' => ProductType::where('type', 'CharcutFromage')->first()->id,
+            'product_type_id' => ProductType::where('type', 'CharcutFromage')->first()->id,
             'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'fromage',
-            'slug' => 'fromage',
+            'title' => 'fromage',
             'price' => 3,
-            'id_product_type' => ProductType::where('type', 'CharcutFromage')->first()->id,
+            'product_type_id' => ProductType::where('type', 'CharcutFromage')->first()->id,
             'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'bordeaux',
-            'slug' => 'bordeaux',
+            'title' => 'bordeaux',
             'price' => 1.6,
-            'id_product_type' => ProductType::where('type', 'Oeno')->first()->id,
+            'product_type_id' => ProductType::where('type', 'Oeno')->first()->id,
             'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'cookies',
-            'slug' => 'cookies',
+            'title' => 'cookies',
             'price' => 2.2,
-            'id_product_type' => ProductType::where('type', 'Goûter')->first()->id,
+            'product_type_id' => ProductType::where('type', 'Goûter')->first()->id,
             'color' => fake()->hexColor()
         ]);
 
         Product::factory()->create([
             'name' => 'metre',
-            'slug' => 'metre',
+            'title' => 'metre',
             'price' => 1.2,
-            'id_product_type' => ProductType::where('type', 'Shots')->first()->id,
+            'product_type_id' => ProductType::where('type', 'Shots')->first()->id,
             'color' => fake()->hexColor()
         ]);
     }

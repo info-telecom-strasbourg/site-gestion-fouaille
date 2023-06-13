@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class OrganizationMemberController extends Controller
 {
     public function index(){
-        return view('organizations.index', [
-            'organizations' => OrganizationMember::latest('id')->paginate(50)->withQueryString()
+        return view('organization.index', [
+            'organization' => OrganizationMember::latest('id')->paginate(50)->withQueryString()
         ]);
     }
 
@@ -17,14 +17,14 @@ class OrganizationMemberController extends Controller
 
         $validatedData = $request->validate([
             'role' => 'required|max:50',
-            'id_member' => 'required|exists:members,id',
-            'id_organization' => 'required|exists:organizations,id'
+            'member_id' => 'required|exists:members,id',
+            'organization_id' => 'required|exists:organization,id'
         ]);
 
         OrganizationMember::create([
             'role' => $validatedData['role'],
-            'id_member' => $validatedData['id_member'],
-            'id_organization' => $validatedData['id_organization']
+            'member_id' => $validatedData['member_id'],
+            'organization_id' => $validatedData['organization_id']
         ]);
 
         return back();

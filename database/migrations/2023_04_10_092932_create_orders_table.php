@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_product')->nullable();
-            $table->unsignedBigInteger('id_member')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('member_id')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('amount');
             $table->timestamp('date')->default(now());
-            $table->foreign('id_product')->references('id')->on('products')->onDelete('set null');
-            $table->foreign('id_member')->references('id')->on('members')->onDelete('set null');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
+            $table->foreign('member_id')->references('id')->on('members')->onDelete('set null');
         });
     }
 

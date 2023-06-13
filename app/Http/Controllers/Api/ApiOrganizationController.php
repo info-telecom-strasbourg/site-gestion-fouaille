@@ -12,7 +12,14 @@ use Intervention\Image\Facades\Image;
 class ApiOrganizationController extends Controller
 {
     public function index(){
-        return response()->json(['data' => Organization::all()])->setEncodingOptions(JSON_PRETTY_PRINT);
+        $associations = Organization::where('association', '=', 1)->get();
+        $clubs = Organization::where('association', '=', 0)->get();
+
+        return response()->json(['data' => [
+            'associations' => $associations,
+            'clubs' => $clubs
+        ]
+        ])->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 
     public function indexSmall(){

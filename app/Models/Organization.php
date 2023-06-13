@@ -13,7 +13,7 @@ class Organization extends Model
 
     protected $fillable = [
         'name',
-        'slug',
+        'acronym',
         'description',
         'website_link',
         'facebook_link',
@@ -25,7 +25,7 @@ class Organization extends Model
     ];
 
     public function members(){
-        return $this->hasMany(OrganizationMember::class, 'id_organization');
+        return $this->hasMany(OrganizationMember::class, 'organization_id');
     }
 
 }

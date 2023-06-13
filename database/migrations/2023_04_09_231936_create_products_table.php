@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
-            $table->string('slug', 25)->unique();
+            $table->string('title', 25)->unique();
             $table->decimal('price', 10, 2)->default(0);
-            $table->unsignedBigInteger('id_product_type');
+            $table->unsignedBigInteger('product_type_id');
             $table->string('color', 50)->nullable();
-            $table->foreign('id_product_type')->references('id')->on('product_types')->onDelete('cascade');
+            $table->foreign('product_type_id')->references('id')->on('product_types')->onDelete('cascade');
         });
     }
 
