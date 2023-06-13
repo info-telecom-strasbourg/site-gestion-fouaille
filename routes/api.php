@@ -20,25 +20,19 @@ use Illuminate\Http\Request;
 */
 
 Route::prefix('product')->group( function() {
-    Route::get('index', [ApiProductController::class, 'index']);
+    Route::get('/', [ApiProductController::class, 'index']);
 });
 
 Route::prefix('productType')->group( function() {
-    Route::get('index', [ApiProductTypeController::class, 'index']);
+    Route::get('/', [ApiProductTypeController::class, 'index']);
 });
 
 Route::prefix('organization')->group( function() {
-    Route::get('index', [ApiOrganizationController::class, 'index']);
-    Route::get('index/small', [ApiOrganizationController::class, 'indexSmall']);
+    Route::get('/', [ApiOrganizationController::class, 'index']);
 
-    Route::get('show/{id}', [ApiOrganizationController::class, 'show']);
-    Route::get('show/{id}/image', [ApiOrganizationController::class, 'image']);
+    Route::get('/{id}', [ApiOrganizationController::class, 'show']);
 });
 
 Route::prefix('fouaille')->group( function() {
-    Route::get('command/show/{id}', [ApiFouailleController::class, 'showCommand']);
-
-    Route::get('balance/show/{id}', [ApiFouailleController::class, 'showBalance']);
-
-    Route::get('show/{id}', [ApiFouailleController::class, 'show']);
+    Route::get('/{id}', [ApiFouailleController::class, 'show']);
 });

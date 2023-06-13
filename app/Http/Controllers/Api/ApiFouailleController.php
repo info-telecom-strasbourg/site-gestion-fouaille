@@ -9,18 +9,6 @@ use Illuminate\Http\Request;
 
 class ApiFouailleController extends Controller
 {
-    /*
-     * Show the balance of a member
-     * @param $id : id of the member
-     * @return json : balance of the member
-     */
-    public function showBalance($id){
-        return response()
-            ->json(['balance' => Member::find($id)->balance])
-            ->setEncodingOptions(JSON_PRETTY_PRINT);
-    }
-
-
     public function show($id, Request $request){
         $page_size = $request->query('page_size'); // Get the page size from the query parameters (default value is 10)
 
@@ -30,7 +18,7 @@ class ApiFouailleController extends Controller
             $page_size = 10;
         }
 
-        $orders = Order::where('id_member', '=', $id)->orderByDesc('date')->paginate($page_size); // Get all commands of the member ordered by date and paginate them
+        $orders = Order::where('member_id', '=', $id)->orderByDesc('date')->paginate($page_size); // Get all commands of the member ordered by date and paginate them
 
         return response()
             ->json(['data' => [
@@ -39,26 +27,17 @@ class ApiFouailleController extends Controller
                 "last_name" => $member->last_name,
                 "nickname" => $member->nickname,
                 "orders" => $orders->map(function ($order) { // Format the data
-                if ($order->product != null){
-                    return [
-                        'date' => $order->date,
-                        'total_price' => $order->price,
-                        'amount' => $order->amount,
-                        'product' => [
-                            'name' => $order->product->name,
-                            'title' => $order->product->slug,
-                            'unit_price' => strval(floatval($order->price)/$order->amount),
-                            'color' => $order->product->color
-                        ]
-                    ];
-                }else{
-                    return [
-                        'date' => $order->date,
-                        'total_price' => $order->price,
-                        'amount' => $order->amount,
-                        'product' => null
-                    ];
-                }
+                return [
+                    'date' => $order->date,
+                    'total_price' => $order->price,
+                    'amount' => $order->amount,
+                    'product' => ($order->product == null) ? null : [
+                        'name' => $order->product->name,
+                        'title' => $order->product->slug,
+                        'unit_price' => strval(floatval($order->price)/$order->amount),
+                        'color' => $order->product->color
+                    ]
+                ];
             })->values(),
                 'meta' => [ // Metadata for pagination
                     'total' => $orders->total(),

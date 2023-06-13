@@ -14,11 +14,11 @@ class ApiProductController extends Controller
                 return [
                     'id' => $product_type->id,
                     'product_type' => $product_type->type,
-                    'products' => Product::all()->where('id_product_type', '=',$product_type->id)->map(function ($product) {
+                    'products' => Product::all()->where('product_type_id', '=',$product_type->id)->map(function ($product) {
                         return [
                             'id' => $product->id,
                             'name' => $product->name,
-                            'slug' => $product->slug,
+                            'title' => $product->title,
                             'price' => $product->price,
                             'color' => $product->color
                         ];
