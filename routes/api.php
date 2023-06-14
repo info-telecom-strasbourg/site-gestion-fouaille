@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiAuthController;
 use App\Http\Controllers\Api\ApiFouailleController;
 use App\Http\Controllers\Api\ApiOrganizationController;
 use App\Http\Controllers\Api\ApiProductController;
@@ -33,6 +34,20 @@ Route::prefix('organization')->group( function() {
     Route::get('/{id}', [ApiOrganizationController::class, 'show']);
 });
 
-Route::prefix('fouaille')->group( function() {
-    Route::get('/{id}', [ApiFouailleController::class, 'show']);
+
+Route::post('register', [ApiAuthController::class, 'register']);
+Route::post('login', [ApiAuthController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('logout', [ApiAuthController::class, 'logout']);
+
+    Route::prefix('fouaille')->group( function() {
+        Route::get('/{id}', [ApiFouailleController::class, 'show']);
+    });
+
+    Route::get('tokenAvailable', function () {
+        return response()->json([
+            'message' => 'Token available'
+        ], 200);
+    })->name('tokenAvailable');
 });

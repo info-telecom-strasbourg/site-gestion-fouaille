@@ -44,5 +44,11 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+    }
+
+    protected function shouldReturnJson($request, Throwable $e)
+    {
+        return true;
     }
 }

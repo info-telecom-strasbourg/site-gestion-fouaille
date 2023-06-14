@@ -33,7 +33,7 @@ class ApiFouailleController extends Controller
                     'amount' => $order->amount,
                     'product' => ($order->product == null) ? null : [
                         'name' => $order->product->name,
-                        'title' => $order->product->slug,
+                        'title' => $order->product->title,
                         'unit_price' => strval(floatval($order->price)/$order->amount),
                         'color' => $order->product->color
                     ]
