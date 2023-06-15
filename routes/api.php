@@ -41,13 +41,14 @@ Route::post('login', [ApiAuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [ApiAuthController::class, 'logout']);
 
-    Route::prefix('fouaille')->group( function() {
-        Route::get('/{id}', [ApiFouailleController::class, 'show']);
-    });
 
     Route::get('tokenAvailable', function () {
         return response()->json([
             'message' => 'Token available'
         ], 200);
     })->name('tokenAvailable');
+});
+
+Route::prefix('fouaille')->group( function() {
+    Route::get('/{id}', [ApiFouailleController::class, 'show']);
 });
