@@ -28,4 +28,8 @@ class Organization extends Model
         return $this->hasMany(OrganizationMember::class, 'organization_id');
     }
 
+    public function getLogoPath() : string {
+        return asset('storage/images/organization_logo/'.$this->logo);
+    }
+
 }
