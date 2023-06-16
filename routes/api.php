@@ -47,8 +47,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             'message' => 'Token available'
         ], 200);
     })->name('tokenAvailable');
-});
 
-Route::prefix('fouaille')->group( function() {
-    Route::get('/{id}', [ApiFouailleController::class, 'show']);
+    Route::prefix('fouaille')->group( function() {
+        Route::get('/{id}', [ApiFouailleController::class, 'show']);
+    });
 });
