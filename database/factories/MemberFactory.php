@@ -21,7 +21,7 @@ class MemberFactory extends Factory
             'first_name' => fake()->firstName,
             'card_number' => fake()->unique()->randomNumber(8),
             'email' => fake()->unique()->email,
-            'phone_number' => fake()->unique()->phoneNumber,
+            'phone' => fake()->unique()->phoneNumber,
             'balance' => fake()->randomFloat(2, 0, 100),
             'admin' => 1,
             'contributor' => 1,

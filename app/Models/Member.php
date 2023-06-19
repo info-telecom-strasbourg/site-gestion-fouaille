@@ -16,7 +16,7 @@ class Member extends Model
         'first_name',
         'card_number',
         'email',
-        'phone_number',
+        'phone',
         'balance',
         'admin',
         'contributor',
