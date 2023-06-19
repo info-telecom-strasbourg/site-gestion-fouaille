@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('last_name', 50);
             $table->string('first_name', 50);
-            $table->string('nickname', 50)->nullable();
             $table->bigInteger('card_number')->unique()->nullable();
             $table->string('email', 50)->unique();
             $table->string('phone_number', 50)->unique()->nullable();

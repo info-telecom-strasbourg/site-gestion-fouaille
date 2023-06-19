@@ -19,7 +19,6 @@ class MemberFactory extends Factory
         return [
             'last_name' => fake()->lastName,
             'first_name' => fake()->firstName,
-            'nickname' => fake()->userName,
             'card_number' => fake()->unique()->randomNumber(8),
             'email' => fake()->unique()->email,
             'phone_number' => fake()->unique()->phoneNumber,
