@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('acronym', 50)->unique()->nullable();
             $table->string('name', 50)->unique();
-            $table->string('description', 1048)->nullable();
+            $table->longText('description')->nullable();
             $table->string('website_link', 255)->nullable();
             $table->string('facebook_link', 255)->nullable();
             $table->string('twitter_link', 255)->nullable();
