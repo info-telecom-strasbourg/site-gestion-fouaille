@@ -40,22 +40,18 @@ class ApiOrganizationController extends Controller
     }
 
     public function show($id){
-        $organization = Organization::find($id)->first()->get();
-        $organization_tab = $organization->map(function ($orga) {
-            return [
-                'id' => $orga->id,
-                'acronym' => $orga->acronym,
-                'name' => $orga->name,
-                'description' => $orga->description,
-                'website_link' => $orga->website_link,
-                'facebook_link' => $orga->facebook_link,
-                'twitter_link' => $orga->twitter_link,
-                'instagram_link' => $orga->instagram_link,
-                'discord_link' => $orga->discord_link,
-                'logo_url' => $orga->getLogoPath(),
-                'association' => $orga->association
+        $organization = Organization::all()->where('id', '=', $id)->first();
+        $organization_tab = [
+                'acronym' => $organization->acronym,
+                'name' => $organization->name,
+                'description' => $organization->description,
+                'website_link' => $organization->website_link,
+                'facebook_link' => $organization->facebook_link,
+                'twitter_link' => $organization->twitter_link,
+                'instagram_link' => $organization->instagram_link,
+                'discord_link' => $organization->discord_link,
+                'logo_url' => $organization->getLogoPath(),
             ];
-        })->values();
         return response()->json(['data' => $organization_tab])->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 
