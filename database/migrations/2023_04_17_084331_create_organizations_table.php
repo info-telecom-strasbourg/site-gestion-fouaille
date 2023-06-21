@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
-            $table->string('acronym', 50)->unique()->nullable();
+            $table->string('short_name', 50)->unique()->nullable();
             $table->string('name', 50)->unique();
             $table->longText('description')->nullable();
             $table->string('website_link', 255)->nullable();

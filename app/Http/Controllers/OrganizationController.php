@@ -13,7 +13,7 @@ class OrganizationController extends Controller{
         $datas = Organization::all()->map(function ($organization){
             $members = '';
             foreach (OrganizationMember::where('organization_id', '=', $organization->id)->get() as $member){
-                $members .= $member->member->first_name . ' ' . $member->member->last_name . ' (' . $member->member->nickname . ')'. ' - ' . $member->role . ' | ';
+                $members .= $member->member->first_name . ' ' . $member->member->last_name . ' (' . $member->member->user_name . ')'. ' - ' . $member->role . ' | ';
             }
             return [
                 'members' => $members,

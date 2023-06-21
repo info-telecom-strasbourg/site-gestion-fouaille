@@ -14,7 +14,7 @@ class CreateOrganizationController extends Controller
     public function store(Request $request){
 
         $validatedData = $request->validate([
-            'acronym' => 'required|max:50|unique:organization',
+            'short_name' => 'required|max:50|unique:organization',
             'name' => 'required|max:50|unique:organization',
             'description' => 'nullable|max:1048',
             'website_link' => 'nullable|url|max:255',
@@ -28,7 +28,7 @@ class CreateOrganizationController extends Controller
 
 
         Organization::create([
-            'acronym' => $validatedData['slug'],
+            'short_name' => $validatedData['short_name'],
             'name' => $validatedData['name'],
             'description' => $validatedData['description'],
             'website_link' => $validatedData['website_link'],

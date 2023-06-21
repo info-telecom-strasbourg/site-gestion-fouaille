@@ -17,7 +17,7 @@ class OrganizationFactory extends Factory
     public function definition(): array
     {
         return [
-            'acronym' => $this->faker->unique()->word,
+            'short_name' => $this->faker->unique()->word,
             'name' => $this->faker->unique()->company,
             'description' => $this->faker->text,
             'website_link' => $this->faker->url,
