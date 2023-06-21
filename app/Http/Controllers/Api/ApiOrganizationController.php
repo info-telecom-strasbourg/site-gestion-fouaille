@@ -50,6 +50,7 @@ class ApiOrganizationController extends Controller
                 'twitter_link' => $organization->twitter_link,
                 'instagram_link' => $organization->instagram_link,
                 'discord_link' => $organization->discord_link,
+                'email' => $organization->email,
                 'logo_url' => $organization->getLogoPath(),
             ];
         return response()->json(['data' => $organization_tab])->setEncodingOptions(JSON_PRETTY_PRINT);

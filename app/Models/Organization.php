@@ -21,6 +21,7 @@ class Organization extends Model
         'instagram_link',
         'discord_link',
         'logo_link',
+        'email',
         'association'
     ];
 

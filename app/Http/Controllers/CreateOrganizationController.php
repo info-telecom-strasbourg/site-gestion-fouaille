@@ -22,6 +22,7 @@ class CreateOrganizationController extends Controller
             'twitter_link' => 'nullable|url|max:255',
             'instagram_link' => 'nullable|url|max:255',
             'discord_link' => 'nullable|url|max:255',
+            'email' => 'nullable|email|max:255',
             'logo' => 'nullable|url|max:255',
             'association' => 'in:"on","off"'
         ]);
@@ -36,6 +37,7 @@ class CreateOrganizationController extends Controller
             'twitter_link' => $validatedData['twitter_link'],
             'instagram_link' => $validatedData['instagram_link'],
             'discord_link' => $validatedData['discord_link'],
+            'email' => $validatedData['email'],
             'logo' => $validatedData['logo_link'],
             'association' => array_key_exists('association', $validatedData) ?
                 $validatedData['association'] ? 1 : 0 : 0
