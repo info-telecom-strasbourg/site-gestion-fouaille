@@ -20,6 +20,7 @@ return new class extends Migration
 
             $table->foreign('challenge_id')->references('id')->on('challenges')->nullOnDelete();
             $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+
         });
     }
 

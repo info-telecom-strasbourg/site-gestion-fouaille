@@ -15,10 +15,25 @@ class ChallengeMemberSeeder extends Seeder
      */
     public function run(): void
     {
-        $members = Member::inRandomOrder()->limit(40)->get();
+        $members = Member::inRandomOrder()->limit(70)->get();
         $challenges = Challenge::all();
 
         foreach ($members as $member) {
+            ChallengeMember::factory()->create([
+                'member_id' => $member->id,
+                'challenge_id' => $challenges->random()->id,
+            ]);
+
+            ChallengeMember::factory()->create([
+                'member_id' => $member->id,
+                'challenge_id' => $challenges->random()->id,
+            ]);
+
+            ChallengeMember::factory()->create([
+                'member_id' => $member->id,
+                'challenge_id' => $challenges->random()->id,
+            ]);
+
             ChallengeMember::factory()->create([
                 'member_id' => $member->id,
                 'challenge_id' => $challenges->random()->id,

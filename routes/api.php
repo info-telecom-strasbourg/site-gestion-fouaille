@@ -38,7 +38,10 @@ Route::prefix('organization')->group( function() {
 Route::prefix('challenge')->group( function() {
     Route::get('/', [ApiChallengeController::class, 'index']);
 
+    Route::get('/member/{id}', [ApiChallengeController::class, 'member_details']);
+
+    Route::get('/leaderboard', [ApiChallengeController::class, 'leaderboard']);
+
     Route::get('/{id}', [ApiChallengeController::class, 'show']);
 
-    Route::get('/member/{id}', [ApiChallengeController::class, 'member_details']);
 });

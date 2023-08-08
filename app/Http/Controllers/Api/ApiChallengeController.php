@@ -26,6 +26,7 @@ class ApiChallengeController extends Controller
 
     public function show($id)
     {
+
         $challenge = Challenge::find($id);
 
         if($challenge == null)
@@ -49,6 +50,7 @@ class ApiChallengeController extends Controller
 
     public function member_details($id)
     {
+
         $member = Member::find($id);
 
         if ($member == null)
@@ -65,6 +67,7 @@ class ApiChallengeController extends Controller
                 'name' => $challenge->name,
                 'description' => $challenge->description,
                 'points' => $challenge->points,
+                'realized_at' => $challenge->pivot->realized_at,
             ];
         });
 
@@ -84,5 +87,31 @@ class ApiChallengeController extends Controller
             ], 200
         )->setEncodingOptions(JSON_PRETTY_PRINT);
 
+    }
+
+    public function leaderboard()
+    {
+
+        $members = Member::all()->map(function ($member) {
+            return [
+                'id' => $member->id,
+                'name' => $member->first_name . ' ' . $member->last_name,
+                'points' => $member->challenges()->sum('points'),
+            ];
+        });
+
+
+        if ($members->isEmpty())
+            return response()->json(
+                [
+                    'message' => 'No members found'
+                ], 404
+            )->setEncodingOptions(JSON_PRETTY_PRINT);
+
+        return response()->json(
+            [
+                    'data' => $members->sortByDesc('points')->values()
+            ], 200
+        )->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 }

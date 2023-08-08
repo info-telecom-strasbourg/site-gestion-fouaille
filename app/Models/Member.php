@@ -33,7 +33,8 @@ class Member extends Model
     }
 
     public function challenges(){
-        return $this->belongsToMany(Challenge::class, 'challenge_members', 'member_id', 'challenge_id');
+        return $this->belongsToMany(Challenge::class, 'challenge_members', 'member_id', 'challenge_id')
+            ->withPivot('comment', 'realized_at');
     }
 
 }
