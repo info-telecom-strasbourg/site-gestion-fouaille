@@ -16,4 +16,9 @@ class Challenge extends Model
         'points',
         'description',
     ];
+
+    public function members()
+    {
+        return $this->hasMany(ChallengeMember::class, 'challenge_id');
+    }
 }

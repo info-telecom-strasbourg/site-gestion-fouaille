@@ -32,4 +32,8 @@ class Member extends Model
         return $this->hasMany(OrganizationMember::class, 'member_id');
     }
 
+    public function challenges(){
+        return $this->hasMany(ChallengeMember::class, 'member_id');
+    }
+
 }

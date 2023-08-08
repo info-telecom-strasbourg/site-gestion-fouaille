@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Challenge;
+use App\Models\Member;
 
 class ApiChallengeController extends Controller
 {
@@ -44,5 +45,18 @@ class ApiChallengeController extends Controller
                 ]
             ], 200
         )->setEncodingOptions(JSON_PRETTY_PRINT);
+    }
+
+    public function member_details($id)
+    {
+        $challenge = Member::find($id);
+
+        if ($challenge == null)
+            return response()->json(
+                [
+                    'message' => 'Member not found'
+                ], 404
+            )->setEncodingOptions(JSON_PRETTY_PRINT);
+
     }
 }

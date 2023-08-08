@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             ProductTypeSeeder::class,
             ProductSeeder::class,
             ChallengeSeeder::class,
+            ChallengeMemberSeeder::class,
         ]);
 
         Order::factory(1000)->create();

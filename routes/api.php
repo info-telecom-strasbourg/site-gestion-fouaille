@@ -39,4 +39,6 @@ Route::prefix('challenge')->group( function() {
     Route::get('/', [ApiChallengeController::class, 'index']);
 
     Route::get('/{id}', [ApiChallengeController::class, 'show']);
+
+    Route::get('/member/{id}', [ApiChallengeController::class, 'member_details']);
 });
