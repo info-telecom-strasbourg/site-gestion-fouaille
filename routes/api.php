@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiAuthController;
+use App\Http\Controllers\Api\ApiChallengeController;
 use App\Http\Controllers\Api\ApiFouailleController;
 use App\Http\Controllers\Api\ApiOrganizationController;
 use App\Http\Controllers\Api\ApiProductController;
@@ -32,4 +33,10 @@ Route::prefix('organization')->group( function() {
     Route::get('/', [ApiOrganizationController::class, 'index']);
 
     Route::get('/{id}', [ApiOrganizationController::class, 'show']);
+});
+
+Route::prefix('challenge')->group( function() {
+    Route::get('/', [ApiChallengeController::class, 'index']);
+
+    Route::get('/{id}', [ApiChallengeController::class, 'show']);
 });
