@@ -49,14 +49,40 @@ class ApiChallengeController extends Controller
 
     public function member_details($id)
     {
-        $challenge = Member::find($id);
+        $member = Member::find($id);
 
-        if ($challenge == null)
+        if ($member == null)
             return response()->json(
                 [
                     'message' => 'Member not found'
                 ], 404
             )->setEncodingOptions(JSON_PRETTY_PRINT);
+
+
+        $details = $member->challenges()->get()->map(function ($challenge) {
+            return [
+                'id' => $challenge->id,
+                'name' => $challenge->name,
+                'description' => $challenge->description,
+                'points' => $challenge->points,
+            ];
+        });
+
+        if ($details->isEmpty())
+            return response()->json(
+                [
+                    'message' => 'No challenges found for this member'
+                ], 404
+            )->setEncodingOptions(JSON_PRETTY_PRINT);
+
+        return response()->json(
+            [
+                'data' => [
+                    'challenges' => $details,
+                    'total_points' => $member->challenges()->sum('points'),
+                ]
+            ], 200
+        )->setEncodingOptions(JSON_PRETTY_PRINT);
 
     }
 }
