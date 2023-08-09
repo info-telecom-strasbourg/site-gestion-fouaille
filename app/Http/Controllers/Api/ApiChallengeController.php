@@ -10,6 +10,14 @@ class ApiChallengeController extends Controller
 {
     public function index()
     {
+
+        if (Challenge::all()->isEmpty())
+            return response()->json(
+                [
+                    'message' => 'No challenges found'
+                ], 404
+            )->setEncodingOptions(JSON_PRETTY_PRINT);
+
         return response()->json(
             [
             'data' => Challenge::all()->map(function ($challenge) {
