@@ -17,9 +17,13 @@ class EnsureUserIsConnected
     {
         if(!cas()->isAuthenticated())
         {
-            $request->session()->put('message', 'Accès interdit');
+            session()->put([
+                'message' => 'Vous n\'êtes pas autorisé à accéder à cette page.',
+                'failed' => true
+            ]);
             return redirect()->route('home');
         }
+
         return $next($request);
     }
 }

@@ -22,19 +22,29 @@ class UserController extends Controller
             }
             cas()->authenticate();
         }
+
         if($this->authorized(cas()->user()))
         {
-            $request->session()->put('cas_user', cas()->user());
+            $request->session()->put([
+                'cas_user' => cas()->user(),
+                'message' => 'Vous êtes connecté à l\'application.',
+                'failed' => false
+            ]);
         }
         else
         {
-            cas()->logout(null, route('home', ['failed_login' => true]));
+            session()->put([
+                'message' => 'Vous n\'êtes pas autorisé à vous connecter à cette application.',
+                'failed' => true
+            ]);
+            cas()->logout(null, route('home'));
         }
         return redirect()->route('home');
     }
 
     public function logout()
     {
+        session()->flush();
         cas()->logout();
         // next lines will not be reached, check cas.php config file to see
         // where logout redirection is configured
