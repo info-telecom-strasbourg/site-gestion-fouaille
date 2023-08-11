@@ -12,8 +12,22 @@ class MemberController extends Controller
 {
     public function index()
     {
-        return view('members.index', [
-            'members' => Member::latest('created_at')->paginate(50)->withQueryString(),
+        // get members ordered by last name
+        $members = Member::orderBy('last_name')->paginate(30);
+
+
+        return view('member.index', [
+            'data' => $members->map(function ($member) {
+                return [
+                    'Nom' => $member->last_name . ' ' . $member->first_name,
+                    'Email' => $member->email,
+                    'Téléphone' => $member->phone,
+                    'Solde' => $member->balance,
+                    'Cotisant' => $member->contributor == 1 ? 'Oui' : 'Non',
+                    'Promotion' => $member->class,
+                ];
+            }),
+            'pagination' => $members->links()
         ]);
     }
 
@@ -22,25 +36,23 @@ class MemberController extends Controller
         $validateData = $request->validate([
             'last_name' => 'required|max:50',
             'first_name' => 'required|max:50',
-            'nickname' => 'nullable|max:50',
             'email' => 'required|email|unique:members',
             'card_number' => 'nullable|integer|unique:members',
-            'phone_number' => [
+            'phone' => [
                 'nullable',
                 'unique:members',
                 'regex:/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/' // regex for phone number
             ],
-            'contributor' => 'in:"on","off"',
+            'contributor' => 'integer',
             'class' => 'nullable|integer',
         ]);
 
         Member::create([
             'last_name' => $validateData['last_name'],
             'first_name' => $validateData['first_name'],
-            'nickname' => $validateData['nickname'],
             'email' => $validateData['email'],
             'card_number' => $validateData['card_number'],
-            'phone_number' => $validateData['phone_number'],
+            'phone' => $validateData['phone_number'],
             'contributor' => array_key_exists('contributor', $validateData) ?
                 $validateData['contributor'] ? 1 : 0 : 0,
             'class' => $validateData['class'],

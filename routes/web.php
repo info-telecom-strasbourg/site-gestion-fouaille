@@ -30,7 +30,37 @@ use Carbon\Carbon;
 |
 */
 
-Route::get('/', [UserController::class, 'checkIfUserIsConnected'])->name('home');
+Route::get('/', function (){
+    return view('home');
+})->name('home');
+
+Route::get('login', [UserController::class, 'login'])
+    ->name('login');
+
+Route::get('logout', [UserController::class, 'logout'])
+    ->name('logout');
+
+Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
+    Route::get('/fouaille', function (){
+        return view('fouaille.index');
+    })->name('fouaille.index');
+
+    Route::get('/member', [MemberController::class, 'index'])->name('member.index');
+
+    Route::get('/marco', function (){
+        return view('marco.index');
+    })->name('marco.index');
+
+    Route::get('/asso', [OrganizationController::class, 'index'])->name('asso.index');
+
+    Route::get('/asso/{id}', [OrganizationController::class, 'show'])->name('asso.show');
+
+    Route::get('/challenge', function (){
+        return view('challenge.index');
+    })->name('challenge.index');
+});
+
+/*Route::get('/', [UserController::class, 'checkIfUserIsConnected'])->name('home');
 
 Route::prefix('admin')->middleware(EnsureUserIsConnected::class)->group( function() {
     Route::get('orders', [OrderController::class, 'index'])->name('orders');
@@ -59,6 +89,6 @@ Route::prefix('admin')->middleware(EnsureUserIsConnected::class)->group( functio
 });
 
 Route::get('login', [UserController::class, 'login'])->name('login');
-Route::get('logout', [UserController::class, 'logout'])->name('logout');
+Route::get('logout', [UserController::class, 'logout'])->name('logout');*/
 
 
