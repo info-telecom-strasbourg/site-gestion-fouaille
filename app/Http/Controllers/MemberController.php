@@ -19,6 +19,7 @@ class MemberController extends Controller
         return view('member.index', [
             'data' => $members->map(function ($member) {
                 return [
+                    'Id' => $member->id,
                     'Nom' => $member->last_name . ' ' . $member->first_name,
                     'Email' => $member->email,
                     'Téléphone' => $member->phone,
@@ -28,6 +29,35 @@ class MemberController extends Controller
                 ];
             }),
             'pagination' => $members->links()
+        ]);
+    }
+
+    public function show($request)
+    {
+        $member = Member::find($request);
+
+        if ($member == null) {
+            return view('member.show', [
+                'data' => []
+            ]);
+        }
+
+        $datas = [
+            'Id' => $member->id,
+            'Nom' => $member->last_name,
+            'Prénom' => $member->first_name,
+            'Numéro de carte' => $member->card_number,
+            'Email' => $member->email,
+            'Téléphone' => $member->phone,
+            'Solde' => $member->balance,
+            'Cotisant' => $member->contributor == 1 ? 'Oui' : 'Non',
+            'Promotion' => $member->class,
+            'Admin (marco)' => $member->admin == 1 ? 'Oui' : 'Non',
+            'Date de création' => Carbon::parse($member->created_at)->format('d/m/Y H:i:s'),
+        ];
+
+        return view('member.show', [
+            'data' => $datas
         ]);
     }
 

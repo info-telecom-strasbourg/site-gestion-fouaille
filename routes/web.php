@@ -47,6 +47,8 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
 
     Route::get('/member', [MemberController::class, 'index'])->name('member.index');
 
+    Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');
+
     Route::get('/marco', function (){
         return view('marco.index');
     })->name('marco.index');
