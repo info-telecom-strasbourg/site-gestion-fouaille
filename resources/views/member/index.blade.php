@@ -11,6 +11,21 @@
                 <h6 class="m-0 font-weight-bold text-primary">Membres</h6>
             </div>
             <div class="card-body">
+                <form method="GET" action="{{ route('member.index') }}" class="mb-3">
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="text"
+                                   class="form-control"
+                                   name="search"
+                                   placeholder="Rechercher"
+                                   value="{{ request('search') != null ? request('search') : '' }}"
+                            >
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary">Rechercher</button>
+                        </div>
+                    </div>
+                </form>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
