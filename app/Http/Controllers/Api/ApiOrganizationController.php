@@ -14,24 +14,36 @@ class ApiOrganizationController extends Controller
     public function index(){
 
         $associations = Organization::select('id', 'short_name', 'name', 'logo')->where('association', '=', 1)->get();
-        $associations_tab = $associations->map(function ($asso) {
-            return [
-                'id' => $asso->id,
-                'short_name' => $asso->short_name,
-                'name' => $asso->name,
-                'logo_url' => $asso->getLogoPath()
-            ];
-        })->values();
+
+        if ($associations->isEmpty()) {
+            $associations_tab = [];
+        }else{
+            $associations_tab = $associations->map(function ($asso) {
+                return [
+                    'id' => $asso->id,
+                    'short_name' => $asso->short_name,
+                    'name' => $asso->name,
+                    'logo_url' => $asso->getLogoPath()
+                ];
+            })->values();
+        }
+
 
         $clubs = Organization::select('id', 'short_name', 'name', 'logo')->where('association', '=', 0)->get();
-        $clubs_tab = $clubs->map(function ($club) {
-            return [
-                'id' => $club->id,
-                'short_name' => $club->short_name,
-                'name' => $club->name,
-                'logo_url' => $club->getLogoPath()
-            ];
-        })->values();
+
+        if ($clubs->isEmpty()) {
+            $clubs_tab = [];
+        }else{
+            $clubs_tab = $clubs->map(function ($club) {
+                return [
+                    'id' => $club->id,
+                    'short_name' => $club->short_name,
+                    'name' => $club->name,
+                    'logo_url' => $club->getLogoPath()
+                ];
+            })->values();
+        }
+
 
         return response()->json(['data' => [
             'associations' => $associations_tab,
@@ -41,6 +53,11 @@ class ApiOrganizationController extends Controller
 
     public function show($id){
         $organization = Organization::all()->where('id', '=', $id)->first();
+
+        if ($organization == null) {
+            return response()->json(['data' => []])->setEncodingOptions(JSON_PRETTY_PRINT);
+        }
+
         $organization_tab = [
                 'short_name' => $organization->short_name,
                 'name' => $organization->name,
