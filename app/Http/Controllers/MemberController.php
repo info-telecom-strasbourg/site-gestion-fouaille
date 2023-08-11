@@ -12,8 +12,16 @@ class MemberController extends Controller
 {
     public function index()
     {
+
         // get members ordered by last name
-        $members = Member::orderBy('last_name')->paginate(30);
+        $members = Member::orderBy('last_name')->filter(request(['search']))->paginate(30);
+
+        if ($members->isEmpty()) {
+            return view('member.index', [
+                'data' => [],
+                'pagination' => []
+            ]);
+        }
 
 
         return view('member.index', [
