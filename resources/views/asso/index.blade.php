@@ -28,7 +28,7 @@
                                         @if($key2 == 'Logo')
                                             <td><img src="{{ $value2 }}" alt="Logo" width="100" height="100"></td>
                                         @elseif($key2 == 'Nom')
-                                            <td><a href="{{ route('asso.show', $value['Id']) }}">{{ $value2 }}</a></td>
+                                            <td><a href="{{ route('asso.show', $value['Id']) }}">{{ $value2 }} <i class="fas fa-eye"></i></a></td>
                                         @elseif(filter_var($value2, FILTER_VALIDATE_URL))
                                             <td><a href="{{ $value2 }}">{{ $value2 }}</a></td>
                                         @elseif(filter_var($value2, FILTER_VALIDATE_EMAIL))
