@@ -69,6 +69,73 @@ class MemberController extends Controller
         ]);
     }
 
+    public function edit($request)
+    {
+        $member = Member::find($request);
+
+        if ($member == null) {
+            return view('member.edit', [
+                'data' => []
+            ]);
+        }
+
+        return view('member.edit', [
+            'data' => $member
+        ]);
+    }
+
+    public function update($id)
+    {
+        $member = Member::find($id);
+
+        if ($member == null) {
+            return view('member.index', [
+                'data' => []
+            ]);
+        }
+
+
+        $validateData = request()->validate([
+            'last_name' => 'max:50',
+            'first_name' => 'max:50',
+            'email' => [
+                'email',
+                'unique:members,email,' . $id
+            ],
+            'card_number' => [
+                'nullable',
+                'integer',
+                'unique:members,card_number,' . $id
+            ],
+            'phone' => [
+                'nullable',
+                'unique:members,phone,' . $id
+            ],
+            'contributor' => 'string',
+            'admin' => 'string',
+            'class' => 'nullable|integer',
+        ]);
+
+
+        if (array_key_exists('contributor', $validateData)) {
+            $validateData['contributor'] = 1;
+        }else{
+            $validateData['contributor'] = 0;
+        }
+
+        if (array_key_exists('admin', $validateData)) {
+            $validateData['admin'] = 1;
+        }else{
+            $validateData['admin'] = 0;
+        }
+
+
+        $member->update($validateData);
+        session()->flash('success', 'Membre modifié avec succès !');
+
+        return redirect('/member/' . $id . '/edit');
+    }
+
     public function store(Request $request)
     {
         $validateData = $request->validate([
@@ -79,7 +146,6 @@ class MemberController extends Controller
             'phone' => [
                 'nullable',
                 'unique:members',
-                'regex:/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/' // regex for phone number
             ],
             'contributor' => 'integer',
             'class' => 'nullable|integer',

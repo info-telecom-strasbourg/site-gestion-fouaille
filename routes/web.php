@@ -46,15 +46,15 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
     })->name('fouaille.index');
 
     Route::get('/member', [MemberController::class, 'index'])->name('member.index');
-
     Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');
+    Route::get('/member/{id}/edit', [MemberController::class, 'edit'])->name('member.edit');
+    Route::patch('/member/{id}', [MemberController::class, 'update'])->name('member.update');
 
     Route::get('/marco', function (){
         return view('marco.index');
     })->name('marco.index');
 
     Route::get('/asso', [OrganizationController::class, 'index'])->name('asso.index');
-
     Route::get('/asso/{id}', [OrganizationController::class, 'show'])->name('asso.show');
 
     Route::get('/challenge', function (){
