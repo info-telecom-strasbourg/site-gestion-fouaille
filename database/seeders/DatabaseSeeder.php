@@ -12,6 +12,7 @@ use App\Models\ProductType;
 use Database\Factories\MemberFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use App\Models\Challenge;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,6 +27,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProductTypeSeeder::class,
             ProductSeeder::class,
+            ChallengeSeeder::class,
+            ChallengeMemberSeeder::class,
         ]);
 
         Order::factory(1000)->create();
