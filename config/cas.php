@@ -124,7 +124,7 @@ return [
     | If your server supports redirection services, enter the redirect url
     | in this section.  If left blank, it will default to disabled.
     */
-    'cas_logout_redirect' => env('CAS_LOGOUT_REDIRECT', 'http://127.0.0.1:8000'),
+    'cas_logout_redirect' => env('CAS_LOGOUT_REDIRECT', ''),
 
     /*
     |--------------------------------------------------------------------------

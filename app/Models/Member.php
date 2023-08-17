@@ -24,6 +24,18 @@ class Member extends Model
         'class'
     ];
 
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $query
+                ->where('last_name', 'like', '%'.$search.'%')
+                ->orWhere('first_name', 'like', '%'.$search.'%')
+                ->orWhere('card_number', 'like', '%'.$search.'%')
+                ->orWhere('email', 'like', '%'.$search.'%')
+                ->orWhere('phone', 'like', '%'.$search.'%');
+        });
+    }
+
     public function orders(){
         return $this->hasMany(Order::class, 'member_id');
     }
