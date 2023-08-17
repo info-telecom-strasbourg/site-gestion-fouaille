@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CreateOrganizationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MemberController;
@@ -57,9 +58,10 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
     Route::get('/asso', [OrganizationController::class, 'index'])->name('asso.index');
     Route::get('/asso/{id}', [OrganizationController::class, 'show'])->name('asso.show');
 
-    Route::get('/challenge', function (){
-        return view('challenge.index');
-    })->name('challenge.index');
+    Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge.index');
+    Route::get('/challenge/{id}', [ChallengeController::class, 'show'])->name('challenge.show');
+    Route::put('/challenge/{id}', [ChallengeController::class, 'create'])->name('challenge.create');
+    Route::delete('/challenge/{id}', [ChallengeController::class, 'destroy'])->name('challenge.destroy');
 });
 
 /*Route::get('/', [UserController::class, 'checkIfUserIsConnected'])->name('home');
