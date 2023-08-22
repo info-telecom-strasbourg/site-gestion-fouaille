@@ -15,6 +15,7 @@ class Order extends Model
 
     protected $guarded = []; // disable mass assignment protection
 
+
     public function product(){
         return $this->belongsTo(Product::class, 'product_id');
     }

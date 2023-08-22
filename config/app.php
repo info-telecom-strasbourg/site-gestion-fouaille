@@ -187,6 +187,7 @@ return [
          */
 
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
         /*
          * Application Service Providers...

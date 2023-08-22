@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 // add carbon
@@ -14,7 +15,7 @@ class MemberController extends Controller
     {
 
         // get members ordered by last name
-        $members = Member::orderBy('last_name')->filter(request(['search']))->paginate(30);
+        $members = Member::orderBy('last_name')->filter(request(['search']))->paginate(30)->withQueryString();
 
         if ($members->isEmpty()) {
             return view('member.index', [
@@ -51,18 +52,29 @@ class MemberController extends Controller
         }
 
         $datas = [
-            'Id' => $member->id,
-            'Nom' => $member->last_name,
-            'Prénom' => $member->first_name,
-            'Numéro de carte' => $member->card_number,
-            'Email' => $member->email,
-            'Téléphone' => $member->phone,
-            'Solde' => $member->balance,
-            'Cotisant' => $member->contributor == 1 ? 'Oui' : 'Non',
-            'Promotion' => $member->class,
-            'Admin (marco)' => $member->admin == 1 ? 'Oui' : 'Non',
-            'Date de création' => Carbon::parse($member->created_at)->format('d/m/Y H:i:s'),
+            'id' => $member->id,
+            'last_name' => $member->last_name,
+            'first_name' => $member->first_name,
+            'card_number' => $member->card_number,
+            'email' => $member->email,
+            'phone' => $member->phone,
+            'balance' => $member->balance,
+            'contributor' => $member->contributor == 1 ? 'Oui' : 'Non',
+            'class' => $member->class,
+            'admin' => $member->admin == 1 ? 'Oui' : 'Non',
+            'created_at' => Carbon::parse($member->created_at)->format('d/m/Y H:i:s'),
+            'orders' => $member->orders->map(function ($order) {
+                return [
+                    'id' => $order->id,
+                    'price' => $order->product == null ? '<p class="text-success">+ ' . $order->price . '€</p>' : '<p class="text-danger">' . $order->price . '€</p>',
+                    'amount' => $order->amount,
+                    'product' => $order->product == null ? 'rechargement' : $order->product->name,
+                    'type' => $order->product == null ? 'rechargement' : $order->product->productType->type,
+                    'date' => Carbon::parse($order->date)->format('d/m/Y H:i:s')
+                ];
+            })
         ];
+
 
         return view('member.show', [
             'data' => $datas
