@@ -49,7 +49,7 @@ class FouailleController extends Controller
             ->select('products.name', DB::raw('SUM(orders.amount) as amount'), DB::raw('SUM(orders.price) as total'), 'products.color')
             ->join('products', 'orders.product_id', '=', 'products.id')
             ->whereBetween('orders.date', [$start_at, $end_at])
-            ->groupBy('products.name', 'products.price', 'products.product_type_id')
+            ->groupBy('products.name', 'products.price', 'products.product_type_id', 'products.color')
             ->get();
 
         return view('fouaille.index', [
