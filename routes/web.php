@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CreateOrganizationController;
+use App\Http\Controllers\FouailleController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
@@ -42,9 +43,7 @@ Route::get('logout', [UserController::class, 'logout'])
     ->name('logout');
 
 Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
-    Route::get('/fouaille', function () {
-        return view('fouaille.index');
-    })->name('fouaille.index');
+    Route::get('/fouaille', [FouailleController::class, 'index'])->name('fouaille.index');
 
     Route::get('/member', [MemberController::class, 'index'])->name('member.index');
     Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');
