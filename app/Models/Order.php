@@ -13,6 +13,7 @@ class Order extends Model
 
     public $with = ['product', 'member']; // eager load relationships
 
+
     protected $guarded = []; // disable mass assignment protection
 
 

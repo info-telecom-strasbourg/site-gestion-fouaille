@@ -19,6 +19,11 @@ class FouailleController extends Controller
             $end_at = Carbon::now()->subDays(1)->setHour(23)->setMinute(30)->format('Y-m-d H:i');
         }
 
+        request()->validate([
+            'start_at' => 'date',
+            'end_at' => 'date|after:start_at'
+        ]);
+
         $orders_paginate = Order::whereBetween('date', [$start_at, $end_at])
             ->orderBy('date', 'desc')
             ->paginate(25)->withQueryString();
@@ -31,6 +36,8 @@ class FouailleController extends Controller
                 'total_entries' => 0,
                 'start_at' => $start_at,
                 'end_at' => $end_at,
+                'start_at_formatted' => Carbon::parse($start_at)->format('d/m/Y H:i'),
+                'end_at_formatted' => Carbon::parse($end_at)->format('d/m/Y H:i'),
                 'total_reloads' => 0,
                 'total_purchases' => 0
             ]);
@@ -80,6 +87,8 @@ class FouailleController extends Controller
             'pagination' => $orders_paginate->links(),
             'start_at' => $start_at,
             'end_at' => $end_at,
+            'start_at_formatted' => Carbon::parse($start_at)->format('d/m/Y H:i'),
+            'end_at_formatted' => Carbon::parse($end_at)->format('d/m/Y H:i'),
             'total_purchases' => $total_purchases,
             'total_reloads' => $total_reloads,
         ]);

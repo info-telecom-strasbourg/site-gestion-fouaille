@@ -8,6 +8,15 @@
         </a>
         <div class="collapse show" id="collapseCardExample">
             <div class="card-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form method="GET" action="{{ route('fouaille.index') }}">
                     @csrf
                     @method('GET')
@@ -30,7 +39,7 @@
     </div>
     @if(empty($data))
         <div class="alert alert-danger" role="alert">
-            Aucune commandes n'a été trouvée entre le {{ $start_at }} et le {{ $end_at }}.
+            Aucune commandes n'a été trouvée entre le <span class="font-weight-bold">{{ $start_at_formatted }}</span> et le <span class="font-weight-bold">{{ $end_at_formatted }}</span>.
         </div>
     @else
         <div class="row">
@@ -44,7 +53,7 @@
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{ $total_purchases }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -60,13 +69,13 @@
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{ $total_reloads }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6 mb-4">
+            {{--<div class="col-xl-4 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -83,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--}}
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -97,13 +106,13 @@
                                 @if($key2 != 'id')
                                     @if($key2 == 'name')
                                         <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-secondary">{{ $value2 }}</h6>
+                                            <h6 class="m-0 font-weight-bold text-primary">{{ $value2 }}</h6>
                                         </div>
                         <div class="card-body">
                                     @elseif($key2 == 'amount')
-                                        <p class="product-amount">nombre : {{ $value2 }}</p>
+                                        <p class="product-amount">nombre : <span class="text-primary">{{ $value2 }}</span></p>
                                     @elseif($key2 == 'total')
-                                        <p class="product-total">total : {{ $value2 }} $</p>
+                                        <p class="product-total">total : <span class="text-success">{{ $value2 }} €</span></p>
                                     @endif
                                 @endif
                             @endforeach

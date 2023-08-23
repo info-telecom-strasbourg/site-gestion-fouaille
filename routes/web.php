@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CreateOrganizationController;
 use App\Http\Controllers\FouailleController;
+use App\Http\Controllers\MarcoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
@@ -14,7 +15,6 @@ use App\Models\Organization;
 use App\Models\OrganizationMember;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MembreController;
 use App\Http\Middleware\CASLogin;
 use App\Http\Middleware\EnsureUserIsConnected;
 use App\Http\Controllers\UserController;
@@ -51,9 +51,14 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
     Route::get('/member/{id}/edit', [MemberController::class, 'edit'])->name('member.edit');
     Route::patch('/member/{id}', [MemberController::class, 'update'])->name('member.update');
 
-    Route::get('/marco', function () {
-        return view('marco.index');
-    })->name('marco.index');
+    Route::get('/marco', [MarcoController::class, 'index'])->name('marco.index');
+    Route::get('/marco/create', [MarcoController::class, 'create'])->name('marco.create');
+    Route::get('/marco/{id}', [MarcoController::class, 'show'])->name('marco.show');
+    Route::get('/marco/{id}/edit', [MarcoController::class, 'edit'])->name('marco.edit');
+    Route::patch('/marco/{id}', [MarcoController::class, 'update'])->name('marco.update');
+    Route::post('/marco', [MarcoController::class, 'store'])->name('marco.store');
+
+
 
     Route::get('/asso', [OrganizationController::class, 'index'])->name('asso.index');
     Route::get('/asso/{id}', [OrganizationController::class, 'show'])->name('asso.show');
