@@ -22,8 +22,7 @@ class OrganizationController extends Controller{
             return [
                 'Id' => $organization->id,
                 'Nom' => $organization->name,
-                /*'Logo' => $organization->getLogoPath(),*/
-                'Logo' => 'https://picsum.photos/200',
+                'Logo' => $organization->getLogoPath(),
                 'Email' => $organization->email,
                 'Site web' => $organization->website_link,
                 'Association' => $organization->association == 1 ? 'Oui' : 'Non',
