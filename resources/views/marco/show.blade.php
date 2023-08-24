@@ -22,7 +22,7 @@
                         <thead>
                         <th>Nom</th>
                         <th>Titre (nom sur la marco)</th>
-                        <th>Prix par default</th>
+                        <th>Prix par défaut</th>
                         <th>Type</th>
                         <th>Couleur</th>
                         </thead>

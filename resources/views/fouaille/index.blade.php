@@ -39,7 +39,7 @@
     </div>
     @if(empty($data))
         <div class="alert alert-danger" role="alert">
-            Aucune commandes n'a été trouvée entre le <span class="font-weight-bold">{{ $start_at_formatted }}</span> et le <span class="font-weight-bold">{{ $end_at_formatted }}</span>.
+            Aucune commande n'a été trouvée entre le <span class="font-weight-bold">{{ $start_at_formatted }}</span> et le <span class="font-weight-bold">{{ $end_at_formatted }}</span>.
         </div>
     @else
         <div class="row">
@@ -65,7 +65,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Rechargement</div>
+                                    Rechargements</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{ $total_reloads }}</div>
                             </div>
                             <div class="col-auto">

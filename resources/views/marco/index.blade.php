@@ -3,7 +3,7 @@
 <x-layout>
     @if(empty($data))
         <div class="alert alert-danger" role="alert">
-            Aucune produit trouvé.
+            Aucun produit trouvé.
         </div>
     @else
         @if(session('success'))
@@ -13,7 +13,7 @@
         @endif
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Produits</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Liste des produits</h6>
             </div>
             <div class="card-body">
                 <a href="{{ route('marco.create') }}" class="btn btn-primary btn-icon-split mb-3">
@@ -26,7 +26,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <th>Nom</th>
-                            <th>Prix par default</th>
+                            <th>Prix par défaut</th>
                             <th>Type</th>
                             <th>Couleur</th>
                         </thead>

@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="price">Prix par default</label>
+                            <label for="price">Prix par défaut</label>
                             <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ $data['price'] }}">
                         </div>
 

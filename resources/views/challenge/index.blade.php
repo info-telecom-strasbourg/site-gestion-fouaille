@@ -52,8 +52,8 @@
                         <thead>
                             <th>Nom</th>
                             <th>Points</th>
-                            <th>Nombre défis réalisé</th>
-                            <th>Défis réalisé</th>
+                            <th>Nombre de défis réalisés</th>
+                            <th>Défis réalisés</th>
                         </thead>
                         <tbody>
                         @foreach($data as $key => $value)
