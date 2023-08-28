@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('card_number')->unique()->nullable();
             $table->string('email', 50)->unique();
             $table->string('phone', 50)->unique()->nullable();
-            $table->decimal('balance', 10, 2)->nullable();
+            $table->decimal('balance', 10, 2)->default(0);
             $table->boolean('admin')->default(false);
             $table->boolean('contributor')->default(false);
             $table->date('birth_date')->nullable();
