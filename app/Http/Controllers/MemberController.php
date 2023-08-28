@@ -110,8 +110,8 @@ class MemberController extends Controller
 
 
         $validateData = request()->validate([
-            'last_name' => 'max:50',
-            'first_name' => 'max:50',
+            'last_name' => 'max:50|min:2',
+            'first_name' => 'max:50|min:2',
             'email' => [
                 'email',
                 'unique:members,email,' . $id
@@ -125,11 +125,11 @@ class MemberController extends Controller
                 'nullable',
                 'unique:members,phone,' . $id
             ],
-            'contributor' => 'string',
-            'admin' => 'string',
-            'class' => 'integer',
-            'birth_date' => 'date',
-            'sector' => 'string'
+            'contributor' => 'nullable|string',
+            'admin' => 'nullable|string',
+            'class' => 'nullable|integer',
+            'birth_date' => 'nullable|date',
+            'sector' => 'nullable|string'
         ]);
 
 
