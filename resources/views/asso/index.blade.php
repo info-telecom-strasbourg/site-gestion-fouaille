@@ -14,11 +14,12 @@
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                        @foreach($data[0] as $key => $value)
-                            @if($key != 'Id')
-                                <th>{{ $key }}</th>
-                            @endif
-                        @endforeach
+                            <th>Id</th>
+                            <th>Nom</th>
+                            <th>Logo</th>
+                            <th>Email</th>
+                            <th>Site web</th>
+                            <th>Association</th>
                         </thead>
                         <tbody>
                         @foreach($data as $key => $value)
