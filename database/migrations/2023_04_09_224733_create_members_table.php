@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('phone', 50)->unique()->nullable();
             $table->decimal('balance', 10, 2)->nullable();
             $table->boolean('admin')->default(false);
-            $table->boolean('contributor')->default(true);
+            $table->boolean('contributor')->default(false);
+            $table->date('birth_date')->nullable();
+            $table->string('sector')->nullable();
             $table->timestamp('created_at')->default(now());
             $table->integer('class')->nullable();
         });

@@ -69,6 +69,18 @@
                         <input type="number" class="form-control" id="class" name="class" value="{{ $data->class }}">
                     </div>
 
+                    <div class="form-group">
+                        <label for="birth_date">Date de naissance</label>
+                        <input type="date" class="form-control" id="birth_date" name="birth_date" value="{{ $data->birth_date }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sector">Filière</label>
+                        <input type="text" class="form-control" id="sector" name="sector" value="{{ $data->sector }}">
+                    </div>
+
+
+
                     <button type="submit" class="btn btn-primary">Mettre à jour</button>
                 </form>
             </div>

@@ -21,7 +21,9 @@ class Member extends Model
         'admin',
         'contributor',
         'created_at',
-        'class'
+        'class',
+        'birth_date',
+        'sector'
     ];
 
     public function scopeFilter($query, array $filters)

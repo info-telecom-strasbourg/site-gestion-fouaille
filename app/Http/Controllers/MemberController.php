@@ -63,6 +63,8 @@ class MemberController extends Controller
             'class' => $member->class,
             'admin' => $member->admin == 1 ? 'Oui' : 'Non',
             'created_at' => Carbon::parse($member->created_at)->format('d/m/Y H:i:s'),
+            'birth_date' => Carbon::parse($member->birth_date)->format('d/m/Y'),
+            'sector' => $member->sector,
             'orders' => $member->orders->map(function ($order) {
                 return [
                     'id' => $order->id,
@@ -125,7 +127,9 @@ class MemberController extends Controller
             ],
             'contributor' => 'string',
             'admin' => 'string',
-            'class' => 'nullable|integer',
+            'class' => 'integer',
+            'birth_date' => 'date',
+            'sector' => 'string'
         ]);
 
 
@@ -161,6 +165,8 @@ class MemberController extends Controller
             ],
             'contributor' => 'integer',
             'class' => 'nullable|integer',
+            'birth_date' => 'nullable|date',
+            'sector' => 'nullable|string'
         ]);
 
         Member::create([
@@ -172,48 +178,11 @@ class MemberController extends Controller
             'contributor' => array_key_exists('contributor', $validateData) ?
                 $validateData['contributor'] ? 1 : 0 : 0,
             'class' => $validateData['class'],
+            'birth_date' => $validateData['birth_date'],
+            'sector' => $validateData['sector']
         ]);
 
 
         return back();
-    }
-
-    public function getData(Request $request)
-    {
-        $date_start = $request->input('datestart');
-        $date_end = $request->input('dateend');
-
-        $date_start = date('Y-m-d H:i:s', strtotime($date_start));
-        $date_end = date('Y-m-d H:i:s', strtotime($date_end));
-
-        $peoples = DB::select('SELECT Membre.nom, Membre.prenom, Order.prix, Order.type_produit,
-                                    Order.produit, Order.date, Order.amount
-                                FROM Membre
-                                INNER JOIN Order
-                                ON Membre.id = Order.id_membre
-                                WHERE Order.date > ?
-                                AND Order.date < ?', [$date_start, $date_end]);
-        $total_commandes = DB::select('SELECT SUM(prix*amount) AS total
-                                        FROM Order
-                                        WHERE date > ?
-                                        AND date < ?', [$date_start, $date_end]);
-        $total_repas = DB::select('SELECT SUM(prix*amount) AS total
-                                    FROM Order
-                                    WHERE date > ?
-                                    AND date < ?
-                                    AND type_produit = "repas"', [$date_start, $date_end]);
-        $total_boisson = DB::select('SELECT SUM(amount) AS total
-                                    FROM Order
-                                    WHERE date > ?
-                                    AND date < ?
-                                    AND type_produit = "boisson"', [$date_start, $date_end]);
-        $date_start = date('Y-m-d\TH:i', strtotime($date_start));
-        $date_end = date('Y-m-d\TH:i', strtotime($date_end));
-        return view('index')->with('peoples', $peoples)
-                            ->with('current_date1', $date_start)
-                            ->with('current_date2', $date_end)
-                            ->with('total_commandes', $total_commandes[0]->total)
-                            ->with('total_repas', $total_repas[0]->total)
-                            ->with('total_boisson', $total_boisson[0]->total);
     }
 }

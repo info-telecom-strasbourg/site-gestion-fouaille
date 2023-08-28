@@ -31,6 +31,8 @@
                             <th>Promotion</th>
                             <th>Admin (MARCO)</th>
                             <th>Création du compte</th>
+                            <th>Date de naissance</th>
+                            <th>Filière</th>
                         </thead>
                         <tbody>
                         <tr>

@@ -26,7 +26,9 @@ class MemberFactory extends Factory
             'admin' => 1,
             'contributor' => 1,
             'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
-            'class' => fake()->numberBetween(1, 10)
+            'class' => fake()->numberBetween(1, 10),
+            'birth_date' => fake()->dateTimeBetween('-100 years', '-18 years'),
+            'sector' => fake()->randomElement(['ir', 'géné', 'fip', 'ti', 'bs', 'autre']),
         ];
     }
 }
