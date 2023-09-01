@@ -108,6 +108,10 @@ class MemberController extends Controller
             ]);
         }
 
+        if(request()->has('card_number')) { // card_number can be "0094994" that is not an integer
+            request()->merge(['card_number' => intval(request()->card_number)]);
+        }
+
 
         $validateData = request()->validate([
             'last_name' => 'max:50|min:2',
