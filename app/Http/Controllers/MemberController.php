@@ -133,7 +133,8 @@ class MemberController extends Controller
             'admin' => 'nullable|string',
             'class' => 'nullable|integer',
             'birth_date' => 'nullable|date',
-            'sector' => 'nullable|string'
+            'sector' => 'nullable|string',
+            'balance' => 'nullable|numeric'
         ]);
 
 
