@@ -29,6 +29,7 @@
                             <th>Prix par défaut</th>
                             <th>Type</th>
                             <th>Couleur</th>
+                            <th>Disponible</th>
                         </thead>
                         <tbody>
                         @foreach($data as $key => $value)

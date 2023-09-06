@@ -49,6 +49,11 @@
                             <input type="color" class="form-control" id="color" name="color" value="{{ $data['color'] }}">
                         </div>
 
+                        <div class="form-group">
+                            <label for="available">Disponible</label>
+                            <input type="checkbox" class="bootstrap-switch" id="available" name="available" {{ $data['available'] ? 'checked' : '' }}>
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Mettre à jour</button>
                     </form>
                 </div>

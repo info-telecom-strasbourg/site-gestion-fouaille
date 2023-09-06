@@ -16,7 +16,8 @@ class Product extends Model
         'title',
         'price',
         'color',
-        'product_type_id'
+        'product_type_id',
+        'available'
     ];
 
     public $with = ['productType'];

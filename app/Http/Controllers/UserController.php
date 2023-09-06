@@ -23,6 +23,7 @@ class UserController extends Controller
             cas()->authenticate();
         }
 
+
         if($this->authorized(cas()->user()))
         {
             $request->session()->put([

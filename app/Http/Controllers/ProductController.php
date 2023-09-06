@@ -25,7 +25,7 @@ class ProductController extends Controller
             'title' => 'required|max:255|unique:products',
             'price' => 'required|max:255',
             'color' => 'required|max:255',
-            'product_type_id' => 'required|integer'
+            'product_type_id' => 'required|integer',
         ]);
 
         Product::create([

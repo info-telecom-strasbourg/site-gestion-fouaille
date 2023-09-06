@@ -26,6 +26,7 @@ class MarcoController extends Controller
                     'price' => $product->price,
                     'product_type_name' => $product->productType->type,
                     'color' => $product->color,
+                    'available' => $product->available ? 'Disponible' : 'Indisponible',
                 ];
             }),
         ]);
@@ -49,6 +50,7 @@ class MarcoController extends Controller
                 'price' => $product->price,
                 'type' => $product->productType->type,
                 'color' => $product->color,
+                'available' => $product->available ? 'Disponible' : 'Indisponible',
             ],
         ]);
 
@@ -70,6 +72,7 @@ class MarcoController extends Controller
                 'title' => $product->title,
                 'price' => $product->price,
                 'color' => $product->color,
+                'available' => $product->available
             ],
         ]);
     }
@@ -90,8 +93,15 @@ class MarcoController extends Controller
             'title' => 'max:25',
             'price' => 'numeric',
             'color' => 'max:50',
+            'available' => 'string'
         ]);
 
+
+        if (array_key_exists('available', $validateData)) {
+            $validateData['available'] = 1;
+        }else{
+            $validateData['available'] = 0;
+        }
 
         $product->update($validateData);
         session()->flash('success', 'Produit modifié avec succès !');
