@@ -42,6 +42,8 @@ Route::prefix('challenge')->group( function() {
 
     Route::get('/leaderboard', [ApiChallengeController::class, 'leaderboard']);
 
+    Route::get('/top', [ApiChallengeController::class, 'top']);
+
     Route::get('/{id}', [ApiChallengeController::class, 'show']);
 
 });

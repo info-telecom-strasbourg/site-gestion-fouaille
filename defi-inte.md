@@ -657,3 +657,49 @@
     "message": "No members found"
 }
 ```
+
+## Avoir le top 3 des utilisateurs
+
+### Requête
+
+| URL                | Method |
+|:-------------------| :--- |
+| /api/challenge/top | GET |
+
+### Réponse
+
+#### Succès
+
+- code : **200**
+- contenu :
+```json
+{
+    "data": [
+        {
+            "id": 216,
+            "name": "Ad\u00e9la\u00efde Gautier",
+            "points": "11"
+        },
+        {
+            "id": 264,
+            "name": "Lorraine Fournier",
+            "points": "11"
+        },
+        {
+            "id": 22,
+            "name": "Philippe Pages",
+            "points": "10"
+        }
+    ]
+}
+```
+
+#### Erreur
+
+- code : 404
+- contenu :
+```json
+{
+    "message": "No members found"
+}
+```
