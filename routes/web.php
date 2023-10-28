@@ -63,9 +63,5 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
     Route::get('/asso', [OrganizationController::class, 'index'])->name('asso.index');
     Route::get('/asso/{id}', [OrganizationController::class, 'show'])->name('asso.show');
 
-    Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge.index');
-    Route::get('/challenge/{id}', [ChallengeController::class, 'show'])->name('challenge.show');
-    Route::put('/challenge/{id}', [ChallengeController::class, 'create'])->name('challenge.create');
-    Route::delete('/challenge/{id}', [ChallengeController::class, 'destroy'])->name('challenge.destroy');
 });
 
