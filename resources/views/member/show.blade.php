@@ -17,37 +17,68 @@
                                         </span>
                     <span class="text">Mettre à jour</span>
                 </a>
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <th>Id</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Numéro carte</th>
-                            <th>Email</th>
-                            <th>Numéro de téléphone</th>
-                            <th>Solde</th>
-                            <th>Cotisant</th>
-                            <th>Promotion</th>
-                            <th>Admin (MARCO)</th>
-                            <th>Création du compte</th>
-                            <th>Date de naissance</th>
-                            <th>Filière</th>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            @foreach($data as $key => $value)
-                                @if($key != 'orders')
-                                    @if(filter_var($value, FILTER_VALIDATE_EMAIL))
-                                        <td><a href="mailto:{{ $value }}">{{ $value }}</a></td>
-                                    @else
-                                        <td>{{ $value }}</td>
-                                    @endif
-                                @endif
-                            @endforeach
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="container mt-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-3">
+                                    <strong>Id :</strong> {{ $data['id'] }}
+                                </div>
+                                <div class="col-4">
+                                    <strong>Nom :</strong> {{ $data['last_name'] }}
+                                </div>
+                                <div class="col-4">
+                                    <strong>Prénom :</strong> {{ $data['first_name'] }}
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Numéro de carte :</strong> {{ $data['card_number'] }}
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Email :</strong> {{ $data['email'] }}
+                                </div>
+                                <div class="col-6">
+                                    <strong>Téléphone :</strong> {{ $data['phone'] }}
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Cotisant :</strong> {{ $data['contributor'] }}
+                                </div>
+                                <div class="col-6">
+                                    <strong>Admin(marco) :</strong> {{ $data['admin'] }}
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Promotion :</strong> {{ $data['class'] }}
+                                </div>
+                                <div class="col-6">
+                                    <strong>Filière :</strong> {{ $data['sector'] }}
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Solde :</strong> {{ $data['balance'] }}
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Date de création :</strong> {{ $data['created_at'] }}
+                                </div>
+                                <div class="col-6">
+                                    <strong>Date de naissance :</strong> {{ $data['birth_date'] }}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
