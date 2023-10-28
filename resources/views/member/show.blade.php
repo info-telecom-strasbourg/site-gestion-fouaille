@@ -12,43 +12,72 @@
             </div>
             <div class="card-body">
                 <a href="{{ route('member.edit', ['id' => $data['id']]) }}" class="btn btn-primary btn-icon-split mb-3">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-pen"></i>
-                                        </span>
+                    <span class="icon text-white-50">
+                        <i class="fas fa-pen"></i>
+                    </span>
                     <span class="text">Mettre à jour</span>
                 </a>
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <th>Id</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Numéro carte</th>
-                            <th>Email</th>
-                            <th>Numéro de téléphone</th>
-                            <th>Solde</th>
-                            <th>Cotisant</th>
-                            <th>Promotion</th>
-                            <th>Admin (MARCO)</th>
-                            <th>Création du compte</th>
-                            <th>Date de naissance</th>
-                            <th>Filière</th>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            @foreach($data as $key => $value)
-                                @if($key != 'orders')
-                                    @if(filter_var($value, FILTER_VALIDATE_EMAIL))
-                                        <td><a href="mailto:{{ $value }}">{{ $value }}</a></td>
-                                    @else
-                                        <td>{{ $value }}</td>
-                                    @endif
-                                @endif
-                            @endforeach
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-3">
+                                <strong class="text-primary">Id :</strong> {{ $data['id'] }}
+                            </div>
+                            <div class="col-4">
+                                <strong class="text-primary">Nom :</strong> {{ $data['last_name'] }}
+                            </div>
+                            <div class="col-4">
+                                <strong class="text-primary">Prénom :</strong> {{ $data['first_name'] }}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <strong class="text-primary">Numéro de carte :</strong> {{ $data['card_number'] }}
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="text-primary">Email :</strong> {{ $data['email'] }}
+                            </div>
+                            <div class="col-6">
+                                <strong class="text-primary">Téléphone :</strong> {{ $data['phone'] }}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="text-primary">Cotisant :</strong> {!! $data['contributor'] !!}
+                            </div>
+                            <div class="col-6">
+                                <strong class="text-primary">Admin(marco) :</strong> {!! $data['admin'] !!}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="text-primary">Promotion :</strong> {{ $data['class'] }}
+                            </div>
+                            <div class="col-6">
+                                <strong class="text-primary">Filière :</strong> {{ $data['sector'] }}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <strong class="text-primary">Solde :</strong> {{ $data['balance'] }}
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="text-primary">Date de création :</strong> {{ $data['created_at'] }}
+                            </div>
+                            <div class="col-6">
+                                <strong class="text-primary">Date de naissance :</strong> {{ $data['birth_date'] }}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="card shadow mb-4">
