@@ -20,12 +20,12 @@ class OrganizationController extends Controller{
 
         $datas = $organizations->map(function ($organization) {
             return [
-                'Id' => $organization->id,
-                'Nom' => $organization->name,
-                'Logo' => $organization->getLogoPath(),
-                'Email' => $organization->email,
-                'Site web' => $organization->website_link,
-                'Association' => $organization->association == 1 ? 'Oui' : 'Non',
+                'id' => $organization->id,
+                'name' => $organization->name,
+                'logo' => $organization->getLogoPath(),
+                'email' => $organization->email,
+                'website_link' => $organization->website_link,
+                'association' => $organization->association == 1 ? 'Oui' : 'Non',
             ];
         });
 
@@ -45,19 +45,19 @@ class OrganizationController extends Controller{
         }
 
         $datas = [
-            'Id' => $organization->id,
-            'Nom' => $organization->name,
-            'Nom court' => $organization->short_name,
-            'Description' => $organization->description,
+            'id' => $organization->id,
+            'name' => $organization->name,
+            'short_name' => $organization->short_name,
+            'description' => $organization->description,
             /*'Logo' => $organization->getLogoPath(),*/
-            'Logo' => 'https://picsum.photos/200',
-            'Email' => $organization->email,
-            'Site web' => $organization->website_link,
-            'Association' => $organization->association == 1 ? 'Oui' : 'Non',
-            'Facebook' => $organization->facebook_link,
-            'Twitter' => $organization->twitter_link,
-            'Instagram' => $organization->instagram_link,
-            'Discord' => $organization->discord_link,
+            'logo' => 'https://picsum.photos/200',
+            'email' => $organization->email,
+            'website_link' => $organization->website_link,
+            'association' => $organization->association == 1 ? 'Oui' : 'Non',
+            'facebook_link' => $organization->facebook_link,
+            'twitter_link' => $organization->twitter_link,
+            'instagram_link' => $organization->instagram_link,
+            'discord_link' => $organization->discord_link,
         ];
 
         return view('asso.show', [

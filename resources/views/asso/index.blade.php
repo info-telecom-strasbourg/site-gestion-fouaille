@@ -14,7 +14,6 @@
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                            <th>Id</th>
                             <th>Nom</th>
                             <th>Logo</th>
                             <th>Email</th>
@@ -25,11 +24,11 @@
                         @foreach($data as $key => $value)
                             <tr>
                                 @foreach($value as $key2 => $value2)
-                                    @if($key2 != 'Id')
-                                        @if($key2 == 'Logo')
+                                    @if($key2 != 'id')
+                                        @if($key2 == 'logo')
                                             <td><img src="{{ $value2 }}" alt="Logo" width="100" height="100"></td>
-                                        @elseif($key2 == 'Nom')
-                                            <td><a href="{{ route('asso.show', $value['Id']) }}">{{ $value2 }} <i class="fas fa-eye"></i></a></td>
+                                        @elseif($key2 == 'name')
+                                            <td><a href="{{ route('asso.show', $value['id']) }}">{{ $value2 }} <i class="fas fa-eye"></i></a></td>
                                         @elseif(filter_var($value2, FILTER_VALIDATE_URL))
                                             <td><a href="{{ $value2 }}">{{ $value2 }}</a></td>
                                         @elseif(filter_var($value2, FILTER_VALIDATE_EMAIL))
