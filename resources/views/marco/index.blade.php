@@ -42,6 +42,8 @@
                                             <td><a href="{{ route('marco.show', $value['id']) }}">{{ $value2 }} <i class="fas fa-eye"></i></a></td>
                                         @elseif($key2 == 'price')
                                             <td><span class="text-success">{{ $value2 }} €</span></td>
+                                        @elseif($key2 == 'available')
+                                            <td>{!! $value2 !!}</td>
                                         @else
                                             <td>{{ $value2 }}</td>
                                         @endif

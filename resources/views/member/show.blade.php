@@ -20,7 +20,7 @@
                 <ul class="list-group">
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-2">
                                 <strong class="text-primary">Id :</strong> {{ $data['id'] }}
                             </div>
                             <div class="col-4">

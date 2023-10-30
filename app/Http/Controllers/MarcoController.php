@@ -26,7 +26,7 @@ class MarcoController extends Controller
                     'price' => $product->price,
                     'product_type_name' => $product->productType->type,
                     'color' => $product->color,
-                    'available' => $product->available ? 'Disponible' : 'Indisponible',
+                    'available' => $product->available ? '<span class="text-success">Disponible</span>' : '<span class="text-danger">Indisponible</span>',
                 ];
             }),
         ]);
@@ -50,7 +50,7 @@ class MarcoController extends Controller
                 'price' => $product->price,
                 'type' => $product->productType->type,
                 'color' => $product->color,
-                'available' => $product->available ? 'Disponible' : 'Indisponible',
+                'available' => $product->available ? '<span class="text-success">Oui</span>' : '<span class="text-danger">Non</span>',
             ],
         ]);
 

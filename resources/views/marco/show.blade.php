@@ -17,33 +17,41 @@
                                         </span>
                     <span class="text">Mettre à jour</span>
                 </a>
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <th>Nom</th>
-                        <th>Titre (nom sur la marco)</th>
-                        <th>Prix par défaut</th>
-                        <th>Type</th>
-                        <th>Couleur</th>
-                        <th>Disponible</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                @foreach($data as $key => $value)
-                                    @if($key != 'id')
-                                        @if($key == 'color')
-                                            <td><div class="p-3" style="background-color: {{ $value }}"></div></td>
-                                        @elseif($key == 'price')
-                                            <td><span class="text-success">{{ $value }} €</span></td>
-                                        @else
-                                            <td>{{ $value }}</td>
-                                        @endif
-                                    @endif
-                                @endforeach
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-2">
+                                <strong class="text-primary">Id :</strong> {{ $data['id'] }}
+                            </div>
+                            <div class="col-4">
+                                <strong class="text-primary">Nom :</strong> {{ $data['name'] }}
+                            </div>
+                            <div class="col-4">
+                                <strong class="text-primary">Titre :</strong> {{ $data['title'] }}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="text-primary">Type :</strong> {{ $data['type'] }}
+                            </div>
+                            <div class="col-6">
+                                <strong class="text-primary">Couleur :</strong> <div class="p-3" style="background-color: {{ $data['color'] }}"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="text-primary">Prix :</strong> {{ $data['price'] }}
+                            </div>
+                            <div class="col-6">
+                                <strong class="text-primary">Disponible :</strong> {!! $data['available'] !!}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     @endif
