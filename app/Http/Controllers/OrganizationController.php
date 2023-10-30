@@ -49,8 +49,7 @@ class OrganizationController extends Controller{
             'name' => $organization->name,
             'short_name' => $organization->short_name,
             'description' => $organization->description,
-            /*'Logo' => $organization->getLogoPath(),*/
-            'logo' => 'https://picsum.photos/200',
+            'Logo' => $organization->getLogoPath(),
             'email' => $organization->email,
             'website_link' => $organization->website_link,
             'association' => $organization->association == 1 ? 'Oui' : 'Non',

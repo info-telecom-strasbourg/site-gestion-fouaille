@@ -3,7 +3,7 @@
 <x-layout>
     @if(empty($data))
         <div class="alert alert-danger" role="alert">
-            Aucun membre n'a été trouvé.
+            Aucune associations n'a été trouvé.
         </div>
     @else
         <div class="card shadow mb-4">
@@ -11,39 +11,49 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{ $data['name'] }}</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <th>id</th>
-                            <th>Nom</th>
-                            <th>Nom court</th>
-                            <th>description</th>
-                            <th>Logo</th>
-                            <th>Email</th>
-                            <th>Site web</th>
-                            <th>Association</th>
-                            <th>Facebook</th>
-                            <th>twitter</th>
-                            <th>Instagram</th>
-                            <th>Discord</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                @foreach($data as $key => $value)
-                                    @if($key == 'logo')
-                                        <td><img src="{{ $value }}" alt="Logo" width="100" height="100"></td>
-                                    @elseif(filter_var($value, FILTER_VALIDATE_URL))
-                                        <td><a href="{{ $value }}">{{ $value }}</a></td>
-                                    @elseif(filter_var($value, FILTER_VALIDATE_EMAIL))
-                                        <td><a href="mailto:{{ $value }}">{{ $value }}</a></td>
-                                    @else
-                                        <td>{{ $value }}</td>
-                                    @endif
-                                @endforeach
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <img src="{{ $data['logo'] }}" alt="{{ $data['name'] }}" class="img-fluid" width="100px">
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-2">
+                                <strong class="text-primary">Id :</strong> {{ $data['id'] }}
+                            </div>
+                            <div class="col-6">
+                                <strong class="text-primary">Nom :</strong> {{ $data['name'] }}
+                            </div>
+                            <div class="col-4">
+                                <strong class="text-primary">Appellation :</strong> {{ $data['short_name'] }}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <p><strong class="text-primary">Description :</strong> {{ $data['description'] }}</p>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="text-primary">Website :</strong> <a href="{{ $data['website_link'] }}">{{ $data['website_link'] }}</a>
+                            </div>
+                            <div class="col-6">
+                                <strong class="text-primary">Email :</strong> <a href="mailto:{{ $data['email'] }}">{{ $data['email'] }}</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="text-primary">Twitter :</strong> <a href="{{ $data['facebook_link'] }}">{{ $data['facebook_link'] }}</a>
+                            </div>
+                            <div class="col-6">
+                                <strong class="text-primary">Instagram :</strong> <a href="{{ $data['instagram_link'] }}">{{ $data['instagram_link'] }}</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <strong class="text-primary">Discord :</strong> <a href="{{ $data['discord_link'] }}">{{ $data['discord_link'] }}</a>
+                </ul>
             </div>
         </div>
     @endif
