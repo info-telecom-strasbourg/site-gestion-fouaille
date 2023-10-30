@@ -33,8 +33,7 @@ class MemberController extends Controller
                     'Email' => $member->email,
                     'Téléphone' => $member->phone,
                     'Solde' => $member->balance,
-                    'Cotisant' => $member->contributor == 1 ? 'Oui' : 'Non',
-                    'Promotion' => $member->class,
+                    'Cotisant' => $member->contributor == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
                 ];
             }),
             'pagination' => $members->links()
@@ -59,9 +58,9 @@ class MemberController extends Controller
             'email' => $member->email,
             'phone' => $member->phone,
             'balance' => $member->balance,
-            'contributor' => $member->contributor == 1 ? '<span class="text-success">Oui</span>' : '<span class="text-danger">Oui</span>',
+            'contributor' => $member->contributor == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
             'class' => $member->class,
-            'admin' => $member->admin == 1 ? '<span class="text-success">Oui</span>' : '<span class="text-danger">Oui</span>',
+            'admin' => $member->admin == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
             'created_at' => Carbon::parse($member->created_at)->format('d/m/Y H:i:s'),
             'birth_date' => Carbon::parse($member->birth_date)->format('d/m/Y'),
             'sector' => $member->sector,

@@ -13,7 +13,14 @@
             <div class="card-body">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <img src="{{ $data['logo'] }}" alt="{{ $data['name'] }}" class="img-fluid" width="100px">
+                        <div class="row">
+                            <div class="col-8">
+                                <img src="{{ $data['logo'] }}" alt="{{ $data['name'] }}" class="img-fluid" width="100px">
+                            </div>
+                            <div class="col-4">
+                                <strong class="text-primary">Association :</strong> {!! $data['association'] !!}
+                            </div>
+                        </div>
                     </li>
                     <li class="list-group-item">
                         <div class="row">

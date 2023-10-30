@@ -17,7 +17,6 @@
                             <th>Nom</th>
                             <th>Logo</th>
                             <th>Email</th>
-                            <th>Site web</th>
                             <th>Association</th>
                         </thead>
                         <tbody>
@@ -33,6 +32,8 @@
                                             <td><a href="{{ $value2 }}">{{ $value2 }}</a></td>
                                         @elseif(filter_var($value2, FILTER_VALIDATE_EMAIL))
                                             <td><a href="mailto:{{ $value2 }}">{{ $value2 }}</a></td>
+                                        @elseif($key2 == 'association')
+                                            <td>{!! $value2 !!}</td>
                                         @else
                                             <td>{{ $value2 }}</td>
                                         @endif

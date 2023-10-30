@@ -24,8 +24,7 @@ class OrganizationController extends Controller{
                 'name' => $organization->name,
                 'logo' => $organization->getLogoPath(),
                 'email' => $organization->email,
-                'website_link' => $organization->website_link,
-                'association' => $organization->association == 1 ? 'Oui' : 'Non',
+                'association' => $organization->association == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
             ];
         });
 
@@ -49,10 +48,10 @@ class OrganizationController extends Controller{
             'name' => $organization->name,
             'short_name' => $organization->short_name,
             'description' => $organization->description,
-            'Logo' => $organization->getLogoPath(),
+            'logo' => $organization->getLogoPath(),
             'email' => $organization->email,
             'website_link' => $organization->website_link,
-            'association' => $organization->association == 1 ? 'Oui' : 'Non',
+            'association' => $organization->association == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
             'facebook_link' => $organization->facebook_link,
             'twitter_link' => $organization->twitter_link,
             'instagram_link' => $organization->instagram_link,

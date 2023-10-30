@@ -44,6 +44,8 @@
                                             <td><a href="{{ route('member.show', $value['Id']) }}">{{ $value2 }} <i class="fas fa-eye"></i></a></td>
                                         @elseif(filter_var($value2, FILTER_VALIDATE_EMAIL))
                                             <td><a href="mailto:{{ $value2 }}">{{ $value2 }}</a></td>
+                                        @elseif($key2 == 'Cotisant')
+                                            <td>{!! $value2 !!}</td>
                                         @else
                                             <td>{{ $value2 }}</td>
                                         @endif
