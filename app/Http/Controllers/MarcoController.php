@@ -10,7 +10,8 @@ class MarcoController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('available', 'desc')->orderBy('name', 'asc')
+        ->paginate(20)->withQueryString();
 
         if ($products == null) {
             return view('marco.index', [
@@ -29,6 +30,7 @@ class MarcoController extends Controller
                     'available' => $product->available ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
                 ];
             }),
+            'pagination' => $products->links(),
         ]);
     }
 

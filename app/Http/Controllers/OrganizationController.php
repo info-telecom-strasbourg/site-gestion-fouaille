@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 class OrganizationController extends Controller{
     public function index(){
 
-        $organizations = Organization::orderBy('name')->get();
+        $organizations = Organization::orderBy('association', 'desc')->orderBy('name')->paginate(10)->withQueryString();
 
         if ($organizations == null) {
             return view('asso.index', [
@@ -30,7 +30,8 @@ class OrganizationController extends Controller{
 
 
         return view('asso.index', [
-            'data' => $datas
+            'data' => $datas,
+            'pagination' => $organizations->links()
         ]);
     }
 
