@@ -188,6 +188,7 @@ return [
 
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
         /*
          * Application Service Providers...

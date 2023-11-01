@@ -15,8 +15,40 @@ class FouailleController extends Controller
             $start_at = request()->start_at;
             $end_at = request()->end_at;
         } else {
-            $start_at = Carbon::now()->subDays(1)->setHour(16)->setMinute(0)->format('Y-m-d H:i');
-            $end_at = Carbon::now()->subDays(1)->setHour(23)->setMinute(30)->format('Y-m-d H:i');
+            $start_at = Carbon::now()
+                ->subDays(1)
+                ->setHour(16)
+                ->setMinute(0)->format('Y-m-d H:i');
+
+            $end_at = Carbon::now()
+                ->subDays(1)
+                ->setHour(23)
+                ->setMinute(30)->format('Y-m-d H:i');
+
+            request()->merge([
+                'start_at' => $start_at,
+                'end_at' => $end_at
+            ]);
+        }
+
+        if(isset(request()->order_by)
+            && in_array(request()->order_by, ['date', 'price', 'amount', 'product', 'type','name'])) {
+            $order_by = request()->order_by;
+        } else {
+            $order_by = 'date';
+            request()->merge([
+                'order_by' => 'date'
+            ]);
+        }
+
+        if(isset(request()->order_direction)
+            && in_array(request()->order_direction, ['asc', 'desc'])) {
+            $order_direction = request()->order_direction;
+        } else {
+            $order_direction = 'desc';
+            request()->merge([
+                'order_direction' => 'desc'
+            ]);
         }
 
         request()->validate([
@@ -25,9 +57,26 @@ class FouailleController extends Controller
         ]);
 
         $orders_paginate = Order::whereBetween('date', [$start_at, $end_at])
-            ->orderBy('date', 'desc')
+            ->when(request()->order_by == 'product', function ($query) use ($order_direction) {
+                return $query
+                    ->join('products', 'orders.product_id', '=', 'products.id')
+                    ->orderBy('products.name', $order_direction);
+            })
+            ->when(request()->order_by == 'type', function ($query) use ($order_direction) {
+                return $query
+                    ->join('products', 'orders.product_id', '=', 'products.id')
+                    ->join('product_types', 'products.product_type_id', '=', 'product_types.id')
+                    ->orderBy('product_types.type', $order_direction);
+            })
+            ->when(request()->order_by == 'name', function ($query) use ($order_direction) {
+                return $query
+                    ->join('members', 'orders.member_id', '=', 'members.id')
+                    ->orderBy('members.last_name', $order_direction);
+            })
+            ->when(!in_array(request()->order_by, ['product', 'type', 'name']), function ($query) use ($order_by, $order_direction) {
+                return $query->orderBy($order_by, $order_direction);
+            })
             ->paginate(25)->withQueryString();
-
 
         if($orders_paginate->isEmpty()) {
             return view('fouaille.index', [

@@ -10,6 +10,7 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\OrganizationMemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
+use App\Models\Member;
 use App\Models\Order;
 use App\Models\Organization;
 use App\Models\OrganizationMember;
