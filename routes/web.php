@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CreateOrganizationController;
+use App\Http\Controllers\FouailleChartsController;
 use App\Http\Controllers\FouailleController;
 use App\Http\Controllers\MarcoController;
 use App\Http\Controllers\OrderController;
@@ -45,7 +46,7 @@ Route::get('logout', [UserController::class, 'logout'])
 
 Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
     Route::get('/fouaille', [FouailleController::class, 'index'])->name('fouaille.index');
-    Route::get('/fouaille/chart', [FouailleController::class, 'chart'])->name('fouaille.chart');
+    Route::get('/fouaille/chart', [FouailleChartsController::class, 'index'])->name('fouaille.chart.index');
 
     Route::get('/member', [MemberController::class, 'index'])->name('member.index');
     Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');

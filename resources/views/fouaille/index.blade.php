@@ -75,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            {{--<div class="col-xl-4 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -83,7 +83,7 @@
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Graphique</div>
                                 <div class="h5 font-weight-bold text-gray-800">
-                                    <a href="{{ route('fouaille.chart') }}" class="btn btn-primary">Voir</a>
+                                    <a href="{{ route('fouaille.chart.index', ['start_at' => $start_at, 'end_at' => $end_at]) }}" target="_blank">[Voir]</a>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-            </div>--}}
+            </div>
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
