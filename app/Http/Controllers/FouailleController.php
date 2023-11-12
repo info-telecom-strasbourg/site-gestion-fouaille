@@ -56,26 +56,13 @@ class FouailleController extends Controller
             'end_at' => 'date|after:start_at'
         ]);
 
+
         $orders_paginate = Order::whereBetween('date', [$start_at, $end_at])
-            ->when(request()->order_by == 'product', function ($query) use ($order_direction) {
-                return $query
-                    ->join('products', 'orders.product_id', '=', 'products.id')
-                    ->orderBy('products.name', $order_direction);
-            })
-            ->when(request()->order_by == 'type', function ($query) use ($order_direction) {
-                return $query
-                    ->join('products', 'orders.product_id', '=', 'products.id')
-                    ->join('product_types', 'products.product_type_id', '=', 'product_types.id')
-                    ->orderBy('product_types.type', $order_direction);
-            })
-            ->when(request()->order_by == 'name', function ($query) use ($order_direction) {
-                return $query
-                    ->join('members', 'orders.member_id', '=', 'members.id')
-                    ->orderBy('members.last_name', $order_direction);
-            })
-            ->when(!in_array(request()->order_by, ['product', 'type', 'name']), function ($query) use ($order_by, $order_direction) {
-                return $query->orderBy($order_by, $order_direction);
-            })
+            ->join('products', 'orders.product_id', '=', 'products.id')
+            ->join('members', 'orders.member_id', '=', 'members.id')
+            ->join('product_types', 'products.product_type_id', '=', 'product_types.id')
+            ->order($order_by, $order_direction)
+            ->filter(request(['search']))
             ->paginate(25)->withQueryString();
 
         if($orders_paginate->isEmpty()) {
@@ -115,7 +102,7 @@ class FouailleController extends Controller
                         'id' => $order->id,
                         'member' => [
                             'name' => $order->member->last_name . ' ' . $order->member->first_name,
-                            'id' => $order->member->id
+                            'redirect_route' => route('member.show', $order->member->id),
                         ],
                         'price' => $order->product == null ? '<p class="text-success">+ ' . $order->price . '€</p>' : '<p class="text-danger">' . $order->price . '€</p>',
                         'amount' => $order->amount,
