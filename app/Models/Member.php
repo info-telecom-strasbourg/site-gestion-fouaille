@@ -38,6 +38,21 @@ class Member extends Model
         });
     }
 
+    public function scopeOrder($query, $order_by, $order_direction)
+    {
+        $query->when(isset($order_by, $order_direction), function ($query) use ($order_by, $order_direction) {
+            $query
+                ->when($order_by == 'name', function ($query) use ($order_direction) {
+                    return $query
+                        ->orderBy('last_name', $order_direction)
+                        ->orderBy('first_name', $order_direction);
+                })
+                ->when(!in_array($order_by, ['name']), function ($query) use ($order_by, $order_direction) {
+                    return $query->orderBy($order_by, $order_direction);
+                });
+        });
+    }
+
     public function orders(){
         return $this->hasMany(Order::class, 'member_id')->orderBy('date', 'desc');
     }

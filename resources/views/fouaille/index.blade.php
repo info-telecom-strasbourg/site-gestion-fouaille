@@ -127,138 +127,18 @@
                 <h6 class="m-0 font-weight-bold text-primary">Dernières commandes</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <th>
-                                Nom
-                                @if(isset(request()->order_by) && request()->order_by == 'name')
-                                    @if(isset(request()->order_direction) && request()->order_direction == 'asc')
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'name', 'order_direction' => 'desc'])) }}">
-                                            <i class="fas fa-sort-up"/>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'name', 'order_direction' => 'asc'])) }}">
-                                            <i class="fas fa-sort-down"/>
-                                        </a>
-                                    @endif
-                                @else
-                                    <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'name', 'order_direction' => 'asc'])) }}">
-                                        <i class="fas fa-sort"/>
-                                    </a>
-                                @endif
-                            </th>
-                            <th>
-                                Prix
-                                @if(isset(request()->order_by) && request()->order_by == 'price')
-                                    @if(isset(request()->order_direction) && request()->order_direction == 'asc')
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'price', 'order_direction' => 'desc'])) }}">
-                                            <i class="fas fa-sort-up"/>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'price', 'order_direction' => 'asc'])) }}">
-                                            <i class="fas fa-sort-down"/>
-                                        </a>
-                                    @endif
-                                @else
-                                    <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'price', 'order_direction' => 'asc'])) }}">
-                                        <i class="fas fa-sort"/>
-                                    </a>
-                                @endif
-                            </th>
-                            <th>
-                                Nombre
-                                @if(isset(request()->order_by) && request()->order_by == 'amount')
-                                    @if(isset(request()->order_direction) && request()->order_direction == 'asc')
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'amount', 'order_direction' => 'desc'])) }}">
-                                            <i class="fas fa-sort-up"/>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'amount', 'order_direction' => 'asc'])) }}">
-                                            <i class="fas fa-sort-down"/>
-                                        </a>
-                                    @endif
-                                @else
-                                    <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'amount', 'order_direction' => 'asc'])) }}">
-                                        <i class="fas fa-sort"/>
-                                    </a>
-                                @endif
-                            </th>
-                            <th>
-                                Produit
-                                @if(isset(request()->order_by) && request()->order_by == 'product')
-                                    @if(isset(request()->order_direction) && request()->order_direction == 'asc')
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'product', 'order_direction' => 'desc'])) }}">
-                                            <i class="fas fa-sort-up"/>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'product', 'order_direction' => 'asc'])) }}">
-                                            <i class="fas fa-sort-down"/>
-                                        </a>
-                                    @endif
-                                @else
-                                    <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'product', 'order_direction' => 'asc'])) }}">
-                                        <i class="fas fa-sort"/>
-                                    </a>
-                                @endif
-                            </th>
-                            <th>
-                                Type
-                                @if(isset(request()->order_by) && request()->order_by == 'type')
-                                    @if(isset(request()->order_direction) && request()->order_direction == 'asc')
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'type', 'order_direction' => 'desc'])) }}">
-                                            <i class="fas fa-sort-up"/>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'type', 'order_direction' => 'asc'])) }}">
-                                            <i class="fas fa-sort-down"/>
-                                        </a>
-                                    @endif
-                                @else
-                                    <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'type', 'order_direction' => 'asc'])) }}">
-                                        <i class="fas fa-sort"/>
-                                    </a>
-                                @endif
-                            </th>
-                            <th>
-                                Date
-                                @if(isset(request()->order_by) && request()->order_by == 'date')
-                                    @if(isset(request()->order_direction) && request()->order_direction == 'asc')
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'date', 'order_direction' => 'desc'])) }}">
-                                            <i class="fas fa-sort-up"/>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'date', 'order_direction' => 'asc'])) }}">
-                                            <i class="fas fa-sort-down"/>
-                                        </a>
-                                    @endif
-                                @else
-                                    <a href="{{ route('fouaille.index', array_merge(request()->all(), ['order_by' => 'date', 'order_direction' => 'asc'])) }}">
-                                        <i class="fas fa-sort"/>
-                                    </a>
-                                @endif
-                            </th>
-                        </thead>
-                        <tbody>
-                        @foreach($data['orders'] as $key => $value)
-                            <tr>
-                                @foreach($value as $key2 => $value2)
-                                    @if($key2 != 'id')
-                                        @if($key2 == 'member')
-                                            <td><a href="{{ route('member.show', $value2['id']) }}">{{ $value2['name'] }} <i class="fas fa-eye"></i></a></td>
-                                        @elseif ($key2 == 'price')
-                                            <td>{!! $value2 !!}</td>
-                                        @else
-                                            <td>{{ $value2 }}</td>
-                                        @endif
-                                    @endif
-                                @endforeach
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                {!!  $pagination !!}
+                <x-table
+                    :headers="[
+                        'name' => 'Nom',
+                        'price' => 'Prix',
+                        'amount' => 'Nombre',
+                        'product' => 'Produit',
+                        'type' => 'Type',
+                        'date' => 'Date'
+                    ]"
+                    :orders="$data['orders']->toArray()"
+                    :pagination="$pagination"
+                />
             </div>
         </div>
     @endif
