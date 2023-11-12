@@ -14,8 +14,33 @@ class MemberController extends Controller
     public function index()
     {
 
-        // get members ordered by last name
-        $members = Member::orderBy('last_name')->filter(request(['search']))->paginate(30)->withQueryString();
+        request()->validate([
+            'order_by' => 'string|in:name,email,phone,card_number,contributor,balance',
+            'order_direction' => 'string|in:asc,desc',
+            'search' => 'string'
+        ]);
+
+        if (isset(request()->order_by)) {
+            $order_by = request()->order_by;
+        } else {
+            $order_by = 'name';
+            request()->merge([
+                'order_by' => 'name'
+            ]);
+        }
+
+        if (isset(request()->order_direction)) {
+            $order_direction = request()->order_direction;
+        } else {
+            $order_direction = 'desc';
+            request()->merge([
+                'order_direction' => 'desc'
+            ]);
+        }
+
+        $members = Member::order($order_by, $order_direction)
+            ->filter(request(['search']))
+            ->paginate(30)->withQueryString();
 
         if ($members->isEmpty()) {
             return view('member.index', [
@@ -28,12 +53,15 @@ class MemberController extends Controller
         return view('member.index', [
             'data' => $members->map(function ($member) {
                 return [
-                    'Id' => $member->id,
-                    'Nom' => $member->last_name . ' ' . $member->first_name,
-                    'Email' => $member->email,
-                    'Téléphone' => $member->phone,
-                    'Solde' => $member->balance,
-                    'Cotisant' => $member->contributor == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
+                    'id' => $member->id,
+                    'name' => [
+                        'name' => $member->last_name . ' ' . $member->first_name,
+                        'redirect_route' => route('member.show', $member->id)
+                        ],
+                    'email' => $member->email,
+                    'phone' => $member->phone,
+                    'balance' => $member->balance,
+                    'contributor' => $member->contributor == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
                 ];
             }),
             'pagination' => $members->links()

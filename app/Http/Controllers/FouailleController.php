@@ -11,14 +11,23 @@ class FouailleController extends Controller
 {
     public function index()
     {
+
+        request()->validate([
+            'start_at' => 'date',
+            'end_at' => 'date|after:start_at',
+            'order_by' => 'string|in:date,price,amount,product,type,name',
+            'order_direction' => 'string|in:asc,desc',
+            'search' => 'string'
+        ]);
+
         if(isset(request()->start_at) && isset(request()->end_at)) {
             $start_at = request()->start_at;
             $end_at = request()->end_at;
         } else {
             $start_at = Carbon::now()
                 ->subDays(1)
-                ->setHour(16)
-                ->setMinute(0)->format('Y-m-d H:i');
+                ->setHour(17)
+                ->setMinute(30)->format('Y-m-d H:i');
 
             $end_at = Carbon::now()
                 ->subDays(1)
@@ -31,8 +40,7 @@ class FouailleController extends Controller
             ]);
         }
 
-        if(isset(request()->order_by)
-            && in_array(request()->order_by, ['date', 'price', 'amount', 'product', 'type','name'])) {
+        if(isset(request()->order_by)) {
             $order_by = request()->order_by;
         } else {
             $order_by = 'date';
@@ -41,8 +49,7 @@ class FouailleController extends Controller
             ]);
         }
 
-        if(isset(request()->order_direction)
-            && in_array(request()->order_direction, ['asc', 'desc'])) {
+        if(isset(request()->order_direction)) {
             $order_direction = request()->order_direction;
         } else {
             $order_direction = 'desc';
@@ -50,12 +57,6 @@ class FouailleController extends Controller
                 'order_direction' => 'desc'
             ]);
         }
-
-        request()->validate([
-            'start_at' => 'date',
-            'end_at' => 'date|after:start_at'
-        ]);
-
 
         $orders_paginate = Order::whereBetween('date', [$start_at, $end_at])
             ->join('products', 'orders.product_id', '=', 'products.id')

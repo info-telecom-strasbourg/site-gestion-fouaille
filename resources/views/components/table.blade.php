@@ -44,7 +44,8 @@
                 @else
                     <a href="{{ route(
                         request()->route()->getName(),
-                        array_merge(request()->all(), ['order_by' => $key, 'order_direction' => 'asc'])) }}"
+                        array_merge(request()->all(),
+                        ['order_by' => $key, 'order_direction' => 'asc'])) }}"
                     >
                         <i class="fas fa-sort"/>
                     </a>
@@ -53,9 +54,9 @@
         @endforeach
         </thead>
         <tbody>
-        @foreach($orders as $order)
+        @foreach($datas as $data)
             <tr>
-                @foreach($order as $key => $value)
+                @foreach($data as $key => $value)
                     @if(is_array($value))
                         <td>
                             @foreach($value as $key2 => $value2)

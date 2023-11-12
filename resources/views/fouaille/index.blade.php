@@ -136,7 +136,7 @@
                         'type' => 'Type',
                         'date' => 'Date'
                     ]"
-                    :orders="$data['orders']->toArray()"
+                    :datas="$data['orders']->toArray()"
                     :pagination="$pagination"
                 />
             </div>
