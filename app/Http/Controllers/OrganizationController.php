@@ -10,7 +10,33 @@ use Illuminate\Validation\Rule;
 class OrganizationController extends Controller{
     public function index(){
 
-        $organizations = Organization::orderBy('association', 'desc')->orderBy('name')->paginate(10)->withQueryString();
+        request()->validate([
+            'order_by' => 'string|in:name,email,association',
+            'order_direction' => 'string|in:asc,desc',
+            'search' => 'string'
+        ]);
+
+        if (isset(request()->order_by)) {
+            $order_by = request()->order_by;
+        } else {
+            $order_by = 'association';
+            request()->merge([
+                'order_by' => 'association'
+            ]);
+        }
+
+        if (isset(request()->order_direction)) {
+            $order_direction = request()->order_direction;
+        } else {
+            $order_direction = 'desc';
+            request()->merge([
+                'order_direction' => 'desc'
+            ]);
+        }
+
+        $organizations = Organization::order($order_by, $order_direction)
+            ->filter(request(['search']))
+            ->paginate(10)->withQueryString();
 
         if ($organizations == null) {
             return view('asso.index', [
@@ -22,7 +48,7 @@ class OrganizationController extends Controller{
             return [
                 'id' => $organization->id,
                 'name' => $organization->name,
-                'logo' => $organization->getLogoPath(),
+                'logo' => '<img src="'.$organization->getLogoPath().'" alt="Logo" class="img-fluid" style="max-width: 100px;">',
                 'email' => $organization->email,
                 'association' => $organization->association == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
             ];

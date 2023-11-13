@@ -25,6 +25,22 @@ class Organization extends Model
         'association'
     ];
 
+    public function scopeOrder($query, $order_by, $order_direction)
+    {
+        $query->when(isset($order_by, $order_direction), function ($query) use ($order_by, $order_direction) {
+            return $query->orderBy($order_by, $order_direction);
+        });
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $query
+                ->where('name', 'like', '%'.$search.'%')
+                ->orWhere('email', 'like', '%'.$search.'%');
+        });
+    }
+
     public function members(){
         return $this->hasMany(OrganizationMember::class, 'organization_id');
     }
