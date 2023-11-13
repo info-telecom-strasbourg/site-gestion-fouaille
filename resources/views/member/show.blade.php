@@ -92,33 +92,18 @@
                         Aucune commande n'a été trouvée.
                     </div>
                 @else
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <th>Prix</th>
-                                <th>Nombre</th>
-                                <th>Produit</th>
-                                <th>Type</th>
-                                <th>Date</th>
-                            </thead>
-                            <tbody>
-                            @foreach($data['orders'] as $key => $value)
-                                <tr>
-                                    @foreach($value as $key2 => $value2)
-                                        @if($key2 != 'id')
-                                            @if($key2 == 'member')
-                                                <td><a href="{{ route('member.show', $value2['id']) }}">{{ $value2['name'] }} <i class="fas fa-eye"></i></a></td>
-                                            @elseif($key2 == 'price')
-                                                <td>{!! $value2 !!}</td>
-                                            @else
-                                                <td>{{ $value2 }}</td>
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </tr>
-                            @endforeach
-                        </table>
-                    </div>
+                    <x-table
+                        :is_searchable="true"
+                        :headers="[
+                            'price' => 'Prix',
+                            'amount' => 'Nombre',
+                            'product' => 'Produit',
+                            'type' => 'Type',
+                            'date' => 'Date'
+                        ]"
+                        :datas="$data['orders']->toArray()"
+                        :pagination="$pagination"
+                    />
                 @endif
             </div>
         </div>

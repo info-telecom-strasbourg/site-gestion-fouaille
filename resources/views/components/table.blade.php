@@ -1,30 +1,35 @@
-<form method="GET" action="{{ route(request()->route()->getName()) }}" class="mb-3">
+@if(isset($is_searchable) && $is_searchable)
+    <form
+        method="GET"
+        action="{{route(request()->route()->getName(), ['id' => request()->route('id')])}}"
+        class="mb-3"
+    >
 
-    @CSRF
+        @CSRF
 
-    @method('GET')
+        @method('GET')
 
-    @foreach(request()->query() as $key => $value)
-        @if($key !== 'search' && $key !== '_token')
-            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-        @endif
-    @endforeach
+        @foreach(request()->query() as $key => $value)
+            @if($key !== 'search' && $key !== '_token')
+                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+            @endif
+        @endforeach
 
-    <div class="form-row">
-        <div class="col">
-            <input type="text"
-                   class="form-control"
-                   name="search"
-                   placeholder="Rechercher"
-                   value="{{ request('search') != null ? request('search') : '' }}"
-            >
+        <div class="form-row">
+            <div class="col">
+                <input type="text"
+                       class="form-control"
+                       name="search"
+                       placeholder="Rechercher"
+                       value="{{ request('search') != null ? request('search') : '' }}"
+                >
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </div>
         </div>
-        <div class="col">
-            <button type="submit" class="btn btn-primary">Rechercher</button>
-        </div>
-    </div>
-
-</form>
+    </form>
+@endif
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
@@ -33,11 +38,11 @@
                 {{ $value }}
                 @if(isset(request()->order_by) && request()->order_by == $key)
                     @if(isset(request()->order_direction) && request()->order_direction == 'asc')
-                        <a href="{{ route(request()->route()->getName(), array_merge(request()->all(), ['order_by' => $key, 'order_direction' => 'desc'])) }}">
+                        <a href="{{ route(request()->route()->getName(), array_merge(request()->all(), ['id' => request()->route('id'), 'order_by' => $key, 'order_direction' => 'desc'])) }}">
                             <i class="fas fa-sort-up"/>
                         </a>
                     @else
-                        <a href="{{ route(request()->route()->getName(), array_merge(request()->all(), ['order_by' => $key, 'order_direction' => 'asc'])) }}">
+                        <a href="{{ route(request()->route()->getName(), array_merge(request()->all(), ['id' => request()->route('id'), 'order_by' => $key, 'order_direction' => 'asc'])) }}">
                             <i class="fas fa-sort-down"/>
                         </a>
                     @endif
@@ -45,7 +50,7 @@
                     <a href="{{ route(
                         request()->route()->getName(),
                         array_merge(request()->all(),
-                        ['order_by' => $key, 'order_direction' => 'asc'])) }}"
+                        ['id' => request()->route('id'), 'order_by' => $key, 'order_direction' => 'asc'])) }}"
                     >
                         <i class="fas fa-sort"/>
                     </a>

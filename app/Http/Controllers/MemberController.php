@@ -6,7 +6,6 @@ use App\Models\Member;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-// add carbon
 use Carbon\Carbon;
 
 class MemberController extends Controller
@@ -70,6 +69,31 @@ class MemberController extends Controller
 
     public function show($request)
     {
+
+        request()->validate([
+            'order_by' => 'string|in:price,amount,product,type,date',
+            'order_direction' => 'string|in:asc,desc',
+            'search' => 'string'
+        ]);
+
+        if (isset(request()->order_by)) {
+            $order_by = request()->order_by;
+        } else {
+            $order_by = 'date';
+            request()->merge([
+                'order_by' => 'date'
+            ]);
+        }
+
+        if (isset(request()->order_direction)) {
+            $order_direction = request()->order_direction;
+        } else {
+            $order_direction = 'desc';
+            request()->merge([
+                'order_direction' => 'desc'
+            ]);
+        }
+
         $member = Member::find($request);
 
         if ($member == null) {
@@ -77,36 +101,40 @@ class MemberController extends Controller
                 'data' => []
             ]);
         }
-
-        $datas = [
-            'id' => $member->id,
-            'last_name' => $member->last_name,
-            'first_name' => $member->first_name,
-            'card_number' => $member->card_number,
-            'email' => $member->email,
-            'phone' => $member->phone,
-            'balance' => $member->balance,
-            'contributor' => $member->contributor == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
-            'class' => $member->class,
-            'admin' => $member->admin == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
-            'created_at' => Carbon::parse($member->created_at)->format('d/m/Y H:i:s'),
-            'birth_date' => Carbon::parse($member->birth_date)->format('d/m/Y'),
-            'sector' => $member->sector,
-            'orders' => $member->orders->map(function ($order) {
-                return [
-                    'id' => $order->id,
-                    'price' => $order->product == null ? '<p class="text-success">+ ' . $order->price . '€</p>' : '<p class="text-danger">' . $order->price . '€</p>',
-                    'amount' => $order->amount,
-                    'product' => $order->product == null ? 'rechargement' : $order->product->name,
-                    'type' => $order->product == null ? 'rechargement' : $order->product->productType->type,
-                    'date' => Carbon::parse($order->date)->format('d/m/Y H:i:s')
-                ];
-            })
-        ];
-
+        
+        $orders = $member->orders()
+            ->join('products', 'orders.product_id', '=', 'products.id')
+            ->join('product_types', 'products.product_type_id', '=', 'product_types.id')
+            ->order($order_by, $order_direction)
+            ->paginate(30)->withQueryString();
 
         return view('member.show', [
-            'data' => $datas
+            'data' => [
+                'id' => $member->id,
+                'last_name' => $member->last_name,
+                'first_name' => $member->first_name,
+                'card_number' => $member->card_number,
+                'email' => $member->email,
+                'phone' => $member->phone,
+                'balance' => $member->balance,
+                'contributor' => $member->contributor == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
+                'class' => $member->class,
+                'admin' => $member->admin == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
+                'created_at' => Carbon::parse($member->created_at)->format('d/m/Y H:i:s'),
+                'birth_date' => Carbon::parse($member->birth_date)->format('d/m/Y'),
+                'sector' => $member->sector,
+                'orders' => $orders->map(function ($order) {
+                    return [
+                        'price' => $order->product == null ? '<p class="text-success">+ ' . $order->price . '€</p>' : '<p class="text-danger">' . $order->price . '€</p>',
+                        'amount' => $order->amount,
+                        'product' => $order->product == null ? 'rechargement' : $order->product->name,
+                        'type' => $order->product == null ? 'rechargement' : $order->product->productType->type,
+                        'date' => Carbon::parse($order->date)->format('d/m/Y H:i')
+                    ];
+                })
+            ],
+            'pagination' => $orders->links()
+
         ]);
     }
 

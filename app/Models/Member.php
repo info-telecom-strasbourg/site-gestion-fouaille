@@ -54,7 +54,7 @@ class Member extends Model
     }
 
     public function orders(){
-        return $this->hasMany(Order::class, 'member_id')->orderBy('date', 'desc');
+        return $this->hasMany(Order::class, 'member_id');
     }
 
     public function organizationMembers(){
