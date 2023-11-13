@@ -101,11 +101,12 @@ class MemberController extends Controller
                 'data' => []
             ]);
         }
-        
+
         $orders = $member->orders()
             ->join('products', 'orders.product_id', '=', 'products.id')
             ->join('product_types', 'products.product_type_id', '=', 'product_types.id')
             ->order($order_by, $order_direction)
+            ->filter(request(['search']))
             ->paginate(30)->withQueryString();
 
         return view('member.show', [

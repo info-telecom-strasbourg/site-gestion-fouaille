@@ -1,4 +1,4 @@
-@if(isset($is_searchable) && $is_searchable)
+@if($attributes->get('is_searchable'))
     <form
         method="GET"
         action="{{route(request()->route()->getName(), ['id' => request()->route('id')])}}"

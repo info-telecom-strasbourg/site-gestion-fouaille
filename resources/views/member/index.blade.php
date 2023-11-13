@@ -21,6 +21,7 @@
                     ]"
                     :datas="$data->toArray()"
                     :pagination="$pagination"
+                    is_searchable="true"
                 />
             </div>
         </div>

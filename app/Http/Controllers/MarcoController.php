@@ -10,8 +10,34 @@ class MarcoController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('available', 'desc')->orderBy('name', 'asc')
-        ->paginate(20)->withQueryString();
+        request()->validate([
+            'order_by' => 'string|in:name,type,price,color,available',
+            'order_direction' => 'string|in:asc,desc',
+            'search' => 'string'
+        ]);
+
+        if (isset(request()->order_by)) {
+            $order_by = request()->order_by;
+        } else {
+            $order_by = 'available';
+            request()->merge([
+                'order_by' => 'available'
+            ]);
+        }
+
+        if (isset(request()->order_direction)) {
+            $order_direction = request()->order_direction;
+        } else {
+            $order_direction = 'desc';
+            request()->merge([
+                'order_direction' => 'desc'
+            ]);
+        }
+
+        $products = Product::join('product_types', 'products.product_type_id', '=', 'product_types.id')
+            ->order($order_by, $order_direction)
+            ->filter(request(['search']))
+            ->paginate(20)->withQueryString();
 
         if ($products == null) {
             return view('marco.index', [
@@ -25,7 +51,7 @@ class MarcoController extends Controller
                     'id' => $product->id,
                     'name' => $product->name,
                     'price' => $product->price,
-                    'product_type_name' => $product->productType->type,
+                    'type' => $product->productType->type,
                     'color' => $product->color,
                     'available' => $product->available ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
                 ];
