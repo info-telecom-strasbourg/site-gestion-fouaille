@@ -57,8 +57,9 @@ class Member extends Model
         return $this->hasMany(Order::class, 'member_id');
     }
 
-    public function organizationMembers(){
-        return $this->hasMany(OrganizationMember::class, 'member_id');
+    public function organizations(){
+        return $this->belongsToMany(Organization::class, 'organization_members', 'member_id', 'organization_id')
+            ->withPivot('role');
     }
 
     public function challenges(){

@@ -65,6 +65,7 @@ class OrganizationController extends Controller{
     }
 
     public function show($request){
+
         $organization = Organization::find($request);
 
         if ($organization == null) {
@@ -73,23 +74,33 @@ class OrganizationController extends Controller{
             ]);
         }
 
-        $datas = [
-            'id' => $organization->id,
-            'name' => $organization->name,
-            'short_name' => $organization->short_name,
-            'description' => $organization->description,
-            'logo' => $organization->getLogoPath(),
-            'email' => $organization->email,
-            'website_link' => $organization->website_link,
-            'association' => $organization->association == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
-            'facebook_link' => $organization->facebook_link,
-            'twitter_link' => $organization->twitter_link,
-            'instagram_link' => $organization->instagram_link,
-            'discord_link' => $organization->discord_link,
-        ];
+        $organization_members = $organization->members;
 
         return view('asso.show', [
-            'data' => $datas
+            'data' => [
+                'id' => $organization->id,
+                'name' => $organization->name,
+                'short_name' => $organization->short_name,
+                'description' => $organization->description,
+                'logo' => $organization->getLogoPath(),
+                'email' => $organization->email,
+                'website_link' => $organization->website_link,
+                'association' => $organization->association == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
+                'facebook_link' => $organization->facebook_link,
+                'twitter_link' => $organization->twitter_link,
+                'instagram_link' => $organization->instagram_link,
+                'discord_link' => $organization->discord_link,
+                'members' => $organization_members->map(function ($organization_member) {
+                    return [
+                        'id' => $organization_member->id,
+                        'name' => [
+                            'name' => $organization_member->last_name . ' ' . $organization_member->first_name,
+                            'redirect_route' => route('member.show', $organization_member->id)
+                        ],
+                        'role' => $organization_member->pivot->role,
+                    ];
+                }),
+            ]
         ]);
     }
 }

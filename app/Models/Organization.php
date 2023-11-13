@@ -42,7 +42,8 @@ class Organization extends Model
     }
 
     public function members(){
-        return $this->hasMany(OrganizationMember::class, 'organization_id');
+        return $this->belongsToMany(Member::class, 'organization_members', 'organization_id', 'member_id')
+            ->withPivot('role');
     }
 
     public function getLogoPath() : string {

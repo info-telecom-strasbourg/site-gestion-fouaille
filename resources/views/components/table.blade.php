@@ -82,5 +82,7 @@
         @endforeach
         </tbody>
     </table>
-    {!!  $pagination !!}
+    @if(isset($pagination))
+        {!!  $pagination !!}
+    @endif
 </div>
