@@ -34,8 +34,7 @@ class MarcoController extends Controller
             ]);
         }
 
-        $products = Product::join('product_types', 'products.product_type_id', '=', 'product_types.id')
-            ->order($order_by, $order_direction)
+        $products = Product::order($order_by, $order_direction)
             ->filter(request(['search']))
             ->paginate(20)->withQueryString();
 
@@ -49,7 +48,10 @@ class MarcoController extends Controller
             'data' => $products->map(function ($product) {
                 return [
                     'id' => $product->id,
-                    'name' => $product->name,
+                    'name' => [
+                        'name' => $product->name,
+                        'redirect_route' => route('marco.show', $product->id)
+                    ],
                     'price' => $product->price,
                     'type' => $product->productType->type,
                     'color' => $product->color,

@@ -47,7 +47,10 @@ class OrganizationController extends Controller{
         $datas = $organizations->map(function ($organization) {
             return [
                 'id' => $organization->id,
-                'name' => $organization->name,
+                'name' => [
+                    'name' => $organization->name,
+                    'redirect_route' => route('asso.show', $organization->id)
+                ],
                 'logo' => '<img src="'.$organization->getLogoPath().'" alt="Logo" class="img-fluid" style="max-width: 100px;">',
                 'email' => $organization->email,
                 'association' => $organization->association == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
