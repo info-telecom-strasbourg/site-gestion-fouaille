@@ -138,6 +138,7 @@
                     ]"
                     :datas="$data['orders']->toArray()"
                     :pagination="$pagination"
+                    is_searchable="true"
                 />
             </div>
         </div>

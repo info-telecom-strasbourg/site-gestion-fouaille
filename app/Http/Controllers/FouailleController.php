@@ -59,12 +59,11 @@ class FouailleController extends Controller
         }
 
         $orders_paginate = Order::whereBetween('date', [$start_at, $end_at])
-            ->join('products', 'orders.product_id', '=', 'products.id')
             ->join('members', 'orders.member_id', '=', 'members.id')
-            ->join('product_types', 'products.product_type_id', '=', 'product_types.id')
             ->order($order_by, $order_direction)
             ->filter(request(['search']))
             ->paginate(25)->withQueryString();
+
 
         if($orders_paginate->isEmpty()) {
             return view('fouaille.index', [
@@ -95,6 +94,8 @@ class FouailleController extends Controller
             ->whereBetween('orders.date', [$start_at, $end_at])
             ->groupBy('products.name', 'products.price', 'products.product_type_id', 'products.color')
             ->get();
+
+
 
         return view('fouaille.index', [
             'data' => [
