@@ -6,6 +6,11 @@
             Aucune associations n'a été trouvé.
         </div>
     @else
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ $data['name'] }}</h6>
@@ -68,6 +73,12 @@
                 <h6 class="m-0 font-weight-bold text-primary">Membres</h6>
             </div>
             <div class="card-body">
+                <a href="{{ route('asso.member.create', $data['id']) }}" class="btn btn-primary btn-icon-split mb-3">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                    <span class="text">Ajouter un membre</span>
+                </a>
                 <x-table
                     :headers="[
                         'name' => 'Nom',
