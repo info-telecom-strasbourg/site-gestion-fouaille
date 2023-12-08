@@ -120,8 +120,8 @@ class MarcoController extends Controller
 
 
         $validateData = request()->validate([
-            'name' => 'max:50',
-            'title' => 'max:25',
+            'name' => 'max:50|unique:products',
+            'title' => 'max:25|unique:products',
             'price' => 'numeric',
             'color' => 'max:50',
             'available' => 'string'
@@ -157,8 +157,8 @@ class MarcoController extends Controller
     public function store()
     {
         $validateData = request()->validate([
-            'name' => 'required|max:50',
-            'title' => 'required|max:25',
+            'name' => 'required|max:50|unique:products',
+            'title' => 'required|max:25|unique:products',
             'price' => 'required|numeric',
             'color' => 'required|max:50',
             'product_type_id' => 'required|integer|exists:product_types,id'
