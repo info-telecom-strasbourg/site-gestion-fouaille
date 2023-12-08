@@ -34,7 +34,7 @@ class MarcoController extends Controller
             ]);
         }
 
-        $products = Product::join('product_types', 'products.product_type_id', '=', 'product_types.id')
+        $products = Product::with('productType')
             ->order($order_by, $order_direction)
             ->filter(request(['search']))
             ->paginate(20)->withQueryString();
