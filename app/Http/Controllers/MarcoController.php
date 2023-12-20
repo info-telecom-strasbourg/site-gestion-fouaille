@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductType;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class MarcoController extends Controller
 {
@@ -120,8 +121,8 @@ class MarcoController extends Controller
 
 
         $validateData = request()->validate([
-            'name' => 'max:50|unique:products',
-            'title' => 'max:25|unique:products',
+            'name' => ['max:50', Rule::unique('products')->ignore($product->id) ],
+            'title' => ['max:25', Rule::unique('products')->ignore($product->id) ],
             'price' => 'numeric',
             'color' => 'max:50',
             'available' => 'string'
