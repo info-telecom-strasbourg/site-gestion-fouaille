@@ -26,9 +26,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             ProductTypeSeeder::class,
-            ProductSeeder::class,
-            ChallengeSeeder::class,
-            ChallengeMemberSeeder::class,
+            ProductSeeder::class
         ]);
 
         Order::factory(1000)->create();
