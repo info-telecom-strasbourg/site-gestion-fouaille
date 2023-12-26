@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 50)->unique();
             $table->string('title', 25)->unique();
             $table->decimal('price', 10, 2)->default(0);
+            $table->boolean('available')->default(true);
             $table->unsignedBigInteger('product_type_id');
             $table->string('color', 50)->nullable();
             $table->foreign('product_type_id')->references('id')->on('product_types')->onDelete('cascade');

@@ -46,8 +46,13 @@ class Organization extends Model
             ->withPivot('role');
     }
 
-    public function getLogoPath() : string {
-        return asset('storage/images/organization_logo/'.$this->logo);
+    public function logo(){
+        return $this->hasOne(OrganizationLogo::class)->withDefault([
+            'name' => 'default.png',
+            'path' => asset('storage/images/organization_logo/default.png'),
+            'size' => 0,
+            'organization_id' => $this->id
+        ]);
     }
 
 }
