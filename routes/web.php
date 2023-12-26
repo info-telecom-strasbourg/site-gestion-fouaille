@@ -8,6 +8,7 @@ use App\Http\Controllers\MarcoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\OrganizationLogoController;
 use App\Http\Controllers\OrganizationMemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
@@ -64,8 +65,13 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
 
     Route::get('/asso', [OrganizationController::class, 'index'])->name('asso.index');
     Route::get('/asso/{id}', [OrganizationController::class, 'show'])->name('asso.show');
+    Route::get('/asso/{id}/edit', [OrganizationController::class, 'edit'])->name('asso.edit');
+    Route::patch('/asso/{id}', [OrganizationController::class, 'update'])->name('asso.update');
+
     Route::get('/asso/member/create/{id}', [OrganizationMemberController::class, 'create'])->name('asso.member.create');
     Route::post('/asso/member', [OrganizationMemberController::class, 'store'])->name('asso.member.store');
+
+    Route::post('/asso/logo', [OrganizationLogoController::class, 'store'])->name('asso.logo.store');
 
 });
 

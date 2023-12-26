@@ -16,6 +16,12 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{ $data['name'] }}</h6>
             </div>
             <div class="card-body">
+                <a href="{{ route('asso.edit', ['id' => $data['id']]) }}" class="btn btn-primary btn-icon-split mb-3">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-pen"></i>
+                    </span>
+                    <span class="text">Mettre à jour</span>
+                </a>
                 <ul class="list-group">
                     <li class="list-group-item">
                         <div class="row">
@@ -56,7 +62,7 @@
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-6">
-                                <strong class="text-primary">Twitter :</strong> <a href="{{ $data['facebook_link'] }}">{{ $data['facebook_link'] }}</a>
+                                <strong class="text-primary">Twitter :</strong> <a href="{{ $data['twitter_link'] }}">{{ $data['facebook_link'] }}</a>
                             </div>
                             <div class="col-6">
                                 <strong class="text-primary">Instagram :</strong> <a href="{{ $data['instagram_link'] }}">{{ $data['instagram_link'] }}</a>
@@ -64,7 +70,15 @@
                         </div>
                     </li>
                     <li class="list-group-item">
-                        <strong class="text-primary">Discord :</strong> <a href="{{ $data['discord_link'] }}">{{ $data['discord_link'] }}</a>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong class="text-primary">Discord :</strong> <a href="{{ $data['discord_link'] }}">{{ $data['discord_link'] }}</a>
+                            </div>
+                            <div class="col-6">
+                                <strong class="text-primary">Facebook :</strong> <a href="{{ $data['facebook_link'] }}">{{ $data['facebook_link'] }}</a>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

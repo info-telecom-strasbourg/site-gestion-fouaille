@@ -51,7 +51,7 @@ class OrganizationController extends Controller{
                     'name' => $organization->name,
                     'redirect_route' => route('asso.show', $organization->id)
                 ],
-                'logo' => '<img src="'.$organization->getLogoPath().'" alt="Logo" class="img-fluid" style="max-width: 100px;">',
+                'logo' => '<img src="'. $organization->logo->path .'" alt="Logo" class="img-fluid" style="max-width: 100px;">',
                 'email' => $organization->email,
                 'association' => $organization->association == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
             ];
@@ -82,7 +82,7 @@ class OrganizationController extends Controller{
                 'name' => $organization->name,
                 'short_name' => $organization->short_name,
                 'description' => $organization->description,
-                'logo' => $organization->getLogoPath(),
+                'logo' => $organization->logo->path,
                 'email' => $organization->email,
                 'website_link' => $organization->website_link,
                 'association' => $organization->association == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
@@ -102,5 +102,54 @@ class OrganizationController extends Controller{
                 }),
             ]
         ]);
+    }
+
+    public function edit($request)
+    {
+        $organization = Organization::find($request);
+        if ($organization == null) {
+            return view('asso.edit', [
+                'data' => []
+            ]);
+        }
+
+        return view('asso.edit', [
+            'data' => $organization
+        ]);
+    }
+
+    public function update($request)
+    {
+        $organization = Organization::find($request);
+
+        if ($organization == null) {
+            return view('asso.show', [
+                'data' => []
+            ]);
+        }
+
+        $validate_data = request()->validate([
+            'name' => ['string', 'max:50', Rule::unique('organizations')->ignore($request)],
+            'short_name' => ['string', 'max:50', Rule::unique('organizations')->ignore($request)],
+            'description' => 'string|max:10000',
+            'email' => ['string', 'email', 'max:50', Rule::unique('organizations')->ignore($request)],
+            'website_link' => 'string|max:255',
+            'association' => 'in:on,off',
+            'facebook_link' => 'string|max:255',
+            'twitter_link' => 'string|max:255',
+            'instagram_link' => 'string|max:255',
+            'discord_link' => 'string|max:255',
+        ]);
+
+        if(array_key_exists('association', $validate_data)){
+            $validate_data['association'] = 1;
+        }else{
+            $validate_data['association'] = 0;
+        }
+
+        $organization->update($validate_data);
+        session()->flash('success', 'Asso/club modifiée avec succès !');
+
+        return redirect('/asso/' . $request . '/edit');
     }
 }
