@@ -18,7 +18,6 @@ class OrganizationLogoController extends Controller
         $organization = Organization::find($request->id);
 
         if ($organization->logo->name != 'default.png') {
-            Storage::delete('public/images/organization_logo/' . $organization->logo->name);
             $organization->logo->delete();
         }
 
