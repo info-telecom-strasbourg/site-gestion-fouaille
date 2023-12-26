@@ -16,6 +16,12 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{ $data['name'] }}</h6>
             </div>
             <div class="card-body">
+                <a href="{{ route('asso.edit', ['id' => $data['id']]) }}" class="btn btn-primary btn-icon-split mb-3">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-pen"></i>
+                    </span>
+                    <span class="text">Mettre à jour</span>
+                </a>
                 <ul class="list-group">
                     <li class="list-group-item">
                         <div class="row">
