@@ -23,7 +23,7 @@ class ApiOrganizationController extends Controller
                     'id' => $asso->id,
                     'short_name' => $asso->short_name,
                     'name' => $asso->name,
-                    'logo_url' => $asso->getLogoPath()
+                    'logo_url' => $asso->logo->path
                 ];
             })->values();
         }
@@ -39,7 +39,7 @@ class ApiOrganizationController extends Controller
                     'id' => $club->id,
                     'short_name' => $club->short_name,
                     'name' => $club->name,
-                    'logo_url' => $club->getLogoPath()
+                    'logo_url' => $club->logo->path
                 ];
             })->values();
         }
@@ -68,7 +68,7 @@ class ApiOrganizationController extends Controller
                 'instagram_link' => $organization->instagram_link,
                 'discord_link' => $organization->discord_link,
                 'email' => $organization->email,
-                'logo_url' => $organization->getLogoPath(),
+                'logo_url' => $organization->logo->path,
             ];
         return response()->json(['data' => $organization_tab])->setEncodingOptions(JSON_PRETTY_PRINT);
     }

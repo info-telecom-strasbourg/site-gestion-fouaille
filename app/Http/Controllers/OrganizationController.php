@@ -51,7 +51,7 @@ class OrganizationController extends Controller{
                     'name' => $organization->name,
                     'redirect_route' => route('asso.show', $organization->id)
                 ],
-                'logo' => '<img src="'.$organization->getLogoPath().'" alt="Logo" class="img-fluid" style="max-width: 100px;">',
+                'logo' => '<img src="'. $organization->logo->path .'" alt="Logo" class="img-fluid" style="max-width: 100px;">',
                 'email' => $organization->email,
                 'association' => $organization->association == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
             ];
@@ -82,7 +82,7 @@ class OrganizationController extends Controller{
                 'name' => $organization->name,
                 'short_name' => $organization->short_name,
                 'description' => $organization->description,
-                'logo' => $organization->getLogoPath(),
+                'logo' => $organization->logo->path,
                 'email' => $organization->email,
                 'website_link' => $organization->website_link,
                 'association' => $organization->association == 1 ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
