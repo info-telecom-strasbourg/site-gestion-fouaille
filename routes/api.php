@@ -38,3 +38,4 @@ Route::prefix('organization')->group( function() {
 
 Route::get('/orders', [ApiOrderController::class, 'index']);
 
+Route::get('/member', [ApiMemberController::class, 'index']);
