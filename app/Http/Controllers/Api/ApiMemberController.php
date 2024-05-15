@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class ApiOrderController extends Controller
+class ApiMemberController extends Controller
 {
     public function index(){
 
