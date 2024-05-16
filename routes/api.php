@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ApiAuthController;
 use App\Http\Controllers\Api\ApiChallengeController;
+use App\Http\Controllers\Api\ApiMemberController;
 use App\Http\Controllers\Api\ApiFouailleController;
 use App\Http\Controllers\Api\ApiOrderController;
 use App\Http\Controllers\Api\ApiOrganizationController;
@@ -38,4 +39,4 @@ Route::prefix('organization')->group( function() {
 
 Route::get('/orders', [ApiOrderController::class, 'index']);
 
-Route::get('/member', [ApiMemberController::class, 'index']);
+Route::get('/member/{name}', [ApiMemberController::class, 'index']);

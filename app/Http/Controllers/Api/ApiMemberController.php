@@ -8,13 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class ApiMemberController extends Controller
 {
-    public function index(){
+    public function index($name){
 
-        $name = "";
-
-        $member = $product_details = DB::table('members')
-            ->select('members.first_name', 'members.balance')
-            ->where('members.first_name', '=', $name)
+        $member = DB::table('members')
+            ->Select('first_name', 'balance')
+            ->Where('first_name', 'like', '%'.$name.'%')
             ->get();
 
         return response()->json(
