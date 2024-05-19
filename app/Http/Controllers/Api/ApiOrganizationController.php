@@ -13,7 +13,7 @@ class ApiOrganizationController extends Controller
 {
     public function index(){
 
-        $associations = Organization::select('id', 'short_name', 'name', 'logo')->where('association', '=', 1)->get();
+        $associations = Organization::all()->where('association', '=', 1); // 1 = association
 
         if ($associations->isEmpty()) {
             $associations_tab = [];
@@ -29,7 +29,7 @@ class ApiOrganizationController extends Controller
         }
 
 
-        $clubs = Organization::select('id', 'short_name', 'name', 'logo')->where('association', '=', 0)->get();
+        $clubs = Organization::all()->where('association', '=', 0); // 0 = club
 
         if ($clubs->isEmpty()) {
             $clubs_tab = [];
