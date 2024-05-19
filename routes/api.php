@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\ApiAuthController;
-use App\Http\Controllers\Api\ApiChallengeController;
 use App\Http\Controllers\Api\ApiMemberController;
 use App\Http\Controllers\Api\ApiFouailleController;
 use App\Http\Controllers\Api\ApiOrderController;
