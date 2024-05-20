@@ -152,4 +152,51 @@ class OrganizationController extends Controller{
 
         return redirect('/asso/' . $request . '/edit');
     }
+
+    public function create()
+    {
+        return view('asso.create');
+    }
+
+    public function store()
+    {
+        $validate_data = request()->validate([
+            'name' => ['required','string', 'max:50', Rule::unique('organizations')],
+            'short_name' => ['string', 'max:50', Rule::unique('organizations'), 'nullable'],
+            'description' => ['string', 'max:10000', 'nullable'],
+            'email' => ['string', 'email', 'max:50', Rule::unique('organizations'), 'nullable'],
+            'website_link' => 'string|max:255|nullable',
+            'association' => 'in:on,off|nullable',
+            'facebook_link' => 'string|max:255|nullable',
+            'twitter_link' => 'string|max:255|nullable',
+            'instagram_link' => 'string|max:255|nullable',
+            'discord_link' => 'string|max:255|nullable',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
+        ]);
+
+        if(array_key_exists('association', $validate_data)){
+            $validate_data['association'] = 1;
+        }else{
+            $validate_data['association'] = 0;
+        }
+
+        $organization = Organization::create($validate_data, ['except' => ['logo']]);
+
+        if (request()->hasFile('logo')) {
+            $logo = request()->file('logo');
+            $name = $organization->id . '_' . time() . '_' . $organization->name . '_' . random_int(0, 1000) . '.' . $logo->getClientOriginalExtension();
+
+            $logo->storeAs('public/images/organization_logo', $name);
+
+            $organization->logo()->create([
+                'name' => $name,
+                'path' => asset('storage/images/organization_logo/' . $name),
+                'size' => $logo->getSize()
+            ]);
+        }
+
+        session()->flash('success', 'Asso/club ajoutée avec succès !');
+
+        return redirect()->route('asso.index');
+    }
 }
