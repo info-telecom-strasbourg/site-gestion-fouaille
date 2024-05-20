@@ -11,6 +11,12 @@
                 <h6 class="m-0 font-weight-bold text-primary">Associations / Clubs</h6>
             </div>
             <div class="card-body">
+                <a href="{{ route('asso.create') }}" class="btn btn-primary btn-icon-split mb-3">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                    <span class="text">Ajouter un produit</span>
+                </a>
                 <x-table
                     :headers="[
                         'name' => 'Nom',
