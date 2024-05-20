@@ -87,7 +87,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Membres</h6>
             </div>
             <div class="card-body">
-                <a href="{{ route('asso.member.create', $data['id']) }}" class="btn btn-primary btn-icon-split mb-3">
+                <a href="{{ route('asso.member.update', $data['id']) }}" class="btn btn-primary btn-icon-split mb-3">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-plus"></i>
                                         </span>

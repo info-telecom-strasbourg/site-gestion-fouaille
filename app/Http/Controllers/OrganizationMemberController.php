@@ -15,9 +15,9 @@ class OrganizationMemberController extends Controller
         ]);
     }
 
-    public function create($id){
+    public function update($id){
 
-        return view('asso.member.create', [
+        return view('asso.member.update', [
             'data' => [
                 'organization' => array_filter(Organization::findOrfail($id)->toArray(), function ($key) {
                     return $key == 'id' || $key == 'short_name';
@@ -25,7 +25,9 @@ class OrganizationMemberController extends Controller
                 'members' => Member::OrderBy('last_name')->OrderBy('first_name')->get()->map(function ($member) {
                     return [
                         'id' => $member->id,
-                        'name' => $member->first_name . ' ' . $member->last_name,
+                        'first_name' => $member->first_name,
+                        'last_name' => $member->last_name,
+                        'is_member' => OrganizationMember::where('member_id', $member->id)->where('organization_id', request()->route('id'))->exists() ? 1 : 0
                     ];
                 })
             ]
@@ -52,5 +54,14 @@ class OrganizationMemberController extends Controller
         session()->flash('success', 'Le membre ' . $member->first_name . ' ' . $member->last_name . ' a bien été ajouté à l\'association ' . $organization->name . ' en tant que ' . $validatedData['role'] . '.');
 
         return redirect()->route('asso.show', $validatedData['organization_id']);
+    }
+
+    public function destroy($id){
+        $organizationMember = OrganizationMember::findOrfail($id);
+        $organizationMember->delete();
+
+        session()->flash('success', 'Le membre a bien été retiré de l\'association.');
+
+        return redirect()->route('asso.show', $organizationMember->organization_id);
     }
 }
