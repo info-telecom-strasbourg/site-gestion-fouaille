@@ -108,7 +108,7 @@
                     </li>
                 </ul>
 
-                <form method="POST" action="{{ route('asso.logo.store', ['id' => $data->id]) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('asso.logo.update', ['id' => $data->id]) }}" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
 

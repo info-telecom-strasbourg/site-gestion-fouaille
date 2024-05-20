@@ -73,7 +73,7 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
     Route::get('/asso/member/create/{id}', [OrganizationMemberController::class, 'create'])->name('asso.member.create');
     Route::post('/asso/member', [OrganizationMemberController::class, 'store'])->name('asso.member.store');
 
-    Route::post('/asso/logo', [OrganizationLogoController::class, 'store'])->name('asso.logo.store');
+    Route::post('/asso/logo', [OrganizationLogoController::class, 'update'])->name('asso.logo.update');
 
 });
 
