@@ -63,6 +63,13 @@
                 <span>Asso/Club</span></a>
         </li>
 
+        <!-- Nav Item - Fouaille -->
+        <li class="nav-item {{ request()->is('spons*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('spons.index') }}">
+                <i class="fas fa-fw fa-beer"></i>
+                <span>Partenaires</span></a>
+        </li>
+
         <!-- Nav Item - Membre -->
         <li class="nav-item {{ request()->is('member*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('member.index') }}">

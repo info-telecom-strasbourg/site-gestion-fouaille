@@ -133,12 +133,7 @@ class OrganizationController extends Controller{
             'short_name' => ['string', 'max:50', Rule::unique('organizations')->ignore($request)],
             'description' => 'string|max:10000',
             'email' => ['string', 'email', 'max:50', Rule::unique('organizations')->ignore($request)],
-            'website_link' => 'string|max:255',
             'association' => 'in:on,off',
-            'facebook_link' => 'string|max:255',
-            'twitter_link' => 'string|max:255',
-            'instagram_link' => 'string|max:255',
-            'discord_link' => 'string|max:255',
         ]);
 
         if(array_key_exists('association', $validate_data)){

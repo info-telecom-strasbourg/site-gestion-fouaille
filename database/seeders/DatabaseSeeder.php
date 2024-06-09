@@ -9,6 +9,7 @@ use App\Models\Organization;
 use App\Models\OrganizationMember;
 use App\Models\Product;
 use App\Models\ProductType;
+use App\Models\Partner;
 use Database\Factories\MemberFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -34,6 +35,8 @@ class DatabaseSeeder extends Seeder
         Organization::factory(10)->create();
 
         OrganizationMember::factory(50)->create();
+
+        Partner::factory(10)->create();
 
     }
 }

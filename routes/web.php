@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CreateOrganizationController;
+use App\Http\Controllers\CreatePartnerController;
 use App\Http\Controllers\FouailleChartsController;
 use App\Http\Controllers\FouailleController;
 use App\Http\Controllers\MarcoController;
@@ -9,12 +10,15 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\OrganizationLogoController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\PartnerLogoController;
 use App\Http\Controllers\OrganizationMemberController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
 use App\Models\Member;
 use App\Models\Order;
 use App\Models\Organization;
+use App\Models\Partner;
 use App\Models\OrganizationMember;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -75,5 +79,14 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
 
     Route::post('/asso/logo', [OrganizationLogoController::class, 'update'])->name('asso.logo.update');
 
+
+    Route::get('/spons', [PartnerController::class, 'index'])->name('spons.index');
+    Route::get('/spons/create', [PartnerController::class, 'create'])->name('spons.create');
+    Route::get('/spons/{id}', [PartnerController::class, 'show'])->name('spons.show');
+    Route::get('/spons/{id}/edit', [PartnerController::class, 'edit'])->name('spons.edit');
+    Route::patch('/spons/{id}', [PartnerController::class, 'update'])->name('spons.update');
+    Route::post('/spons', [PartnerController::class, 'store'])->name('spons.store');
+
+    Route::post('/spons/logo', [PartnerLogoController::class, 'update'])->name('spons.logo.update');
 });
 

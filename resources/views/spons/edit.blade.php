@@ -1,9 +1,9 @@
-@section('title', 'Club/Asso')
+@section('title', 'Partenaires')
 
 <x-layout>
     @if(empty($data))
         <div class="alert alert-danger" role="alert">
-            Aucune asso/club n'a été trouvé.
+            Aucun Partenaire n'a été trouvé.
         </div>
     @else
         @if ($errors->any())
@@ -25,7 +25,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Mise à jour de <strong>{{ $data->name }}</strong></h6>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('asso.update', ['id' => $data->id]) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('spons.update', ['id' => $data->id]) }}">
                     @csrf
                     @method('PATCH')
 
@@ -35,8 +35,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="short_name">Appellation</label>
-                        <input type="text" class="form-control" id="short_name" name="short_name" value="{{ $data->short_name }}">
+                        <label for="short_name">Promo</label>
+                        <input type="text" class="form-control" id="short_name" name="short_name" placeholder="BDE">
                     </div>
 
                     <div class="form-group">
@@ -52,31 +52,6 @@
                     <div class="form-group">
                         <label for="website_link">Site web</label>
                         <input type="url" class="form-control" id="website_link" name="website_link" value="{{ $data->website_link }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="facebook_link">Facebook</label>
-                        <input type="url" class="form-control" id="facebook_link" name="facebook_link" value="{{ $data->facebook_link }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="twitter_link">Twitter</label>
-                        <input type="url" class="form-control" id="twitter_link" name="twitter_link" value="{{ $data->twitter_link }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="instagram_link">Instagram</label>
-                        <input type="url" class="form-control" id="instagram_link" name="instagram_link" value="{{ $data->instagram_link }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="discord_link">Discord</label>
-                        <input type="url" class="form-control" id="discord_link" name="discord_link" value="{{ $data->discord_link }}">
-                    </div>
-
-                    <div class="association">
-                        <label for="association">Association</label>
-                        <input type="checkbox" class="bootstrap-switch" id="association" name="association" {{ $data->association ? 'checked' : '' }}>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Mettre à jour</button>
@@ -108,7 +83,7 @@
                     </li>
                 </ul>
 
-                <form method="POST" action="{{ route('asso.logo.update', ['id' => $data->id]) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('spons.logo.update', ['id' => $data->id]) }}" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
 
