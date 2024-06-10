@@ -16,19 +16,30 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{ $data['name'] }}</h6>
             </div>
             <div class="card-body">
+                <div class=" d-flex justify-content-between">
                 <a href="{{ route('spons.edit', ['id' => $data['id']]) }}" class="btn btn-primary btn-icon-split mb-3">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-pen"></i>
-                    </span>
-                    <span class="text">Mettre à jour</span>
-                </a>
+                        <span class="icon text-white-50">
+                            <i class="fas fa-pen"></i>
+                        </span>
+                        <span class="text">Mettre à jour</span>
+                    </a>
+                    <a href="{{ route('spons.delete', ['id' => $data['id']]) }}" class="btn btn-danger btn-icon-split mb-3">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-pen"></i>
+                        </span>
+                        <span class="text">Supprimer</span>
+                    </a>
+                </div>
                 <ul class="list-group">
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-2">
+                                <img src="{{ $data['logo'] }}" alt="{{ $data['name'] }}" class="img-fluid" width="100px">
+                            </div>
+                            <div class="col-2">
                                 <strong class="text-primary">Id :</strong> {{ $data['id'] }}
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <strong class="text-primary">Nom :</strong> {{ $data['name'] }}
                             </div>
                             <div class="col-4">

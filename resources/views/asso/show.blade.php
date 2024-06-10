@@ -11,17 +11,27 @@
                 {{ session('success') }}
             </div>
         @endif
+
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ $data['name'] }}</h6>
             </div>
             <div class="card-body">
-                <a href="{{ route('asso.edit', ['id' => $data['id']]) }}" class="btn btn-primary btn-icon-split mb-3">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-pen"></i>
-                    </span>
-                    <span class="text">Mettre à jour</span>
-                </a>
+                <div class=" d-flex justify-content-between">
+                    <a href="{{ route('asso.edit', ['id' => $data['id']]) }}" class="btn btn-primary btn-icon-split mb-3">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-pen"></i>
+                        </span>
+                        <span class="text">Mettre à jour</span>
+                    </a>
+                    <!-- Button trigger modal -->
+                    <a href="{{ route('asso.delete', ['id' => $data['id']]) }}" class="btn btn-danger btn-icon-split mb-3">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-pen"></i>
+                        </span>
+                        <span class="text">Supprimer</span>
+                    </a>
+                </div>
                 <ul class="list-group">
                     <li class="list-group-item">
                         <div class="row">
@@ -93,13 +103,45 @@
                                         </span>
                     <span class="text">Ajouter un membre</span>
                 </a>
-                <x-table
-                    :headers="[
-                        'name' => 'Nom',
-                        'role' => 'Rôle',
-                    ]"
-                    :datas="$data['members']"
-                />
+                <!-- table -->
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="col_5">{{ __('Nom') }}</th>
+                            <th class="col-5">{{ __('Rôle') }}</th>
+                            <th class="col-1 justify-content-center">{{ __('Supprimer') }}</th>
+                        </tr>
+                    </thead>
+                    @foreach($data['members'] as $data1)
+                        <tr>
+                        @foreach($data1 as $key => $value)
+                            @if(is_array($value))
+                                <td>
+                                    @foreach($value as $key2 => $value2)
+                                        @if($key2 != 'redirect_route')
+                                            <a href="{{ $value['redirect_route'] }}">
+                                                {!! $value2 !!}
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                </td>
+                            @else
+                                @if($key != 'id')
+                                    <td>{!! $value !!}</td>
+                                @endif
+                            @endif
+                        @endforeach
+                        <td class="d-flex justify-content-center">
+                                <a href="{{ route('asso.membre.delete', ['assoid'=>$data['id'],'memberid'=>$data1['id']]) }}" class="btn btn-danger btn-icon-split mb-3">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-pen"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            <!-- end table -->
             </div>
         </div>
     @endif

@@ -32,11 +32,11 @@ class DatabaseSeeder extends Seeder
 
         Order::factory(1000)->create();
 
-        Organization::factory(10)->create();
+        Organization::factory(20)->create();
 
         OrganizationMember::factory(50)->create();
 
-        Partner::factory(10)->create();
+        Partner::factory(20)->create();
 
     }
 }

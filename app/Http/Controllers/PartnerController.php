@@ -160,4 +160,20 @@ class PartnerController extends Controller{
 
         return redirect()->route('spons.index');
     }
+
+    public function delete($request){
+
+        $partner = partner::find($request);
+        if ($partner == null) {
+            return view('spons.show', [
+                'data' => []
+            ]);
+        }
+
+        $partner->delete();
+
+        session()->flash('success', 'Partenaire supprimé avec succès !');
+
+        return redirect()->route('spons.index');
+    }
 }

@@ -194,4 +194,28 @@ class OrganizationController extends Controller{
 
         return redirect()->route('asso.index');
     }
+
+    public function delete($request){
+
+        $organization = Organization::find($request);
+        if ($organization == null) {
+            return view('asso.show', [
+                'data' => []
+            ]);
+        }
+
+        $valid = $organization['associtation'];
+
+        $organization->delete();
+
+        if ($valid == NULL)
+        {
+            session()->flash('success', 'Club supprimé avec succès !');
+        }
+        else {
+            session()->flash('success', 'Association supprimée avec succès !');
+        }
+
+        return redirect()->route('asso.index');
+    }
 }

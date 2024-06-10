@@ -53,4 +53,22 @@ class OrganizationMemberController extends Controller
 
         return redirect()->route('asso.show', $validatedData['organization_id']);
     }
+
+    public function delete($memberid,$assoid){
+
+        $name = Member::findOrfail($memberid);
+        $member = OrganizationMember::Where('member_id',$memberid)->Where('organization_id',$assoid);;
+        if ($member == null) {
+            return view('asso.show', [
+                'data' => []
+            ]);
+        }
+
+        $member->delete();
+
+        session()->flash('success', $name->first_name . ' ' . $name->last_name . ' supprimé avec succès !');
+
+        return redirect()->route('asso.show', $assoid);
+    }
 }
+

@@ -3,9 +3,14 @@
 <x-layout>
     @if(empty($data))
         <div class="alert alert-danger" role="alert">
-            Aucun membre n'a été trouvé.
+            Aucune asso n'a été trouvé.
         </div>
     @else
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Associations / Clubs</h6>
