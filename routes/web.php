@@ -70,9 +70,11 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
     Route::patch('/asso/{id}', [OrganizationController::class, 'update'])->name('asso.update');
     Route::post('/asso', [OrganizationController::class, 'store'])->name('asso.store');
 
-    Route::get('/asso/member/update/{id}', [OrganizationMemberController::class, 'update'])->name('asso.member.update');
+    Route::get('/asso/member/{id}', [OrganizationMemberController::class, 'index'])->name('asso.member.index');
+    Route::get('/asso/{organization_id}/member/{member_id}/edit', [OrganizationMemberController::class, 'edit'])->name('asso.member.edit');
+        Route::patch('/asso/member', [OrganizationMemberController::class, 'update'])->name('asso.member.update');
     Route::post('/asso/member', [OrganizationMemberController::class, 'store'])->name('asso.member.store');
-    Route::delete('/asso/member/{id}', [OrganizationMemberController::class, 'destroy'])->name('asso.member.destroy');
+    Route::delete('/asso/member', [OrganizationMemberController::class, 'destroy'])->name('asso.member.destroy');
 
     Route::post('/asso/logo', [OrganizationLogoController::class, 'update'])->name('asso.logo.update');
 

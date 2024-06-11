@@ -62,6 +62,10 @@ class Member extends Model
             ->withPivot('role');
     }
 
+    public function InOrganization($organization_id){
+        return $this->organizations->contains($organization_id);
+    }
+
     public function challenges(){
         return $this->belongsToMany(Challenge::class, 'challenge_members', 'member_id', 'challenge_id')
             ->withPivot('comment', 'realized_at');

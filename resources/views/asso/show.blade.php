@@ -1,5 +1,4 @@
 @section('title', 'Asso/Club')
-
 <x-layout>
     @if(empty($data))
         <div class="alert alert-danger" role="alert">
@@ -87,11 +86,11 @@
                 <h6 class="m-0 font-weight-bold text-primary">Membres</h6>
             </div>
             <div class="card-body">
-                <a href="{{ route('asso.member.update', $data['id']) }}" class="btn btn-primary btn-icon-split mb-3">
+                <a href="{{ route('asso.member.index', $data['id']) }}" class="btn btn-primary btn-icon-split mb-3">
                                         <span class="icon text-white-50">
-                                            <i class="fas fa-plus"></i>
+                                            <i class="fas fa-edit"></i>
                                         </span>
-                    <span class="text">Ajouter un membre</span>
+                    <span class="text">Modifier les membres</span>
                 </a>
                 <x-table
                     :headers="[
