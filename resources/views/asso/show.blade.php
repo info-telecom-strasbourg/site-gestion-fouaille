@@ -25,12 +25,12 @@
                         <span class="text">Mettre à jour</span>
                     </a>
                     <!-- Button trigger modal -->
-                    <a href="{{ route('asso.delete', ['id' => $data['id']]) }}" class="btn btn-danger btn-icon-split mb-3">
+                    <button type="button" class="btn btn-danger btn-icon-split mb-3" data-toggle="modal" data-target="#ModalAsso">
                         <span class="icon text-white-50">
-                            <i class="fas fa-pen"></i>
+                        <i class="fa-solid fa-trash-can"></i>
                         </span>
                         <span class="text">Supprimer</span>
-                    </a>
+                    </button>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">
@@ -98,9 +98,9 @@
             </div>
             <div class="card-body">
                 <a href="{{ route('asso.member.create', $data['id']) }}" class="btn btn-primary btn-icon-split mb-3">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-plus"></i>
-                                        </span>
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
                     <span class="text">Ajouter un membre</span>
                 </a>
                 <!-- table -->
@@ -132,12 +132,14 @@
                             @endif
                         @endforeach
                         <td class="d-flex justify-content-center">
-                                <a href="{{ route('asso.membre.delete', ['assoid'=>$data['id'],'memberid'=>$data1['id']]) }}" class="btn btn-danger btn-icon-split mb-3">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-pen"></i>
-                                    </span>
-                                </a>
-                            </td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalMember">
+                                <span class="icon text-white-50">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </span>
+                            </button>
+                        </td>
+                        @include('asso.modal.modalmember')
                         </tr>
                     @endforeach
                 </table>
@@ -145,4 +147,5 @@
             </div>
         </div>
     @endif
+    @include('asso.modal.modalasso')
 </x-layout>

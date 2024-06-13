@@ -11,12 +11,20 @@
                 <h6 class="m-0 font-weight-bold text-primary">Produits</h6>
             </div>
             <div class="card-body">
-                <a href="{{ route('marco.edit', ['id' => $data['id']]) }}" class="btn btn-primary btn-icon-split mb-3">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-pen"></i>
-                                        </span>
+                <div class=" d-flex justify-content-between">
+                    <a href="{{ route('marco.edit', ['id' => $data['id']]) }}" class="btn btn-primary btn-icon-split mb-3">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-pen"></i>
+                    </span>
                     <span class="text">Mettre à jour</span>
                 </a>
+                <button type="button" class="btn btn-danger btn-icon-split mb-3" data-toggle="modal" data-target="#ModalProduct">
+                    <span class="icon text-white-50">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </span>
+                    <span class="text">Supprimer</span>
+                </button>
+                </div>
                 <ul class="list-group">
                     <li class="list-group-item">
                         <div class="row">
@@ -55,4 +63,5 @@
             </div>
         </div>
     @endif
+    @include('marco.modal.modalproduct')
 </x-layout>

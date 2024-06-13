@@ -210,10 +210,10 @@ class OrganizationController extends Controller{
 
         if ($valid == NULL)
         {
-            session()->flash('success', 'Club supprimé avec succès !');
+            session()->flash('success', $organization->name . ' supprimé avec succès !');
         }
         else {
-            session()->flash('success', 'Association supprimée avec succès !');
+            session()->flash('success', 'Association ' . $organization->name . 'supprimée avec succès !');
         }
 
         return redirect()->route('asso.index');

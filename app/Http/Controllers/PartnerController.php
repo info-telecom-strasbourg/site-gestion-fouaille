@@ -172,7 +172,7 @@ class PartnerController extends Controller{
 
         $partner->delete();
 
-        session()->flash('success', 'Partenaire supprimé avec succès !');
+        session()->flash('success', $partner->name . ' supprimé avec succès !');
 
         return redirect()->route('spons.index');
     }

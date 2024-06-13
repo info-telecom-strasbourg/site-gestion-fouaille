@@ -62,6 +62,7 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
     Route::get('/marco/create', [MarcoController::class, 'create'])->name('marco.create');
     Route::get('/marco/{id}', [MarcoController::class, 'show'])->name('marco.show');
     Route::get('/marco/{id}/edit', [MarcoController::class, 'edit'])->name('marco.edit');
+    Route::get('/marco/{id}/delete', [MarcoController::class, 'delete'])->name('marco.delete');
     Route::patch('/marco/{id}', [MarcoController::class, 'update'])->name('marco.update');
     Route::post('/marco', [MarcoController::class, 'store'])->name('marco.store');
 

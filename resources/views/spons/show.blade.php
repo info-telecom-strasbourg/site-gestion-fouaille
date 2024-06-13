@@ -23,12 +23,12 @@
                         </span>
                         <span class="text">Mettre à jour</span>
                     </a>
-                    <a href="{{ route('spons.delete', ['id' => $data['id']]) }}" class="btn btn-danger btn-icon-split mb-3">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-pen"></i>
-                        </span>
-                        <span class="text">Supprimer</span>
-                    </a>
+                <button type="button" class="btn btn-danger btn-icon-split mb-3" data-toggle="modal" data-target="#ModalPartner">
+                    <span class="icon text-white-50">
+                    <i class="fa-solid fa-trash-can"></i>
+                    </span>
+                    <span class="text">Supprimer</span>
+                </button>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">
@@ -64,4 +64,5 @@
             </div>
         </div>
     @endif
+    @include('spons.modal.modalpartner')
 </x-layout>

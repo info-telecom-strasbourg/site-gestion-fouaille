@@ -66,7 +66,7 @@ class OrganizationMemberController extends Controller
 
         $member->delete();
 
-        session()->flash('success', $name->first_name . ' ' . $name->last_name . ' supprimé avec succès !');
+        session()->flash('success', $name->first_name . ' ' . $name->last_name . ' supprimé(e) avec succès !');
 
         return redirect()->route('asso.show', $assoid);
     }

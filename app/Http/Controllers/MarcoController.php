@@ -45,22 +45,24 @@ class MarcoController extends Controller
                 'data' => [],
             ]);
         }
-
-        return view('marco.index', [
-            'data' => $products->map(function ($product) {
+        
+        $datas = $products->map(function ($products) {
                 return [
-                    'id' => $product->id,
+                    'id' => $products->id,
                     'name' => [
-                        'name' => $product->name,
-                        'redirect_route' => route('marco.show', $product->id)
+                        'name' => $products->name,
+                        'redirect_route' => route('marco.show', $products->id)
                     ],
-                    'price' => $product->price,
-                    'type' => $product->productType->type,
-                    'color' => $product->color,
-                    'available' => $product->available ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
+                    'price' => $products->price,
+                    'type' => $products->productType->type,
+                    'color' => $products->color,
+                    'available' => $products->available ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>',
                 ];
-            }),
-            'pagination' => $products->links(),
+            });
+        
+        return view('marco.index', [
+            'data' => $datas,
+            'pagination' => $products->links()
         ]);
     }
 
@@ -167,6 +169,22 @@ class MarcoController extends Controller
 
         Product::create($validateData);
         session()->flash('success', 'Produit ' . $validateData['name'] . ' créé avec succès !');
+
+        return redirect()->route('marco.index');
+    }
+
+    public function delete($request){
+
+        $product = product::find($request);
+        if ($product == null) {
+            return view('marco.index', [
+                'data' => []
+            ]);
+        }
+
+        $product->delete();
+
+        session()->flash('success', $product->name . ' supprimé avec succès !');
 
         return redirect()->route('marco.index');
     }
