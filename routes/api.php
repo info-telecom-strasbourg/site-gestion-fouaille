@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ApiMemberController;
 use App\Http\Controllers\Api\ApiFouailleController;
 use App\Http\Controllers\Api\ApiOrderController;
 use App\Http\Controllers\Api\ApiOrganizationController;
+use App\Http\Controllers\Api\ApiPartnerController;
 use App\Http\Controllers\Api\ApiProductController;
 use App\Http\Controllers\Api\ApiProductTypeController;
 use Illuminate\Support\Facades\Route;
@@ -38,3 +39,10 @@ Route::prefix('organization')->group( function() {
 Route::get('/orders', [ApiOrderController::class, 'index']);
 
 Route::get('/member/{name}', [ApiMemberController::class, 'index']);
+
+Route::prefix('spons')->group( function() {
+    Route::get('/', [ApiPartnerController::class, 'index']);
+
+    Route::get('/{id}', [ApiPartnerController::class, 'show']);
+});
+
