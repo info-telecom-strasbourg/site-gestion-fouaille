@@ -22,21 +22,21 @@ class PartnerLogoController extends Controller
 
         $name = $partner->id . '_' . time() . '_' . $partner->name . '_' . random_int(0, 1000) . '.' . $logo->getClientOriginalExtension();
 
-        $logo->storeAs('public/images/Partner_logo', $name);
+        $logo->storeAs('public/images/partner_logo', $name);
 
         if ($partner->logo->name != 'default.png') {
 
-            Storage::delete('public/images/Partner_logo/' . $partner->logo->name);
+            Storage::delete('public/images/partner_logo/' . $partner->logo->name);
 
             $partner->logo()->update([
                 'name' => $name,
-                'path' => asset('storage/images/Partner_logo/' . $name),
+                'path' => asset('storage/images/partner_logo/' . $name),
                 'size' => $logo->getSize()
             ]);
         } else {
             $partner->logo()->create([
                 'name' => $name,
-                'path' => asset('storage/images/Partner_logo/' . $name),
+                'path' => asset('storage/images/partner_logo/' . $name),
                 'size' => $logo->getSize()
             ]);
         }
