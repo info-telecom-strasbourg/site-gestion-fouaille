@@ -28,13 +28,13 @@ class PartnerLogoController extends Controller
 
             Storage::delete('public/images/Partner_logo/' . $partner->logo->name);
 
-            $Partner->logo()->update([
+            $partner->logo()->update([
                 'name' => $name,
                 'path' => asset('storage/images/Partner_logo/' . $name),
                 'size' => $logo->getSize()
             ]);
         } else {
-            $Partner->logo()->create([
+            $partner->logo()->create([
                 'name' => $name,
                 'path' => asset('storage/images/Partner_logo/' . $name),
                 'size' => $logo->getSize()
