@@ -16,8 +16,8 @@ class PartnerLogo extends Model
         'partner_id',
     ];
 
-    public function organization()
+    public function partner()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Partner::class);
     }
 }

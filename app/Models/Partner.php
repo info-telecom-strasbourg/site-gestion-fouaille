@@ -37,9 +37,9 @@ class Partner extends Model
     public function logo(){
         return $this->hasOne(PartnerLogo::class)->withDefault([
             'name' => 'default.png',
-            'path' => asset('storage/images/organization_logo/default.png'),
+            'path' => asset('storage/images/partner_logo/default.png'),
             'size' => 0,
-            'organization_id' => $this->id
+            'partner_id' => $this->id
         ]);
     }
 
