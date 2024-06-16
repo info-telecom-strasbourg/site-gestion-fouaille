@@ -20,7 +20,7 @@
                 </a>
                 <button type="button" class="btn btn-danger btn-icon-split mb-3" data-toggle="modal" data-target="#ModalProduct">
                     <span class="icon text-white-50">
-                        <i class="fa-solid fa-trash-can"></i>
+                        <i class="fas fa-trash"></i>
                     </span>
                     <span class="text">Supprimer</span>
                 </button>
