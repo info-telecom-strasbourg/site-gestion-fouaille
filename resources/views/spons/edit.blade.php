@@ -35,8 +35,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="short_name">Promo</label>
-                        <input type="text" class="form-control" id="short_name" name="short_name" placeholder="BDE">
+                        <label for="promo">Promo</label>
+                        <input type="text" class="form-control" id="promo" name="promo" value="{{ $data->promo }}">
                     </div>
 
                     <div class="form-group">

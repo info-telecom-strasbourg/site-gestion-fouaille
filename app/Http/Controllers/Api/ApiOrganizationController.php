@@ -13,7 +13,9 @@ class ApiOrganizationController extends Controller
 {
     public function index(){
 
-        $associations = Organization::all()->where('association', '=', 1); // 1 = association
+        $organization = Organization::filter(request(['search']))->get();
+
+        $associations = $organization->where('association', '=', 1); // 1 = association
 
         if ($associations->isEmpty()) {
             $associations_tab = [];
@@ -29,7 +31,7 @@ class ApiOrganizationController extends Controller
         }
 
 
-        $clubs = Organization::all()->where('association', '=', 0); // 0 = club
+        $clubs = $organization->where('association', '=', 0); // 0 = club
 
         if ($clubs->isEmpty()) {
             $clubs_tab = [];
@@ -38,16 +40,16 @@ class ApiOrganizationController extends Controller
                 return [
                     'id' => $club->id,
                     'short_name' => $club->short_name,
+                    'user_name' => $club->user_name,
                     'name' => $club->name,
                     'logo_url' => $club->logo->path
                 ];
             })->values();
         }
 
-
         return response()->json(['data' => [
             'associations' => $associations_tab,
-            'clubs' => $clubs_tab
+            'clubs' => $clubs_tab,
         ]])->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 
@@ -59,8 +61,10 @@ class ApiOrganizationController extends Controller
         }
 
         $organization_tab = [
+                'id' => $organization->id,
                 'short_name' => $organization->short_name,
                 'name' => $organization->name,
+                'user_name' => null,
                 'description' => $organization->description,
                 'website_link' => $organization->website_link,
                 'facebook_link' => $organization->facebook_link,
@@ -70,7 +74,20 @@ class ApiOrganizationController extends Controller
                 'email' => $organization->email,
                 'logo_url' => $organization->logo->path,
             ];
-        return response()->json(['data' => $organization_tab])->setEncodingOptions(JSON_PRETTY_PRINT);
+
+        $members_tab = $organization->members->map(function ($member) use ($id) {
+            return [
+                'id' => $member->id,
+                'role' => $member->role,
+                'first_name' => $member->first_name,
+                'last_name' => $member->last_name,
+            ];
+        })->values();
+        
+        return response()->json([
+            'organization' => $organization_tab,
+            'members' => $members_tab,
+        ])->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 
 }

@@ -36,6 +36,8 @@ class Organization extends Model
         $query->when($filters['search'] ?? false, function ($query, $search) {
             $query
                 ->where('name', 'like', '%'.$search.'%')
+                ->orWhere('short_name', 'like', '%'.$search.'%')
+                ->orWhere('user_name', 'like', '%'.$search.'%')
                 ->orWhere('email', 'like', '%'.$search.'%');
         });
     }
