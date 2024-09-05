@@ -14,8 +14,8 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    nombre de points</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total_points }}</div>
+                                    nombre de catégories validées</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total_categories }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-coins fa-2x text-gray-300"></i>
@@ -51,7 +51,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
                         <thead>
                             @foreach($data['challenges'] as $key => $value)
-                                <th>{{ $value['name'] . ' (' . $value['points'] . ' points)'}}</th>
+                                <th>{{ $value['name'] . ' ( Catégorie ' . $value['category'] . ' )'}}</th>
                             @endforeach
                         </thead>
                         <tbody>

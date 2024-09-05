@@ -77,6 +77,13 @@
                 <span>Membre</span></a>
         </li>
 
+        <!-- Nav Item - Challenge -->
+        <li class="nav-item {{ request()->is('challenge*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('challenge.index') }}">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Challenge</span></a>
+        </li>
+
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">

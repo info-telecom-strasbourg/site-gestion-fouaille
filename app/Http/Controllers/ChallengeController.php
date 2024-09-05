@@ -25,7 +25,6 @@ class ChallengeController extends Controller
                 'member' => [
                     'Id' => $member->id,
                     'Nom' => $member->first_name . ' ' . $member->last_name,
-                    'Points' => $member->challenges()->sum('points'),
                 ],
                 'challenges' => $member->challenges->map(function ($challenge) {
                     return [
@@ -34,9 +33,9 @@ class ChallengeController extends Controller
                     ];
                 })->toArray(),
                 'challenge_count' => $member->challenges->where('pivot.realized_at', '!=', null)->count(),
+                'total_categories' => $member->getCategorycount(),
             ];
         });
-
 
         return view('challenge.index', [
             'data' => $data,
@@ -61,12 +60,12 @@ class ChallengeController extends Controller
                 return $member->challenges->where('id', $challenge->id)->first() != null ? [
                     'id' => $challenge->id,
                     'name' => $challenge->name,
-                    'points' => $challenge->points,
+                    'category' => $challenge->category,
                     'realized_at' => Carbon::parse($member->challenges->where('id', $challenge->id)->first()->pivot->realized_at)->format('d/m/Y H:i:s'),
                 ] : [
                     'id' => $challenge->id,
                     'name' => $challenge->name,
-                    'points' => $challenge->points,
+                    'category' => $challenge->category,
                     'realized_at' => null,
                 ];
             }),
@@ -74,7 +73,7 @@ class ChallengeController extends Controller
 
         return view('challenge.show', [
             'data' => $data,
-            'total_points' => $member->challenges()->sum('points'),
+            'total_categories' => $member->getCategorycount(),
             'total_challenges' => $member->challenges->where('pivot.realized_at', '!=', null)->count(),
         ]);
     }

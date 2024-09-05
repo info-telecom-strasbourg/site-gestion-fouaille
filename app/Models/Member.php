@@ -67,4 +67,34 @@ class Member extends Model
             ->withPivot('comment', 'realized_at');
     }
 
+    public function getCategorycount(){
+
+        $challenge_tab = $this->challenges()->orderBy('category')->get()->toArray();
+       
+        $total_categories = 0;
+        $actual_category = 1;
+        $challenge_count = 0;
+        $category_tab = [];
+
+        foreach ($challenge_tab as $challenge) {
+            if ($challenge['category'] == $actual_category) {
+                $challenge_count ++;
+            }
+            else {
+                $category_tab[] = $challenge_count;
+                $challenge_count = 1;
+                $actual_category ++;
+            }
+        }
+        $category_tab[] = $challenge_count;
+        
+        foreach ($category_tab as $category) {
+            if ($category >= 4) {
+                $total_categories ++;
+            }
+        }
+
+        return $total_categories;   
+    }
+
 }

@@ -36,7 +36,7 @@
 
                     <div class="form-group">
                         <label for="promo">Promo</label>
-                        <input type="text" class="form-control" id="promo" name="promo" value="{{ $data->promo }}">
+                        <input type="text" class="form-control" id="promo" name="promo " value="{{ $data->promo }}">
                     </div>
 
                     <div class="form-group">

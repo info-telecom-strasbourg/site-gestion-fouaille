@@ -94,7 +94,6 @@ class ApiChallengeController extends Controller
                 ]
             ], 200
         )->setEncodingOptions(JSON_PRETTY_PRINT);
-
     }
 
     public function top()
@@ -104,7 +103,7 @@ class ApiChallengeController extends Controller
             return [
                 'id' => $member->id,
                 'name' => $member->first_name . ' ' . $member->last_name,
-                'points' => $member->challenges()->sum('points'),
+                'points' => $member->getCategorycount(),
             ];
         });
 

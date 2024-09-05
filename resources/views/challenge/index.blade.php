@@ -59,7 +59,7 @@
                         @foreach($data as $key => $value)
                             <tr>
                                 <td><a href="{{ route('challenge.show', ['id' => $value['member']['Id']]) }}">{{ $value['member']['Nom'] }} <i class="fas fa-eye"></i></a></td>
-                                <td>{{ $value['member']['Points'] }}</td>
+                                <td>{{ $value['total_categories'] }}</td>
                                 <td>{{ $value['challenge_count'] }}</td>
                                 <td>
                                     @foreach($value['challenges'] as $key2 => $value2)

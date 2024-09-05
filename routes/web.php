@@ -66,8 +66,6 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
     Route::patch('/marco/{id}', [MarcoController::class, 'update'])->name('marco.update');
     Route::post('/marco', [MarcoController::class, 'store'])->name('marco.store');
 
-
-
     Route::get('/asso', [OrganizationController::class, 'index'])->name('asso.index');
     Route::get('/asso/create', [OrganizationController::class, 'create'])->name('asso.create');
     Route::get('/asso/{id}', [OrganizationController::class, 'show'])->name('asso.show');
@@ -92,5 +90,10 @@ Route::group(['middleware' => [EnsureUserIsConnected::class]], function () {
     Route::post('/spons', [PartnerController::class, 'store'])->name('spons.store');
 
     Route::post('/spons/logo', [PartnerLogoController::class, 'update'])->name('spons.logo.update');
+
+    Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge.index');
+    Route::get('/challenge/{id}', [ChallengeController::class, 'show'])->name('challenge.show');
+    Route::put('/challenge/{id}/create', [ChallengeController::class, 'create'])->name('challenge.create');
+    Route::delete('/challenge/{id}/destroy', [ChallengeController::class, 'destroy'])->name('challenge.destroy');
 });
 
