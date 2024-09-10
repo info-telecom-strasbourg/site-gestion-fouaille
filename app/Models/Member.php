@@ -67,34 +67,45 @@ class Member extends Model
             ->withPivot('comment', 'realized_at');
     }
 
+    public function getHasCategory($category){
+        $challenge_tab = $this->challenges()->where('category', $category)->count();
+        
+        if ($challenge_tab >= 4) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function getCategorycount(){
 
-        $challenge_tab = $this->challenges()->orderBy('category')->get()->toArray();
-       
         $total_categories = 0;
-        $actual_category = 1;
-        $challenge_count = 0;
-        $category_tab = [];
 
-        foreach ($challenge_tab as $challenge) {
-            if ($challenge['category'] == $actual_category) {
-                $challenge_count ++;
-            }
-            else {
-                $category_tab[] = $challenge_count;
-                $challenge_count = 1;
-                $actual_category ++;
-            }
-        }
-        $category_tab[] = $challenge_count;
-        
-        foreach ($category_tab as $category) {
-            if ($category >= 4) {
+        for ($i=0; $i<5; $i++) {
+            if ($this->getHasCategory($i)) {
                 $total_categories ++;
             }
+        }  
+
+        return $total_categories;
+    }
+
+    public function getPointscount(){
+
+        if ($this->challenges()->count() == 0) {
+            return 0;
         }
 
-        return $total_categories;   
+        $challenge_tab = $this->challenges()->get()->toArray();
+        $total_points = $this->challenges()->count() + $this->getCategorycount() * 1000;
+
+        for ($i=1; $i<5; $i++) {
+            if ($this->getHasCategory($i)) {
+               $total_points += $i*100;
+            }
+        }  
+
+        return $total_points;
     }
 
 }

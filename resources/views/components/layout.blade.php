@@ -80,7 +80,7 @@
         <!-- Nav Item - Challenge -->
         <li class="nav-item {{ request()->is('challenge*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('challenge.index') }}">
-                <i class="fas fa-fw fa-user"></i>
+                <i class="fas fa-trophy"></i>
                 <span>Challenge</span></a>
         </li>
 

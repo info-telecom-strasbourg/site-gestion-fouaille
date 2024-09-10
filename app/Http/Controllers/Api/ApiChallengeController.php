@@ -103,7 +103,7 @@ class ApiChallengeController extends Controller
             return [
                 'id' => $member->id,
                 'name' => $member->first_name . ' ' . $member->last_name,
-                'points' => $member->getCategorycount(),
+                'points' => $member->getPointscount(),
             ];
         });
 
@@ -129,7 +129,7 @@ class ApiChallengeController extends Controller
             return [
                 'id' => $member->id,
                 'name' => $member->first_name . ' ' . $member->last_name,
-                'points' => $member->challenges()->sum('points'),
+                'points' => $member->getPointscount(),
             ];
         });
 
@@ -143,7 +143,7 @@ class ApiChallengeController extends Controller
 
         return response()->json(
             [
-                'data' => $members->sortByDesc('points')->where('points', '>', 0)->values()
+                'data' => $members->sortByDesc('points')->where('points', '>', 0)->values()->values()
             ], 200
         )->setEncodingOptions(JSON_PRETTY_PRINT);
     }

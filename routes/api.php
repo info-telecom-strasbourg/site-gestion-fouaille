@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ApiOrganizationController;
 use App\Http\Controllers\Api\ApiPartnerController;
 use App\Http\Controllers\Api\ApiProductController;
 use App\Http\Controllers\Api\ApiProductTypeController;
+use App\Http\Controllers\Api\ApiChallengeController;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Http\Request;
@@ -44,5 +45,18 @@ Route::prefix('spons')->group( function() {
     Route::get('/', [ApiPartnerController::class, 'index']);
 
     Route::get('/{id}', [ApiPartnerController::class, 'show']);
+});
+
+Route::prefix('challenge')->group( function() {
+    Route::get('/', [ApiChallengeController::class, 'index']);
+
+    Route::get('/member/{id}', [ApiChallengeController::class, 'member_details']);
+
+    Route::get('/top', [ApiChallengeController::class, 'top']);
+
+    Route::get('/leaderboard', [ApiChallengeController::class, 'leaderboard']);
+
+    Route::get('/{id}', [ApiChallengeController::class, 'show']);
+
 });
 

@@ -51,7 +51,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
                         <thead>
                             <th>Nom</th>
-                            <th>Points</th>
+                            <th>Catégories réalisées</th>
                             <th>Nombre de défis réalisés</th>
                             <th>Défis réalisés</th>
                         </thead>
