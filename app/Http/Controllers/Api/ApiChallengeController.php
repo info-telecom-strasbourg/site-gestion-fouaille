@@ -24,7 +24,7 @@ class ApiChallengeController extends Controller
                     return [
                         'id' => $challenge->id,
                         'name' => $challenge->name,
-                        'points' => $challenge->points,
+                        'points' => $challenge->category,
                         'description' => $challenge->description,
                     ];
                 })
@@ -49,7 +49,7 @@ class ApiChallengeController extends Controller
                 'data' => [
                     'id' => $challenge->id,
                     'name' => $challenge->name,
-                    'points' => $challenge->points,
+                    'points' => $challenge->category,
                     'description' => $challenge->description,
                 ]
             ], 200
