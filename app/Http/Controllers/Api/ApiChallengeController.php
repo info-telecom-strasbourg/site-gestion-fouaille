@@ -104,6 +104,7 @@ class ApiChallengeController extends Controller
                 'id' => $member->id,
                 'name' => $member->first_name . ' ' . $member->last_name,
                 'points' => $member->getPointscount(),
+                'category' => $member->getCategorycount(),
             ];
         });
 
@@ -130,6 +131,7 @@ class ApiChallengeController extends Controller
                 'id' => $member->id,
                 'name' => $member->first_name . ' ' . $member->last_name,
                 'points' => $member->getPointscount(),
+                'category' => $member->getCategorycount(),
             ];
         });
 

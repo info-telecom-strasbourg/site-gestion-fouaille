@@ -26,12 +26,12 @@
 
                 <div class="form-group">
                     <label for="short_name">Promo</label>
-                    <input type="text" class="form-control" id="promo" name="short_name" placeholder="-10%">
+                    <input type="text" class="form-control" id="promo" name="short_name" placeholder="Burger Mystère">
                 </div>
 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3">Burger king est une FastFood qui propose une large selection de burgurs au boeuf, poulet et même végétariens.
+                    <textarea class="form-control" id="description" name="description" rows="3">Burger king est un FastFood qui propose une large selection de burgers au boeuf, poulet et même végétariens.
                     </textarea>
                 </div>
 

@@ -114,7 +114,7 @@ class PartnerController extends Controller{
 
         $validate_data = request()->validate([
             'name' => ['string', 'max:50', Rule::unique('partners')->ignore($request)],
-            'promo' => ['string', 'max:50'],
+            'promo' => ['string', 'max:50', 'nullable'],
             'description' => 'string|max:10000',
             'email' => ['string', 'email', 'max:50', Rule::unique('partners')->ignore($request),'nullable'],
             'website_link' => 'string|max:255|nullable',
