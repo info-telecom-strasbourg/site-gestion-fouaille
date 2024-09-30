@@ -30,4 +30,31 @@ class ApiOrderController extends Controller
             ], 200
         )->setEncodingOptions(JSON_PRETTY_PRINT);
     }
+
+    public function leaderboard(){
+
+        $start_at = "2021-01-01 00:00:00";
+        $end_at = "2025-01-01 00:00:00";
+
+        $orders = $product_details = DB::table('orders')
+            ->select(DB::raw('SUM(orders.price) as price'), 'members.first_name', 'members.last_name')
+            ->join('members', 'orders.member_id', '=', 'members.id')
+            ->where('orders.date', '>=', $start_at)
+            ->where('orders.date', '<=', $end_at)
+            ->where('orders.price', '<', 0)
+            ->orderby('price')
+            ->groupBy('members.first_name', 'members.last_name')
+            ->get();
+
+        return response()->json(
+            [
+                'data' => $orders->map(function ($order) {
+                    return [
+                        'name' => $order->first_name . ' ' . $order->last_name,
+                        'total' => $order->price . "€",
+                    ];
+                })
+            ], 200
+        )->setEncodingOptions(JSON_PRETTY_PRINT);
+    }
 }

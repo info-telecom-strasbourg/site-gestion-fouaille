@@ -39,6 +39,8 @@ Route::prefix('organization')->group( function() {
 
 Route::get('/orders', [ApiOrderController::class, 'index']);
 
+Route::get('/orders/leaderboard', [ApiOrderController::class, 'leaderboard']);
+
 Route::get('/member/{name}', [ApiMemberController::class, 'index']);
 
 Route::prefix('spons')->group( function() {
