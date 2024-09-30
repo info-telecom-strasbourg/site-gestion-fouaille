@@ -33,8 +33,8 @@ class ApiOrderController extends Controller
 
     public function leaderboard(){
 
-        $start_at = "2024-09-01 00:00:00";
-        $end_at = "2025-01-01 00:00:00";
+        $start_at = "2024-09-19 16:00:00";
+        $end_at = "2024-09-20 01:00:00";
 
         $orders = $product_details = DB::table('orders')
             ->select(DB::raw('SUM(orders.price) as price'), 'members.first_name', 'members.last_name')
