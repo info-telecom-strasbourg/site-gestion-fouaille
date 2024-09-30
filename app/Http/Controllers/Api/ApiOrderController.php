@@ -33,7 +33,7 @@ class ApiOrderController extends Controller
 
     public function leaderboard(){
 
-        $start_at = "2021-01-01 00:00:00";
+        $start_at = "2024-09-01 00:00:00";
         $end_at = "2025-01-01 00:00:00";
 
         $orders = $product_details = DB::table('orders')
