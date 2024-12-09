@@ -78,7 +78,7 @@ class ApiOrganizationController extends Controller
         $members_tab = $organization->members->map(function ($member) use ($id) {
             return [
                 'id' => $member->id,
-                'role' => $member->role,
+                'role' => $member->role($id),
                 'first_name' => $member->first_name,
                 'last_name' => $member->last_name,
             ];

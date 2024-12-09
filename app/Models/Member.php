@@ -62,6 +62,10 @@ class Member extends Model
             ->withPivot('role');
     }
 
+    public function organizationsMember(){
+        return $this->hasMany(OrganizationMember::class, 'member_id');
+    }
+
     public function challenges(){
         return $this->belongsToMany(Challenge::class, 'challenge_members', 'member_id', 'challenge_id')
             ->withPivot('comment', 'realized_at');
@@ -104,6 +108,10 @@ class Member extends Model
         }  
 
         return $total_categories;
+    }
+
+    public function role($id){
+        return $this->organizationsMember()->where('organization_id', $id)->first()->role;
     }
 
 }
