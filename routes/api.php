@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ApiMemberController;
 use App\Http\Controllers\Api\ApiFouailleController;
 use App\Http\Controllers\Api\ApiOrderController;
 use App\Http\Controllers\Api\ApiOrganizationController;
+use App\Http\Controllers\Api\ApiCampagnesController;
 use App\Http\Controllers\Api\ApiPartnerController;
 use App\Http\Controllers\Api\ApiProductController;
 use App\Http\Controllers\Api\ApiProductTypeController;
@@ -62,3 +63,8 @@ Route::prefix('challenge')->group( function() {
 
 });
 
+Route::prefix('lists')->group( function() {
+    Route::get('/', [ApiCampagnesController::class, 'index']);
+
+    Route::get('/{id}', [ApiCampagnesController::class, 'show']);
+});
