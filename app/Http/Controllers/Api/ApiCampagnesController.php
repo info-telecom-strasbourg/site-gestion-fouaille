@@ -18,25 +18,25 @@ class ApiCampagnesController extends Controller
                     'id' => 1,
                     'short_name' => "",
                     'name' => "Sambaliste",
-                    'logo_url' => ""
+                    'logo_url' => "https://via.placeholder.com/150"
                 ],
                 [
                     'id' => 2,
                     'short_name' => "",
                     'name' => "Jeux de sociétéliste",
-                    'logo_url' => ""
+                    'logo_url' => "https://via.placeholder.com/150"
                 ],
                 [
                     'id' => 3,
                     'short_name' => "",
                     'name' => "Italiste",
-                    'logo_url' => ""
+                    'logo_url' => "https://via.placeholder.com/150"
                 ],
                 [
                     'id' => 4,
                     'short_name' => "",
                     'name' => "Charliste et la chocolaterie",
-                    'logo_url' => ""
+                    'logo_url' => "https://via.placeholder.com/150"
                 ]
             ],
         ]])->setEncodingOptions(JSON_PRETTY_PRINT);
