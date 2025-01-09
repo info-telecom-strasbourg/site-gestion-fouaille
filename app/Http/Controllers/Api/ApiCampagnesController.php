@@ -18,25 +18,25 @@ class ApiCampagnesController extends Controller
                     'id' => 1,
                     'short_name' => "",
                     'name' => "Sambaliste",
-                    'logo_url' => "https://via.placeholder.com/150"
+                    'logo_url' => "https://fouaille.bde-tps.fr/storage/images/organization_logo/257_1736418261_Braziliste_255.jpg"
                 ],
                 [
                     'id' => 2,
                     'short_name' => "",
                     'name' => "Jeux de sociétéliste",
-                    'logo_url' => "https://via.placeholder.com/150"
+                    'logo_url' => "https://fouaille.bde-tps.fr/storage/images/organization_logo/258_1736418270_Thierceliste_416.jpg"
                 ],
                 [
                     'id' => 3,
                     'short_name' => "",
                     'name' => "Italiste",
-                    'logo_url' => "https://via.placeholder.com/150"
+                    'logo_url' => "https://fouaille.bde-tps.fr/storage/images/organization_logo/255_1736418230_Napoliste_647.jpg"
                 ],
                 [
                     'id' => 4,
                     'short_name' => "",
                     'name' => "Charliste et la chocolaterie",
-                    'logo_url' => "https://via.placeholder.com/150"
+                    'logo_url' => "https://fouaille.bde-tps.fr/storage/images/organization_logo/256_1736418249_Williste_26.jpg"
                 ]
             ],
         ]])->setEncodingOptions(JSON_PRETTY_PRINT);
